@@ -1,18 +1,25 @@
 import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import Dashboard from "./Dashboard/Dashboard";
 import Application from "./Application/Application";
+import Worker from "./Dashboard/Components/Worker";
 
 function App() {
   return (
-    <BrowserRouter>
+    <Router>
       <Routes>
-        <Route path="/dashboard" element={<Dashboard />}>
-          {/* <Route path="/workers" element={<Workers />}/> */}
+        <Route exact path="dashboard" element={<Dashboard />}>
+          <Route path="" element={<Navigate to="workers" />} />
+          <Route path="workers" element={<Worker />} />
         </Route>
-        <Route path="/application" element={<Application />} />
+        <Route path="application" element={<Application />} />
       </Routes>
-    </BrowserRouter>
+    </Router>
   );
 }
 
