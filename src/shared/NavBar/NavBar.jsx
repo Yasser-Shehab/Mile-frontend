@@ -1,5 +1,4 @@
 import React from "react";
-import NavTap from "./NavTap";
 
 function NavBar({ children }) {
   return (

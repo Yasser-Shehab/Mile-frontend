@@ -2,7 +2,7 @@ const INITIAL_VALUE = {
   workers: [],
 };
 
-export default (state = INITIAL_VALUE, action) => {
+const WorkerReducer = (state = INITIAL_VALUE, action) => {
   switch (action.type) {
     case "GET_WORKERS":
       return {
@@ -14,3 +14,5 @@ export default (state = INITIAL_VALUE, action) => {
       return state;
   }
 };
+
+export default WorkerReducer;

@@ -1,11 +1,7 @@
 import React from "react";
-import { Button } from "primereact/button";
 import NavBar from "../shared/NavBar/NavBar";
-import Worker from "./Components/Worker";
 import NavTap from "../shared/NavBar/NavTap";
-import Application from "../Application/Application";
 import { Outlet } from "react-router-dom";
-
 function Dashboard() {
   return (
     <div>
