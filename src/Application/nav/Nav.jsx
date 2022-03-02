@@ -5,11 +5,16 @@ import Navitem from "./Navitem";
 
 function Nav() {
   const [Mobile, setMobile] = useState(false);
+  const mediaQuery = "(max-width: 790px)";
+  const mediaQueryList = window.matchMedia(mediaQuery);
   return (
     <>
       <div className="hero-section ">
         <div className="nav-container">
-          <div className={Mobile ? "links-mobile" : "nav-links"} onClick={() => setMobile(false)}>
+          <div
+            className={Mobile ? "links-mobile" : "nav-links"}
+            onMouseLeave={() => setMobile(false)}
+          >
             <Navitem title="تواصل معانا" />
             <Navitem title="الوظائف" />
             <Navitem title="المشروعات" />

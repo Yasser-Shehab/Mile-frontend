@@ -74,10 +74,6 @@
   font-size: 60px;
 }
 
-.hero-section .title-container .title .h1 {
-  margin: 0;
-}
-
 .hero-section .title-container .title-custom {
   color: #648bf0;
 }
@@ -166,6 +162,7 @@
   .hero-section .links-mobile li {
     color: #fff;
     text-align: center;
+    font-weight: bold;
     padding: 32px;
     width: 100%;
     -webkit-transition: all 0.5 ease;

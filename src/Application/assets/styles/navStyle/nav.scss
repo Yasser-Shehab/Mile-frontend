@@ -60,7 +60,6 @@ $primary: #648bf0;
       font-size: 60px;
 
       .h1 {
-        margin: 0;
       }
     }
     .title-custom {
@@ -167,6 +166,7 @@ $primary: #648bf0;
       li {
         color: #fff;
         text-align: center;
+        font-weight: bold;
         padding: 32px;
         width: 100%;
         transition: all 0.5 ease;
