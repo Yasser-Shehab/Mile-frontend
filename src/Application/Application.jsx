@@ -1,7 +1,13 @@
 import React from "react";
+import Nav from "./nav/Nav";
+import "/node_modules/primeflex/primeflex.css";
 
 function Application() {
-  return <div>ApplicationStart</div>;
+  return (
+    <>
+      <Nav />
+    </>
+  );
 }
 
 export default Application;

@@ -8,7 +8,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/application" element={<Application />} />
+        <Route path="/" element={<Application />} />
       </Routes>
     </BrowserRouter>
   );
