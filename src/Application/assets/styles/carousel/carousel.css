@@ -1,0 +1,93 @@
+.carousel-container {
+  margin: 100px auto auto;
+  max-width: 1200px;
+  direction: rtl;
+}
+
+.carousel-container .carousel-title {
+  font-size: 30px;
+  max-width: 400px;
+  direction: rtl;
+}
+
+.swiper-container {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.swiper-container .mySwiper {
+  overflow: hidden;
+}
+
+.swiper-container .slide {
+  max-width: 650px;
+}
+
+.swiper-container .slide-content {
+  position: relative;
+  -webkit-box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+          box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+  border-radius: 15px 15px 0 0;
+}
+
+.swiper-container .slide-content .card-img-top {
+  max-height: 200px;
+  min-height: 300px;
+  width: 100%;
+  border-radius: 15px 15px 0 0;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.swiper-container .slide-content .slide-text {
+  padding: 1rem;
+  margin-top: 3rem;
+}
+
+.swiper-container .slide-content .slide-badge {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+          box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  position: absolute;
+  width: 270px;
+  height: 70px;
+  background-color: #2d2e3f;
+  border-radius: 14px;
+  color: #fff;
+  z-index: 5;
+  opacity: 90%;
+  top: 49%;
+  right: 10%;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.swiper-container .slide-content .slide-badge p {
+  font-size: 23px;
+}
+
+.swiper-container .slide-content .slide-icons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.swiper-container .slide-content .slide-icons div {
+  margin-bottom: 10px;
+}
+/*# sourceMappingURL=carousel.css.map */

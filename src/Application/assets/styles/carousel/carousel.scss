@@ -1,0 +1,68 @@
+//
+.carousel-container {
+  margin: 100px auto auto;
+  max-width: 1200px;
+  direction: rtl;
+
+  .carousel-title {
+    font-size: 30px;
+    max-width: 400px;
+    direction: rtl;
+  }
+}
+.swiper-container {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  .mySwiper {
+    overflow: hidden;
+  }
+  .slide {
+    max-width: 650px;
+  }
+
+  .slide-content {
+    position: relative;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    align-items: center;
+    text-align: center;
+    border-radius: 15px 15px 0 0;
+    .card-img-top {
+      max-height: 200px;
+      min-height: 300px;
+      width: 100%;
+      border-radius: 15px 15px 0 0;
+      object-fit: cover;
+    }
+    .slide-text {
+      padding: 1rem;
+      margin-top: 3rem;
+    }
+    .slide-badge {
+      display: flex;
+      box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+      position: absolute;
+      width: 270px;
+      height: 70px;
+      background-color: #2d2e3f;
+      border-radius: 14px;
+      color: #fff;
+      z-index: 5;
+      opacity: 90%;
+      top: 49%;
+      right: 10%;
+      justify-content: center;
+      align-items: center;
+      p {
+        font-size: 23px;
+      }
+    }
+    .slide-icons {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      div {
+        margin-bottom: 10px;
+      }
+    }
+  }
+}

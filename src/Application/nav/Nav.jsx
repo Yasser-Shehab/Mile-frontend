@@ -5,8 +5,8 @@ import Navitem from "./Navitem";
 
 function Nav() {
   const [Mobile, setMobile] = useState(false);
-  const mediaQuery = "(max-width: 790px)";
-  const mediaQueryList = window.matchMedia(mediaQuery);
+  // const mediaQuery = "(max-width: 790px)";
+  // const mediaQueryList = window.matchMedia(mediaQuery);
   return (
     <>
       <div className="hero-section ">
