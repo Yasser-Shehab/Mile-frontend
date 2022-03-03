@@ -4,7 +4,7 @@ import { Button } from "primereact/button";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import getWorkers from "../../store/actions/workerAction";
-// import getProjects from "../../store/actions/projectAction";
+import getProjects from "../../store/actions/projectAction";
 import "./DataTable.css";
 import Details from "./Details";
 
@@ -12,12 +12,12 @@ function Worker() {
   const [expandedRows, setExpandedRows] = useState(null);
   const isMounted = useRef(false);
   const workersList = useSelector((state) => state.workerReducer.workers);
-  // const projectsList = useSelector((state) => state.projectReducer.projects);
+  const projectsList = useSelector((state) => state.projectReducer.projects);
   const dispatch = useDispatch();
 
   useEffect(() => {
     isMounted.current = true;
-    // dispatch(getProjects());
+    dispatch(getProjects());
     dispatch(getWorkers());
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -25,10 +25,23 @@ function Worker() {
   const rowExpansionTemplate = (data) => {
     return (
       <Details>
+        {console.log(projectsList)}
+       { console.log(data)}
+        
         <h1>{data.name}</h1>
         <ul>
           {data.projects.map((p) => {
-            return <li>{p}</li>;
+            
+              return projectsList.map((id) => {
+                if (id._id === p)
+                return <li>{id.name}</li>;
+            })
+            // if (p === projectsList[6]._id)
+            //   console.log (p === projectsList[6]._id)
+            //   console.log(projectsList[6]._id);
+            // console.log(p);
+            // console.log(projectsList.name);
+            // return <li>{p}</li>;
           })}
         </ul>
       </Details>
