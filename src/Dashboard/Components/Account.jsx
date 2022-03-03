@@ -11,11 +11,11 @@ function Account() {
   useEffect(() => {
     dispatch(getAccounts());
   }, []);
-
+  console.log(accountList);
   return (
     <>
       <DataTable value={accountList}>
-        <Column field="project" header="Project Name"></Column>
+        <Column field="projectName" header="Project Name"></Column>
         <Column field="createdAt" header="Sum"></Column>
       </DataTable>
     </>
