@@ -1,15 +1,22 @@
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
-import React from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import getSpecializations from "../../store/actions/specAction";
 
 function Specialization() {
+  const specsList = useSelector((state) => state.specializationReducer.specs);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getSpecializations());
+  }, []);
+  console.log(specsList);
   return (
     <>
-      <DataTable>
-        <Column field="name" header="FirstName"></Column>
-        <Column field="address" header="Address"></Column>
-        <Column field="mobile" header="Mobile"></Column>
-        <Column field="nationalID" header="ID"></Column>
+      <DataTable value={specsList}>
+        <Column field="name" header="First Name"></Column>
+        <Column field="type" header="Type"></Column>
       </DataTable>
     </>
   );

@@ -1,22 +1,24 @@
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { useDispatch, useSelector } from "react-redux";
-import { getAccounts } from "../../store/actions/accountAction";
+import { getAccounts, getSumCost } from "../../store/actions/accountAction";
 import { useEffect } from "react";
 
 function Account() {
   const accountList = useSelector((state) => state.accountReducer.accounts);
+  const costsSumList = useSelector((state) => state.accountReducer.costsSum);
 
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAccounts());
+    dispatch(getSumCost());
   }, []);
-  console.log(accountList);
+  console.log(costsSumList);
   return (
     <>
-      <DataTable value={accountList}>
-        <Column field="projectName" header="Project Name"></Column>
-        <Column field="createdAt" header="Sum"></Column>
+      <DataTable value={costsSumList}>
+        <Column field="_id" header="Project Name"></Column>
+        <Column field="total" header="Sum"></Column>
       </DataTable>
     </>
   );
