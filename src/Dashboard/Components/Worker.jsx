@@ -1,6 +1,9 @@
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Button } from "primereact/button";
+import { Badge } from "primereact/badge";
+import { SplitButton } from "primereact/splitbutton";
+
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import getWorkers from "../../store/actions/workerAction";
@@ -9,41 +12,65 @@ import "./DataTable.css";
 import Details from "./Details";
 
 function Worker() {
+  const [project, setProject] = useState({
+    workerId: "",
+    projectName: "",
+  });
   const [expandedRows, setExpandedRows] = useState(null);
   const isMounted = useRef(false);
   const workersList = useSelector((state) => state.workerReducer.workers);
   const projectsList = useSelector((state) => state.projectReducer.projects);
+  const [workerProjects, setWorkerProjects] = useState([...projectsList]);
   const dispatch = useDispatch();
 
   useEffect(() => {
     isMounted.current = true;
     dispatch(getProjects());
     dispatch(getWorkers());
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
+    setWorkerProjects([...workerProjects]);
+  }, []);
   // ***********   show nested data   ******************
   const rowExpansionTemplate = (data) => {
     return (
       <Details>
-        {console.log(projectsList)}
-       { console.log(data)}
-        
         <h1>{data.name}</h1>
-        <ul>
-          {data.projects.map((p) => {
-            
-              return projectsList.map((id) => {
-                if (id._id === p)
-                return <li>{id.name}</li>;
-            })
-            // if (p === projectsList[6]._id)
-            //   console.log (p === projectsList[6]._id)
-            //   console.log(projectsList[6]._id);
-            // console.log(p);
-            // console.log(projectsList.name);
-            // return <li>{p}</li>;
+        <h3>Projects</h3>
+        {data.projects.map((id) => {
+          return workerProjects.map((p) => {
+            if (p._id === id)
+              return (
+                <Badge
+                  key={p._id}
+                  value={p.name}
+                  size="large"
+                  severity="success"
+                  style={{ marginRight: "1rem" }}
+                ></Badge>
+              );
+          });
+        })}
+        <h3>Add new project</h3>
+        <SplitButton
+          label="Select new project"
+          model={projectsList.map((p) => {
+            return {
+              label: p.name,
+              command: () => {
+                console.log({ workerId: data._id, projectName: p.name });
+                setProject({ workerId: data._id, projectName: p.name });
+              },
+            };
           })}
-        </ul>
+          className="p-button-raised mr-2 mb-2"
+        ></SplitButton>
+        {data._id === project.workerId && (
+          <Badge
+            value={project.projectName}
+            size="large"
+            severity="success"
+            style={{ marginRight: "1rem" }}
+          ></Badge>
+        )}
       </Details>
     );
   };
