@@ -10,11 +10,16 @@ function Specialization() {
 
   useEffect(() => {
     dispatch(getSpecializations());
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
   console.log(specsList);
   return (
     <>
-      <DataTable value={specsList}>
+      <DataTable
+        resizableColumns
+        columnResizeMode="expand"
+        showGridlines
+        value={specsList}
+      >
         <Column field="name" header="First Name"></Column>
         <Column field="type" header="Type"></Column>
       </DataTable>

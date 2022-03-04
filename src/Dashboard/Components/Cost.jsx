@@ -10,11 +10,16 @@ function Cost() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getCosts());
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
   console.log(costsList);
   return (
     <>
-      <DataTable value={costsList}>
+      <DataTable
+        resizableColumns
+        columnResizeMode="expand"
+        showGridlines
+        value={costsList}
+      >
         <Column field="worker.name" header="WorkerName"></Column>
         <Column field="project.name" header="ProjectName"></Column>
         <Column field="amount" header="Cost"></Column>

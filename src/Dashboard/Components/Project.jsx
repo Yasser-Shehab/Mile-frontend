@@ -10,11 +10,16 @@ function Project() {
 
   useEffect(() => {
     dispatch(getProjects());
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
   console.log(projectsList);
   return (
     <>
-      <DataTable value={projectsList}>
+      <DataTable
+        resizableColumns
+        columnResizeMode="expand"
+        showGridlines
+        value={projectsList}
+      >
         <Column field="name" header="First Name"></Column>
         <Column field="budget" header="Budget"></Column>
         <Column field="createdAt" header="Created At"></Column>
