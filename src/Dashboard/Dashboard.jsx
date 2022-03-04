@@ -1,7 +1,4 @@
 import { Menubar } from "primereact/menubar";
-import { InputText } from "primereact/inputtext";
-import NavBar from "../shared/NavBar/NavBar";
-import NavTap from "../shared/NavBar/NavTap";
 import { Outlet, useNavigate } from "react-router-dom";
 function Dashboard() {
   let navigate = useNavigate();
