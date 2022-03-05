@@ -12,24 +12,20 @@ import project3 from "../assets/imgs/carousel/project3.jpg";
 import bath from "../assets/imgs/carousel/bath.png";
 import space from "../assets/imgs/carousel/space.png";
 import bed from "../assets/imgs/carousel/bed.png";
+import Title from "../shared/Title";
 
 function Carousel() {
   return (
     <>
-      <div className="carousel-container">
-        <div className="carousel-title">
-          <p>أبرز مشاريع الشركة</p>
-          <Sperator />
-        </div>
-      </div>
+      <Title title="أبرز مشاريع الشركة" />
       <div className="swiper-container">
         <Swiper
           slidesPerView={"auto"}
-          spaceBetween={30}
+          spaceBetween={100}
           centeredSlides={true}
           effect={"coverflow"}
           coverflowEffect={{
-            rotate: 40,
+            rotate: 0,
             stretch: 0,
             depth: 0,
             modifier: 1,
@@ -37,9 +33,6 @@ function Carousel() {
           }}
           grabCursor={true}
           loop={true}
-          pagination={{
-            clickable: true,
-          }}
           scrollbar={{
             draggable: true,
           }}

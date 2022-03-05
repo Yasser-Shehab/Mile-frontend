@@ -21,6 +21,7 @@
 
 .swiper-container .slide {
   max-width: 650px;
+  padding: 10px;
 }
 
 .swiper-container .slide-content {
@@ -31,14 +32,14 @@
       -ms-flex-align: center;
           align-items: center;
   text-align: center;
-  border-radius: 15px 15px 0 0;
+  border-radius: 25px;
 }
 
 .swiper-container .slide-content .card-img-top {
   max-height: 200px;
   min-height: 300px;
   width: 100%;
-  border-radius: 15px 15px 0 0;
+  border-radius: 25px 25px 0 0;
   -o-object-fit: cover;
      object-fit: cover;
 }

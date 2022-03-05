@@ -4,14 +4,11 @@ import Sperator from "../shared/Sperator";
 import img1 from "../assets/imgs/img1.png";
 import img2 from "../assets/imgs/img2.png";
 import img3 from "../assets/imgs/img3.png";
+import Title from "../shared/Title";
 function AboutInfo() {
   return (
-    <div className="container  my-8">
-      <div className="title p-0">
-        <p>معلومات عن شركة ميل للمقاولات العامة و التوريدات</p>
-        <Sperator />
-      </div>
-
+    <div className="container">
+      <Title title="معلومات عن شركة ميل للمقاولات العامة و التوريدات" />
       <div className="about-cards mt-7">
         <div className="small-cards fadeinleft animation-duration-1000">
           <div className="creation-date">

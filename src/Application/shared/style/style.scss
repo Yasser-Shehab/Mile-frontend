@@ -7,3 +7,15 @@ $primary: #648bf0;
   float: right;
   background-color: $primary;
 }
+
+.title-container {
+  margin: 100px auto auto;
+  max-width: 1200px;
+  direction: rtl;
+
+  .title-header {
+    font-size: 30px;
+    max-width: 400px;
+    direction: rtl;
+  }
+}

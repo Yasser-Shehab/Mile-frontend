@@ -18,6 +18,7 @@
   }
   .slide {
     max-width: 650px;
+    padding: 10px;
   }
 
   .slide-content {
@@ -25,12 +26,12 @@
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     align-items: center;
     text-align: center;
-    border-radius: 15px 15px 0 0;
+    border-radius: 25px;
     .card-img-top {
       max-height: 200px;
       min-height: 300px;
       width: 100%;
-      border-radius: 15px 15px 0 0;
+      border-radius: 25px 25px 0 0;
       object-fit: cover;
     }
     .slide-text {

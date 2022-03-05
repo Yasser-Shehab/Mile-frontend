@@ -1,0 +1,132 @@
+//
+.contact-container {
+  max-width: 1200px;
+  margin: 30px auto;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+  padding-bottom: 1px;
+  .content-container {
+    width: 80%;
+    margin: 50px auto;
+    .contact-title {
+      text-align: center;
+      font-size: 26px;
+    }
+    .contact-icons {
+      display: flex;
+      margin: 30px 0;
+      justify-content: space-evenly;
+      cursor: pointer;
+      .icon {
+        text-align: center;
+        p {
+          font-size: 20px;
+        }
+      }
+      .icon:hover {
+        transform: scale(1.1);
+      }
+    }
+    .contact-form {
+      .required-input {
+        display: flex;
+        .input-container {
+          width: 48%;
+          margin: 0 auto;
+          p {
+            text-align: right;
+            font-size: 20px;
+          }
+          input {
+            width: 100%;
+            min-width: 80px;
+            min-height: 41px;
+            margin-top: 10px;
+            border: none;
+            float: right;
+            background-color: #ededed;
+            padding: 10px;
+            outline: none;
+            border-radius: 10px;
+          }
+        }
+      }
+      .text-container {
+        margin-top: 20px;
+        width: 100%;
+        min-width: 100px;
+
+        p {
+          text-align: right;
+          font-size: 20px;
+        }
+        .text-area {
+          height: 139px;
+          width: 100%;
+          margin: 15px 0 auto;
+          background-color: #ededed;
+          border-radius: 10px;
+          padding: 10px;
+          outline: none;
+          border: none;
+          resize: none;
+        }
+      }
+    }
+  }
+}
+.form-btn {
+  display: flex;
+  align-items: center;
+  margin: 20px 0 20px 0;
+  justify-content: flex-end;
+  gap: 15px;
+  .upload-file {
+    display: flex;
+    position: relative;
+    width: 169px;
+    height: 45px;
+    i {
+      position: absolute;
+      top: 35%;
+      left: 10%;
+      width: 22.44px;
+      height: 14.15px;
+      color: #648bf0;
+    }
+    button {
+      width: 100%;
+      height: 100%;
+      border-radius: 9px;
+      color: #648bf0;
+      font-size: 25px;
+      background-color: #fff;
+
+      border: 3px solid #648bf0;
+    }
+  }
+  .submit-form {
+    display: flex;
+    position: relative;
+    width: 169px;
+    height: 45px;
+
+    i {
+      position: absolute;
+      top: 35%;
+      left: 10%;
+      width: 22.44px;
+      height: 14.15px;
+      color: #fff;
+    }
+    button {
+      width: 100%;
+      height: 100%;
+      border-radius: 7px;
+      color: #fff;
+      font-size: 25px;
+      background-color: #648bf0;
+      border: none;
+    }
+  }
+}

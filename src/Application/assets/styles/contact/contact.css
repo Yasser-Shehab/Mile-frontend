@@ -1,0 +1,164 @@
+.contact-container {
+  max-width: 1200px;
+  margin: 30px auto;
+  -webkit-box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+          box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  padding-bottom: 1px;
+}
+
+.contact-container .content-container {
+  width: 80%;
+  margin: 50px auto;
+}
+
+.contact-container .content-container .contact-title {
+  text-align: center;
+  font-size: 26px;
+}
+
+.contact-container .content-container .contact-icons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 30px 0;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  cursor: pointer;
+}
+
+.contact-container .content-container .contact-icons .icon {
+  text-align: center;
+}
+
+.contact-container .content-container .contact-icons .icon p {
+  font-size: 20px;
+}
+
+.contact-container .content-container .contact-icons .icon:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+.contact-container .content-container .contact-form .required-input {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.contact-container .content-container .contact-form .required-input .input-container {
+  width: 48%;
+  margin: 0 auto;
+}
+
+.contact-container .content-container .contact-form .required-input .input-container p {
+  text-align: right;
+  font-size: 20px;
+}
+
+.contact-container .content-container .contact-form .required-input .input-container input {
+  width: 100%;
+  min-width: 80px;
+  min-height: 41px;
+  margin-top: 10px;
+  border: none;
+  float: right;
+  background-color: #ededed;
+  padding: 10px;
+  outline: none;
+  border-radius: 10px;
+}
+
+.contact-container .content-container .contact-form .text-container {
+  margin-top: 20px;
+  width: 100%;
+  min-width: 100px;
+}
+
+.contact-container .content-container .contact-form .text-container p {
+  text-align: right;
+  font-size: 20px;
+}
+
+.contact-container .content-container .contact-form .text-container .text-area {
+  height: 139px;
+  width: 100%;
+  margin: 15px 0 auto;
+  background-color: #ededed;
+  border-radius: 10px;
+  padding: 10px;
+  outline: none;
+  border: none;
+  resize: none;
+}
+
+.form-btn {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 20px 0 20px 0;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  gap: 15px;
+}
+
+.form-btn .upload-file {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+  width: 169px;
+  height: 45px;
+}
+
+.form-btn .upload-file i {
+  position: absolute;
+  top: 35%;
+  left: 10%;
+  width: 22.44px;
+  height: 14.15px;
+  color: #648bf0;
+}
+
+.form-btn .upload-file button {
+  width: 100%;
+  height: 100%;
+  border-radius: 9px;
+  color: #648bf0;
+  font-size: 25px;
+  background-color: #fff;
+  border: 3px solid #648bf0;
+}
+
+.form-btn .submit-form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+  width: 169px;
+  height: 45px;
+}
+
+.form-btn .submit-form i {
+  position: absolute;
+  top: 35%;
+  left: 10%;
+  width: 22.44px;
+  height: 14.15px;
+  color: #fff;
+}
+
+.form-btn .submit-form button {
+  width: 100%;
+  height: 100%;
+  border-radius: 7px;
+  color: #fff;
+  font-size: 25px;
+  background-color: #648bf0;
+  border: none;
+}
+/*# sourceMappingURL=contact.css.map */
