@@ -14,20 +14,24 @@ import Details from "./Details";
 function Worker() {
   const [project, setProject] = useState({
     workerId: "",
+    projectId: "",
     projectName: "",
   });
   const [expandedRows, setExpandedRows] = useState(null);
   const isMounted = useRef(false);
   const workersList = useSelector((state) => state.workerReducer.workers);
   const projectsList = useSelector((state) => state.projectReducer.projects);
-  const [workerProjects, setWorkerProjects] = useState([...projectsList]);
+  const [workerProjects, setWorkerProjects] = useState([]);
   const dispatch = useDispatch();
+
+  const handleClick = (project) => {
+    setWorkerProjects([...workerProjects, project]);
+  };
 
   useEffect(() => {
     isMounted.current = true;
     dispatch(getProjects());
     dispatch(getWorkers());
-    setWorkerProjects([...workerProjects]);
   }, []);
   // ***********   show nested data   ******************
   const rowExpansionTemplate = (data) => {
@@ -36,7 +40,7 @@ function Worker() {
         <h1>{data.name}</h1>
         <h3>Projects</h3>
         {data.projects.map((id) => {
-          return workerProjects.map((p) => {
+          return projectsList.map((p) => {
             if (p._id === id)
               return (
                 <Badge
@@ -49,28 +53,42 @@ function Worker() {
               );
           });
         })}
+        {workerProjects.map((p) => {
+          if (p.workerId === data._id)
+            return (
+              <Badge
+                key={p.projectId}
+                value={p.projectName}
+                size="large"
+                severity="success"
+                style={{ marginRight: "1rem" }}
+              ></Badge>
+            );
+        })}
         <h3>Add new project</h3>
         <SplitButton
-          label="Select new project"
+          label={
+            data._id === project.workerId
+              ? project.projectName
+              : "Select new project"
+          }
           model={projectsList.map((p) => {
             return {
               label: p.name,
               command: () => {
-                console.log({ workerId: data._id, projectName: p.name });
-                setProject({ workerId: data._id, projectName: p.name });
+                setProject({
+                  workerId: data._id,
+                  projectId: p._id,
+                  projectName: p.name,
+                });
               },
             };
           })}
           className="p-button-raised mr-2 mb-2"
+          style={{ marginRight: "1rem" }}
         ></SplitButton>
-        {data._id === project.workerId && (
-          <Badge
-            value={project.projectName}
-            size="large"
-            severity="success"
-            style={{ marginRight: "1rem" }}
-          ></Badge>
-        )}
+
+        <Button label="add" onClick={() => handleClick(project)} />
       </Details>
     );
   };
