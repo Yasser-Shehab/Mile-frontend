@@ -25,7 +25,7 @@ function Carousel() {
           centeredSlides={true}
           effect={"coverflow"}
           coverflowEffect={{
-            rotate: 0,
+            rotate: 30,
             stretch: 0,
             depth: 0,
             modifier: 1,
