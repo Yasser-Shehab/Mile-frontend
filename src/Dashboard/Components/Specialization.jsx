@@ -2,7 +2,7 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import getSpecializations from "../../store/actions/specAction";
+import {getSpecializations,addSpecializations} from "../../store/actions/specAction";
 import { Toolbar } from "primereact/toolbar";
 import { Button } from "primereact/button";
 import { InputTextarea } from "primereact/inputtextarea";
@@ -13,15 +13,8 @@ import { InputText } from "primereact/inputtext";
 import { classNames } from "primereact/utils";
 
 let emptyProduct = {
-  id: null,
-  name: "",
-  image: null,
-  description: "",
-  category: null,
-  price: 0,
-  quantity: 0,
-  rating: 0,
-  inventoryStatus: "INSTOCK",
+  name: "AAA",
+
 };
 
 function Specialization() {
@@ -30,13 +23,15 @@ function Specialization() {
   const [product, setProduct] = useState(emptyProduct);
   const [submitted, setSubmitted] = useState(false);
   const [productDialog, setProductDialog] = useState(false);
+  const[inputValues,setInputValues]=useState({name:"",type:""});
+  const[errors,setErrors]=useState({errName:"",errType:""});
 
   useEffect(() => {
     dispatch(getSpecializations());
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
-  console.log(specsList);
+  // console.log(specsList);
   const openNew = () => {
-    setProduct(emptyProduct);
+    setInputValues(inputValues)
     setSubmitted(false);
     setProductDialog(true);
   };
@@ -44,12 +39,17 @@ function Specialization() {
   const hideDialog = () => {
     setSubmitted(false);
     setProductDialog(false);
+    // setProduct(inputValues);
+    setInputValues({name:"",type:""})
+
   };
 
   const saveProduct = () => {
     setSubmitted(true);
-    setProductDialog(false);
-    setProduct(emptyProduct);
+    // setProductDialog(false);
+    // setProduct(inputValues);
+    // setInputValues({name:"",type:""})
+    
   };
 
   const leftToolbarTemplate = () => {
@@ -83,10 +83,28 @@ function Specialization() {
         label="Save"
         icon="pi pi-check"
         className="p-button-text"
-        onClick={saveProduct}
+        type="submit"
+        // onClick={saveProduct}
       />
     </React.Fragment>
   );
+  const nameHandel=(event)=>{
+setInputValues({...inputValues,name:event.target.value})
+console.log(inputValues);
+  }
+
+  const typeHandel=(event)=>{
+    setInputValues({...inputValues,type:event.target.value})
+    console.log(inputValues);
+  }
+  const submitHandel=(event)=>{
+event.preventDefault();
+console.log(inputValues);
+dispatch(addSpecializations(inputValues));
+// console.log("event");
+  }
+  
+  
   return (
     <>
       <Toolbar className="mb-4" left={leftToolbarTemplate}></Toolbar>
@@ -109,111 +127,41 @@ function Specialization() {
         footer={productDialogFooter}
         onHide={hideDialog}
       >
-        {product.image && (
-          <img
-            src={`images/product/${product.image}`}
-            onError={(e) =>
-              (e.target.src =
-                "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png")
-            }
-            alt={product.image}
-            className="product-image block m-auto pb-3"
-          />
-        )}
+        <form onSubmit={submitHandel} noValidate>
         <div className="field">
-          <label htmlFor="name">Name</label>
+          <label htmlFor="name">أسم التخصص </label>
           <InputText
             id="name"
-            value={product.name}
+            value={inputValues.name}
+            name="name"
             // onChange={(e) => onInputChange(e, "name")}
+            onChange={nameHandel}
             required
             autoFocus
-            className={classNames({ "p-invalid": submitted && !product.name })}
+            className={classNames({ "p-invalid": submitted && !inputValues.name })}
           />
-          {submitted && !product.name && (
-            <small className="p-error">Name is required.</small>
+          {submitted && !inputValues.name && (
+            <small className="p-error">أسم التخصص مطلوب</small>
           )}
         </div>
         <div className="field">
-          <label htmlFor="description">Description</label>
-          <InputTextarea
-            id="description"
-            value={product.description}
-            // onChange={(e) => onInputChange(e, "description")}
+          <label htmlFor="typr">نوع التخصص</label>
+          <InputText
+            id="type"
+            value={inputValues.type}
+            name="type"
+            // onChange={(e) => onInputChange(e, "name")}
+            onChange={typeHandel}
             required
-            rows={3}
-            cols={20}
+            className={classNames({ "p-invalid": submitted && !inputValues.type })}
           />
+          {submitted && !inputValues.type && (
+            <small className="p-error">نوع التخصص مطلوب</small>
+          )}
         </div>
-
-        <div className="field">
-          <label className="mb-3">Category</label>
-          <div className="formgrid grid">
-            <div className="field-radiobutton col-6">
-              <RadioButton
-                inputId="category1"
-                name="category"
-                value="Accessories"
-                // onChange={onCategoryChange}
-                checked={product.category === "Accessories"}
-              />
-              <label htmlFor="category1">Accessories</label>
-            </div>
-            <div className="field-radiobutton col-6">
-              <RadioButton
-                inputId="category2"
-                name="category"
-                value="Clothing"
-                // onChange={onCategoryChange}
-                checked={product.category === "Clothing"}
-              />
-              <label htmlFor="category2">Clothing</label>
-            </div>
-            <div className="field-radiobutton col-6">
-              <RadioButton
-                inputId="category3"
-                name="category"
-                value="Electronics"
-                // onChange={onCategoryChange}
-                checked={product.category === "Electronics"}
-              />
-              <label htmlFor="category3">Electronics</label>
-            </div>
-            <div className="field-radiobutton col-6">
-              <RadioButton
-                inputId="category4"
-                name="category"
-                value="Fitness"
-                // onChange={onCategoryChange}
-                checked={product.category === "Fitness"}
-              />
-              <label htmlFor="category4">Fitness</label>
-            </div>
-          </div>
-        </div>
-
-        <div className="formgrid grid">
-          <div className="field col">
-            <label htmlFor="price">Price</label>
-            <InputNumber
-              id="price"
-              value={product.price}
-              // onValueChange={(e) => onInputNumberChange(e, "price")}
-              mode="currency"
-              currency="USD"
-              locale="en-US"
-            />
-          </div>
-          <div className="field col">
-            <label htmlFor="quantity">Qqqquantity</label>
-            <InputNumber
-              id="quantity"
-              value={product.quantity}
-              // onValueChange={(e) => onInputNumberChange(e, "quantity")}
-              integeronly
-            />
-          </div>
-        </div>
+        <button type="submit">submit</button>
+        </form>
+     
       </Dialog>
     </>
   );

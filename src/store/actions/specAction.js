@@ -12,4 +12,20 @@ const getSpecializations = () => (dispatch) => {
     .catch((err) => console.log(err));
 };
 
-export default getSpecializations;
+const addSpecializations= (data) =>{
+
+return (dispatch)=>{
+  axios.post("http://localhost:8000/specialization",data).then(res=>{
+    console.log(res);
+    dispatch({
+      type:"ADD_SPECS",
+      payload:res.data
+    })
+  }).catch(error=>{
+    console.log(error);
+  })
+}
+
+}
+
+export {getSpecializations,addSpecializations};
