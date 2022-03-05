@@ -24,7 +24,6 @@ function Project() {
         <Column field="budget" header="Budget"></Column>
         <Column field="createdAt" header="Created At"></Column>
         <Column field="description" header="Description"></Column>
-        <Column field="description" header="Basma"></Column>////new added
       </DataTable>
     </>
   );
