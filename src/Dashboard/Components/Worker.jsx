@@ -6,8 +6,10 @@ import { SplitButton } from "primereact/splitbutton";
 
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import getWorkers from "../../store/actions/workerAction";
+
 import { getProjects } from "../../store/actions/projectAction";
+import { getWorkers, asignProject } from "../../store/actions/workerAction";
+
 import "./DataTable.css";
 import Details from "./Details";
 
@@ -20,12 +22,14 @@ function Worker() {
   const [expandedRows, setExpandedRows] = useState(null);
   const isMounted = useRef(false);
   const workersList = useSelector((state) => state.workerReducer.workers);
+  const workerObj = useSelector((state) => state.workerReducer.worker);
   const projectsList = useSelector((state) => state.projectReducer.projects);
   const [workerProjects, setWorkerProjects] = useState([]);
   const dispatch = useDispatch();
 
-  const handleClick = (project) => {
+  const addProject = (workerId, project) => {
     setWorkerProjects([...workerProjects, project]);
+    dispatch(asignProject(workerId, project.projectId));
   };
 
   useEffect(() => {
@@ -49,7 +53,7 @@ function Worker() {
                   value={p.name}
                   size="large"
                   severity="success"
-                  // style={{ marginRight: "1rem" }}
+                  style={{ marginRight: "1rem", marginTop: "1rem" }}
                 ></Badge>
               );
           });
@@ -62,11 +66,11 @@ function Worker() {
                 value={p.projectName}
                 size="large"
                 severity="success"
-                // style={{ marginRight: "1rem" }}
+                style={{ margin: "1rem" }}
               ></Badge>
             );
         })}
-        <h3>Add new project</h3>
+        <h3 className="mb-3">Add new project</h3>
         <SplitButton
           label={
             data._id === project.workerId
@@ -85,11 +89,10 @@ function Worker() {
               },
             };
           })}
-          className="p-button-raised mr-2 mb-2"
-          // style={{ marginRight: "1rem" }}
+          className="p-button-raised mr-2"
         ></SplitButton>
 
-        <Button label="add" onClick={() => handleClick(project)} />
+        <Button label="add" onClick={() => addProject(data._id, project)} />
       </Details>
     );
   };

@@ -9,6 +9,16 @@ const SpecializationReducer = (state = INITIAL_VALUE, action) => {
         ...state,
         specs: action.payload,
       };
+    case "ADD_SPECS":
+      return {
+        ...state,
+      };
+    case "DELETE_SPECS":
+      case "EDIT_SPECS":
+      return {
+        ...state,
+      };
+    
 
     default:
       return state;
