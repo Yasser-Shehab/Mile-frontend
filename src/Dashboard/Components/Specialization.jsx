@@ -5,28 +5,26 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getSpecializations,
   addSpecializations,
+  deleteSpecializations,
 } from "../../store/actions/specAction";
 import { Toolbar } from "primereact/toolbar";
 import { Button } from "primereact/button";
-import { InputTextarea } from "primereact/inputtextarea";
-import { RadioButton } from "primereact/radiobutton";
-import { InputNumber } from "primereact/inputnumber";
 import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
 import { classNames } from "primereact/utils";
 
-// let emptyProduct = {
+// let emptyspecialization = {
 //   name: "AAA",
 // };
 
 function Specialization() {
   const specsList = useSelector((state) => state.specializationReducer.specs);
   const dispatch = useDispatch();
-  // const [product, setProduct] = useState(emptyProduct);
+  // const [specialization, setspecialization] = useState(emptyspecialization);
   const [submitted, setSubmitted] = useState(false);
   const [specializationDialog, setspecializationDialog] = useState(false);
   const [inputValues, setInputValues] = useState({ name: "", type: "" });
-  const [deleteProductDialog, setDeleteProductDialog] = useState(false);
+  const [deletespecializationDialog, setDeletespecializationDialog] = useState(false);
 
   const [deleteValue, setDeleteValue] = useState("");
   // const [errors, setErrors] = useState({ errName: "", errType: "" });
@@ -70,17 +68,18 @@ function Specialization() {
           icon="pi pi-trash"
           className="p-button-danger"
           // onClick={confirmDeleteSelected}
-          // disabled={!selectedProducts || !selectedProducts.length}
+          // disabled={!selectedspecializations || !selectedspecializations.length}
+          disabled
         />
       </React.Fragment>
     );
   };
-  const confirmDeleteProduct = (spec) => {
-    console.log(spec);
+  const confirmDeletespecialization = (spec) => {
+    // console.log(spec);
     setDeleteValue(spec);
-    setDeleteProductDialog(true);
+    setDeletespecializationDialog(true);
   };
-
+// console.log("deleteValue is", deleteValue);
   const specializationDialogFooter = (
     <>
       <form>
@@ -103,54 +102,60 @@ function Specialization() {
   );
   const nameHandel = (event) => {
     setInputValues({ ...inputValues, name: event.target.value });
-    console.log(inputValues);
+    // console.log(inputValues);
   };
 
   const typeHandel = (event) => {
     setInputValues({ ...inputValues, type: event.target.value });
-    console.log(inputValues);
+    // console.log(inputValues);
   };
   const submitHandel = (event) => {
     event.preventDefault();
-    console.log(inputValues);
+    // console.log(inputValues);
     dispatch(addSpecializations(inputValues));
     // console.log("event");
   };
+   const deleteHandel = (data) => {
+     dispatch(deleteSpecializations(data._id));
+     setDeletespecializationDialog(false);
+   };
+    const hideDeletespecializationDialog = () => {
+      setDeletespecializationDialog(false);
+    };
   const actionBodyTemplate = (rowData) => {
     return (
       <React.Fragment>
         <Button
           icon="pi pi-pencil"
           className="p-button-rounded p-button-success mr-2"
-          // onClick={() => editProduct(rowData)}
+          // onClick={() => editspecialization(rowData)}
         />
         <Button
           icon="pi pi-trash"
           className="p-button-rounded p-button-warning"
-          onClick={() => confirmDeleteProduct(rowData)}
+          onClick={() => confirmDeletespecialization(rowData)}
         />
       </React.Fragment>
     );
   };
-  const deleteProductDialogFooter = (
+
+  const deletespecializationDialogFooter = (
     <React.Fragment>
       <Button
         label="No"
         icon="pi pi-times"
         className="p-button-text"
-        //  onClick={hideDeleteProductDialog}
+         onClick={hideDeletespecializationDialog}
       />
       <Button
         label="Yes"
         icon="pi pi-check"
         className="p-button-text"
-        //  onClick={deleteProduct}
+        onClick={() => { deleteHandel(deleteValue) }}
       />
     </React.Fragment>
   );
-  const hideDeleteProductDialog = () => {
-    setDeleteProductDialog(false);
-  };
+
   return (
     <>
       <Toolbar className="mb-4" left={leftToolbarTemplate}></Toolbar>
@@ -230,12 +235,12 @@ function Specialization() {
         </Dialog>
       </form>
       <Dialog
-        visible={deleteProductDialog}
+        visible={deletespecializationDialog}
         style={{ width: "450px" }}
         header="Confirm"
         modal
-        footer={deleteProductDialogFooter}
-        onHide={hideDeleteProductDialog}
+        footer={deletespecializationDialogFooter}
+        onHide={hideDeletespecializationDialog}
       >
         <div className="confirmation-content">
           <i
