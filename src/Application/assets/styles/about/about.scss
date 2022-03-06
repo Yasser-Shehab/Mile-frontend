@@ -3,16 +3,13 @@ $secondary: #2d2e3f;
   margin: 0 auto;
   max-width: 1200px;
   direction: rtl;
-  .title {
-    font-size: 30px;
-    max-width: 400px;
-    direction: rtl;
-  }
+
   .info-card {
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     padding: 40px 40px 40px 60px;
     border-radius: 10px;
-    // width: 70%;
+    width: 75%;
+    line-height: 1.9em;
     font-size: 1.6em;
     z-index: -1;
     p {
@@ -27,7 +24,8 @@ $secondary: #2d2e3f;
   .small-cards {
     margin-right: -30px;
     margin-top: 40px;
-    min-width: 450px;
+    text-align: center;
+    min-width: 270px;
     .creation-date {
       z-index: 5;
       background-color: $secondary;
@@ -56,11 +54,13 @@ $secondary: #2d2e3f;
   }
 }
 
-@media screen and (max-width: 1400px) {
+@media screen and (max-width: 1100px) {
   .container {
     .info-card {
       p {
         font-size: 20px;
+        // padding: 10px 0 0 10px;
+        text-align: right;
       }
     }
     .title {
