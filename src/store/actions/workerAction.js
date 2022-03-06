@@ -11,5 +11,18 @@ const getWorkers = () => (dispatch) => {
     )
     .catch((err) => console.log(err));
 };
+const asignProject = (workerId, projectId) => (dispatch) => {
+  axios
+    .post(`http://localhost:8000/worker/${workerId}/asignProject`, {
+      projectId,
+    })
+    .then(({ data: { worker } }) =>
+      dispatch({
+        type: "ASIGN_PROJECT",
+        payload: worker,
+      })
+    )
+    .catch((err) => console.log(err));
+};
 
-export default getWorkers;
+export { getWorkers, asignProject };
