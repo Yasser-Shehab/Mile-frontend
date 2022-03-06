@@ -11,5 +11,16 @@ const getCosts = () => (dispatch) => {
     )
     .catch((err) => console.log(err));
 };
+const addCost = (data) => (dispatch) => {
+  axios
+    .post("http://localhost:8000/cost", data)
+    .then(({ data: { costs } }) =>
+      dispatch({
+        type: "ADD_COST",
+        payload: costs,
+      })
+    )
+    .catch((err) => console.log(err));
+};
 
-export default getCosts;
+export { getCosts, addCost };
