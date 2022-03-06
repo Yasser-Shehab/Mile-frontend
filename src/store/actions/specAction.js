@@ -35,7 +35,7 @@ const deleteSpecializations = (id) => {
     axios
       .delete(`http://localhost:8000/specialization/${id}`)
       .then((res) => {
-        console.log("delete res",res);
+        console.log("delete res",res.data);
         dispatch({
           type: "DELETE_SPECS",
           payload: res.data,
@@ -47,5 +47,31 @@ const deleteSpecializations = (id) => {
       });
   };
 };
+const editSpecializations = (data,id) => {
+  return (dispatch) => {
+    axios
+      .patch(`http://localhost:8000/specialization/${id}`,data)
+      .then((res) => {
+        console.log("patch res", res);
+        console.log("patch data", data);
 
-export { getSpecializations, addSpecializations, deleteSpecializations };
+        dispatch({
+          type: "EDIT_SPECS",
+          payload: data,
+        });
+        // dispatch(getSpecializations());
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+};
+
+
+
+export {
+  getSpecializations,
+  addSpecializations,
+  deleteSpecializations,
+  editSpecializations,
+};
