@@ -121,6 +121,7 @@ function Worker() {
     <>
       <div className="datatable-rowexpansion-demo">
         <div className="card">
+ 
           <DataTable
             resizableColumns
             columnResizeMode="expand"
