@@ -25,7 +25,7 @@ function App() {
           <Route path="specializations" element={<Specialization />} />
           <Route path="workers" element={<Worker />} />
         </Route>
-        <Route exact path="application" element={<Application />} />
+        <Route path="/" element={<Application />} />
       </Routes>
     </Router>
   );

@@ -1,7 +1,16 @@
 import React from "react";
+import AboutInfo from "./about/AboutInfo";
+
+import Nav from "./nav/Nav";
+import "/node_modules/primeflex/primeflex.css";
 
 function Application() {
-  return <div>Application</div>;
+  return (
+    <>
+      <Nav />
+      <AboutInfo />
+    </>
+  );
 }
 
 export default Application;

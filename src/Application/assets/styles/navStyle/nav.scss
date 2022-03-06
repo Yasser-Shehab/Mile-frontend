@@ -1,0 +1,218 @@
+$primary: #648bf0;
+.section-container {
+  margin-right: auto;
+  margin-left: auto;
+}
+.hero-section {
+  width: 100%;
+  min-height: 700px;
+  background: linear-gradient(
+      90.07deg,
+      rgba(45, 46, 63, 0.88) 9.74%,
+      rgba(45, 46, 63, 0.52) 35.32%,
+      rgba(45, 46, 63, 0.88) 87.07%
+    ),
+    url("../../imgs/hero.jpg");
+
+  background-position: 100% 85%;
+  background-repeat: no-repeat;
+  .nav-container {
+    display: flex;
+    width: 80%;
+    padding-top: 25px;
+    margin: 0 auto;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-links {
+    display: flex;
+    color: white;
+    font-size: 1.5em;
+    text-decoration: none;
+    list-style: none;
+    li {
+      margin: 0 15px;
+    }
+    li:hover {
+      color: #648bf0;
+      transition: 1s;
+      cursor: pointer;
+    }
+  }
+
+  .burger {
+    color: #fff;
+    display: none;
+    .pi {
+      font-size: 30px;
+    }
+  }
+  .title-container {
+    width: 60%;
+    margin: 1.9vh auto;
+    text-align: end;
+
+    .title {
+      display: flex;
+      flex-direction: column;
+
+      color: #fff;
+      font-size: 60px;
+
+      .h1 {
+      }
+    }
+    .title-custom {
+      color: $primary;
+    }
+    .hero-btn {
+      display: flex;
+      color: #fff;
+      margin-top: 60px;
+      float: right;
+      align-items: center;
+      justify-content: space-around;
+      background-color: $primary;
+      width: 250px;
+      height: 50px;
+      font-size: 20px;
+      cursor: pointer;
+      padding: 0.5em;
+      border-radius: 5px;
+      p {
+        margin-bottom: 5px;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1025px) and (max-width: 1500px) {
+  .hero-section {
+    width: 100%;
+    min-height: 500px;
+    background: linear-gradient(
+        90.07deg,
+        rgba(45, 46, 63, 0.88) 9.74%,
+        rgba(45, 46, 63, 0.52) 35.32%,
+        rgba(45, 46, 63, 0.88) 87.07%
+      ),
+      url("../../imgs/hero-medium.jpg");
+    background-repeat: no-repeat;
+    background-position: 50% 85%;
+    .title-container {
+      .title {
+        font-size: 40px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .hero-section {
+    width: 100%;
+    min-height: 500px;
+    background: linear-gradient(
+        90.07deg,
+        rgba(45, 46, 63, 0.88) 9.74%,
+        rgba(45, 46, 63, 0.52) 35.32%,
+        rgba(45, 46, 63, 0.88) 87.07%
+      ),
+      url("../../imgs/hero-laptop.jpg");
+    background-repeat: no-repeat;
+    background-position: 10% 85%;
+    .nav-links {
+      li {
+        margin: 0 10px;
+      }
+    }
+    .title-container {
+      .title {
+        font-size: 30px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 790px) {
+  .hero-section {
+    width: 100%;
+    min-height: 500px;
+    background: linear-gradient(
+        90.07deg,
+        rgba(45, 46, 63, 0.88) 9.74%,
+        rgba(45, 46, 63, 0.52) 45.32%,
+        rgba(45, 46, 63, 0.88) 87.07%
+      ),
+      url("../../imgs/hero-tablet.jpg");
+    background-repeat: no-repeat;
+    background-position: 10% 85%;
+    .nav-links {
+      display: none;
+    }
+    .burger {
+      display: block;
+    }
+    .links-mobile {
+      position: absolute;
+      display: block;
+      left: 0;
+      top: 75px;
+      list-style: none;
+      background: #2d2e3f;
+      opacity: 90%;
+      margin-top: 15px;
+      transition: all 0.5s ease-out;
+      width: 100%;
+      li {
+        color: #fff;
+        text-align: center;
+        font-weight: bold;
+        padding: 32px;
+        width: 100%;
+        transition: all 0.5 ease;
+      }
+    }
+    .title-container {
+      .title {
+        font-size: 30px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 340px) and (min-width: 0px) {
+  .hero-section {
+    width: 100%;
+    min-height: 250px;
+    background: linear-gradient(
+        90.07deg,
+        rgba(45, 46, 63, 0.88) 9.74%,
+        rgba(45, 46, 63, 0.52) 35.32%,
+        rgba(45, 46, 63, 0.88) 87.07%
+      ),
+      url("../../imgs/hero-mobile.jpg");
+    background-repeat: no-repeat;
+    background-position: 50% 85%;
+    .burger {
+      .pi {
+        font-size: 30px;
+      }
+    }
+    .brand {
+      img {
+        width: 100px;
+      }
+    }
+    .title-container {
+      .title {
+        font-size: 20px;
+      }
+      .hero-btn {
+        margin-top: 10px;
+        width: 100px;
+        height: 20px;
+        font-size: 10px;
+      }
+    }
+  }
+}
