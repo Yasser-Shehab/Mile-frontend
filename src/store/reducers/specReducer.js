@@ -14,7 +14,7 @@ const SpecializationReducer = (state = INITIAL_VALUE, action) => {
         ...state,
       };
     case "DELETE_SPECS":
-      case "EDIT_SPECS":
+    case "EDIT_SPECS":
       return {
         ...state,
       };

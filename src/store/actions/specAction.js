@@ -59,7 +59,7 @@ const editSpecializations = (data,id) => {
           type: "EDIT_SPECS",
           payload: data,
         });
-        // dispatch(getSpecializations());
+        dispatch(getSpecializations());
       })
       .catch((error) => {
         console.log(error);

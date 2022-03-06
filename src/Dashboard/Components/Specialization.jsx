@@ -49,18 +49,19 @@ function Specialization() {
     console.log(inputValues);
     if (!inputValues.id) {
       dispatch(addSpecializations(inputValues));
+    } else {
+      dispatch(
+        editSpecializations(
+          {name:inputValues.name,type: inputValues.type},
+          inputValues.id
+        )
+      );
     }
-    else {
-      dispatch(editSpecializations([inputValues.name,inputValues.type],inputValues.id))
-    }
-    
-    
 
     setLoading1(false);
     setInputValues({ name: "", type: "" });
-
   };
-console.log(!inputValues.id);
+  console.log(!inputValues.id);
 
   const confirmDeletespecialization = (spec) => {
     // console.log(spec);
@@ -71,25 +72,30 @@ console.log(!inputValues.id);
   const specializationDialogFooter = (
     <>
       {/* <form> */}
-        <Button
-          label="Cancel"
-          icon="pi pi-times"
-          className="p-button-text"
-          onClick={hideDialog}
-        />
-        <Button
-          label="Save"
-          icon="pi pi-check"
-          className="p-button-text"
-          loading={loading1}
-          // type="submit"
-          onClick={saveSpecialization}
-        />
+      <Button
+        label="Cancel"
+        icon="pi pi-times"
+        className="p-button-text"
+        onClick={hideDialog}
+      />
+      <Button
+        label="Save"
+        icon="pi pi-check"
+        className="p-button-text"
+        loading={loading1}
+        // type="submit"
+        onClick={saveSpecialization}
+      />
       {/* </form> */}
     </>
   );
   const editspecialization = (data) => {
-    setInputValues({ ...inputValues,id:data._id, name: data.name, type: data.type });
+    setInputValues({
+      ...inputValues,
+      id: data._id,
+      name: data.name,
+      type: data.type,
+    });
     // console.log(data);
     setspecializationDialog(true);
   };
@@ -97,7 +103,6 @@ console.log(!inputValues.id);
   // console.log(submitted);
 
   const nameHandel = (event) => {
-    
     setInputValues({ ...inputValues, name: event.target.value });
   };
 
@@ -108,7 +113,7 @@ console.log(!inputValues.id);
   const submitHandel = (event) => {
     console.log(event);
     event.preventDefault();
-    dispatch(addSpecializations(inputValues));
+    // dispatch(addSpecializations(inputValues));
   };
   const deleteHandel = (data) => {
     dispatch(deleteSpecializations(data._id));
