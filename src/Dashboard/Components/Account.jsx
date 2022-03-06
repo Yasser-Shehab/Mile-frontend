@@ -22,6 +22,7 @@ function Account() {
       >
         <Column field="_id" header="Project Name"></Column>
         <Column field="total" header="Sum"></Column>
+        <Column field="budget" header="Budget"></Column>
       </DataTable>
     </>
   );

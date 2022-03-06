@@ -133,6 +133,8 @@ function Worker() {
           >
             <Column expander style={{ width: "3em" }} />
             <Column field="name" header="FirstName"></Column>
+            <Column field="specs.name" header="FirstName"></Column>
+            <Column field="specs.type" header="FirstName"></Column>
             <Column field="address" header="Address"></Column>
             <Column field="mobile" header="Mobile"></Column>
             <Column field="nationalID" header="ID"></Column>
