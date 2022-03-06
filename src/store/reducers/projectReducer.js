@@ -1,5 +1,6 @@
 const INITIAL_VALUE = {
   projects: [],
+  project: {},
 };
 
 const ProjectReducer = (state = INITIAL_VALUE, action) => {
@@ -8,6 +9,17 @@ const ProjectReducer = (state = INITIAL_VALUE, action) => {
       return {
         ...state,
         projects: action.payload,
+      };
+
+    case "ADD_PROJECT":
+      return {
+        ...state,
+        project: action.payload,
+      };
+
+    case "DELETE_PROJECT":
+      return {
+        ...state,
       };
 
     default:

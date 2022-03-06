@@ -9,7 +9,7 @@ import { Dropdown } from "primereact/dropdown";
 import { useSelector, useDispatch } from "react-redux";
 import { getCosts, addCost } from "../../store/actions/costAction";
 import { getWorkers } from "../../store/actions/workerAction";
-import getProjects from "../../store/actions/projectAction";
+import { getProjects } from "../../store/actions/projectAction";
 
 function Cost() {
   const costsList = useSelector((state) => state.costReducer.costs);
@@ -111,6 +111,7 @@ function Cost() {
         columnResizeMode="expand"
         showGridlines
         value={costsList}
+        responsiveLayout="scroll"
         header={header}
       >
         <Column field="worker.name" header="WorkerName"></Column>

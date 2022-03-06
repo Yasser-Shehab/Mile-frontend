@@ -6,8 +6,10 @@ import { SplitButton } from "primereact/splitbutton";
 
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
+import { getProjects } from "../../store/actions/projectAction";
 import { getWorkers, asignProject } from "../../store/actions/workerAction";
-import getProjects from "../../store/actions/projectAction";
+
 import "./DataTable.css";
 import Details from "./Details";
 
@@ -34,7 +36,7 @@ function Worker() {
     isMounted.current = true;
     dispatch(getProjects());
     dispatch(getWorkers());
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
   // ***********   show nested data   ******************
   const rowExpansionTemplate = (data) => {
     return (
@@ -121,7 +123,6 @@ function Worker() {
     <>
       <div className="datatable-rowexpansion-demo">
         <div className="card">
- 
           <DataTable
             resizableColumns
             columnResizeMode="expand"
