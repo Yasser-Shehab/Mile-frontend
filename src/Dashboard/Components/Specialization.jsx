@@ -11,7 +11,7 @@ function Specialization() {
   useEffect(() => {
     dispatch(getSpecializations());
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
-  console.log(specsList);
+
   return (
     <>
       <DataTable

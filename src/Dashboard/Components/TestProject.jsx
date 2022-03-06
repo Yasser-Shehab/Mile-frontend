@@ -16,6 +16,7 @@ import { InputText } from "primereact/inputtext";
 import { InputTextarea } from "primereact/inputtextarea";
 import { InputNumber } from "primereact/inputnumber";
 import { classNames } from "primereact/utils";
+import axios from "axios";
 
 function Project() {
   let emptyProject = {
@@ -35,7 +36,7 @@ function Project() {
   const toast = useRef(null);
   const dt = useRef(null);
   const projectsList = useSelector((state) => state.projectReducer.projects);
-
+  const projectObj = useSelector((state) => state.projectReducer.project);
   const dispatch = useDispatch();
 
   useEffect(() => {

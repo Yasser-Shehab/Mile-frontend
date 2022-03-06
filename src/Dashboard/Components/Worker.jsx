@@ -7,7 +7,7 @@ import { SplitButton } from "primereact/splitbutton";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import getWorkers from "../../store/actions/workerAction";
-import getProjects from "../../store/actions/projectAction";
+import { getProjects } from "../../store/actions/projectAction";
 import "./DataTable.css";
 import Details from "./Details";
 
@@ -32,7 +32,7 @@ function Worker() {
     isMounted.current = true;
     dispatch(getProjects());
     dispatch(getWorkers());
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
   // ***********   show nested data   ******************
   const rowExpansionTemplate = (data) => {
     return (

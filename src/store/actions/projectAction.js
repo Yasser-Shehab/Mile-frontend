@@ -12,4 +12,28 @@ const getProjects = () => (dispatch) => {
     .catch((err) => console.log(err));
 };
 
-export default getProjects;
+const addProject = (newProject) => (dispatch) => {
+  axios
+    .post("http://localhost:8000/project", newProject)
+    .then(({ data: { project } }) => {
+      dispatch({
+        type: "ADD_PROJECT",
+        payload: project,
+      });
+    })
+    .catch((err) => console.log(err));
+};
+
+const deleteProject = (id) => (dispatch) => {
+  axios
+    .delete(`http://localhost:8000/project/${id}`)
+    .then(({ data }) => {
+      console.log(data);
+      dispatch({
+        type: "DELETE_PROJECT",
+        payload: data,
+      });
+    })
+    .catch((err) => console.log(err));
+};
+export { getProjects, addProject, deleteProject };

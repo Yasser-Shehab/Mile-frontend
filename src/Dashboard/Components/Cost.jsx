@@ -11,7 +11,7 @@ function Cost() {
   useEffect(() => {
     dispatch(getCosts());
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
-  console.log(costsList);
+
   return (
     <>
       <DataTable
@@ -19,6 +19,7 @@ function Cost() {
         columnResizeMode="expand"
         showGridlines
         value={costsList}
+        responsiveLayout="scroll"
       >
         <Column field="worker.name" header="WorkerName"></Column>
         <Column field="project.name" header="ProjectName"></Column>
