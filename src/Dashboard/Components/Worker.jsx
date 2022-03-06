@@ -38,7 +38,8 @@ function Worker() {
     return (
       <Details>
         <h1>{data.name}</h1>
-        <h3>Projects</h3>
+        {data.projects.length !== 0 && <h3>Projects</h3>}
+
         {data.projects.map((id) => {
           return projectsList.map((p) => {
             if (p._id === id)
@@ -48,7 +49,7 @@ function Worker() {
                   value={p.name}
                   size="large"
                   severity="success"
-                  style={{ marginRight: "1rem" }}
+                  // style={{ marginRight: "1rem" }}
                 ></Badge>
               );
           });
@@ -61,7 +62,7 @@ function Worker() {
                 value={p.projectName}
                 size="large"
                 severity="success"
-                style={{ marginRight: "1rem" }}
+                // style={{ marginRight: "1rem" }}
               ></Badge>
             );
         })}
@@ -85,7 +86,7 @@ function Worker() {
             };
           })}
           className="p-button-raised mr-2 mb-2"
-          style={{ marginRight: "1rem" }}
+          // style={{ marginRight: "1rem" }}
         ></SplitButton>
 
         <Button label="add" onClick={() => handleClick(project)} />
@@ -132,12 +133,12 @@ function Worker() {
             header={header}
           >
             <Column expander style={{ width: "3em" }} />
-            <Column field="name" header="FirstName"></Column>
-            <Column field="specs.name" header="FirstName"></Column>
-            <Column field="specs.type" header="FirstName"></Column>
-            <Column field="address" header="Address"></Column>
-            <Column field="mobile" header="Mobile"></Column>
-            <Column field="nationalID" header="ID"></Column>
+            <Column field="name" header="الاسم"></Column>
+            <Column field="specs.name" header="اسم التخصص"></Column>
+            <Column field="specs.type" header="نوع التخصص"></Column>
+            <Column field="address" header="العنوان"></Column>
+            <Column field="mobile" header="الموبايل"></Column>
+            <Column field="nationalID" header="الرقم القومي"></Column>
           </DataTable>
         </div>
       </div>
