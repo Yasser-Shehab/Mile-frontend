@@ -82,6 +82,15 @@ function Worker() {
               ></Badge>
             );
         })}
+        {data.projects ? (
+          <Button
+            icon="pi pi-trash"
+            className="p-button-rounded p-button-warning"
+            // onClick={() => confirmDeletespecialization(rowData)}
+          />
+        ) : (
+          console.log(data.projects)
+        )}
         <h3 className="mb-3">Add new project</h3>
         <SplitButton
           label={

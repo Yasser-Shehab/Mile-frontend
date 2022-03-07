@@ -15,6 +15,12 @@ const WorkerReducer = (state = INITIAL_VALUE, action) => {
         ...state,
         worker: action.payload,
       };
+    case "ADD_WORKER":
+    case "DELETE_WORKER":
+    case "EDIT_WORKER":
+      return {
+        ...state,
+      };
 
     default:
       return state;

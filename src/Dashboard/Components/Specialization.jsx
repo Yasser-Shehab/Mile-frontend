@@ -134,14 +134,6 @@ function Specialization() {
           className="p-button-success mr-2"
           onClick={openNew}
         />
-        <Button
-          label="Delete"
-          icon="pi pi-trash"
-          className="p-button-danger"
-          // onClick={confirmDeleteSelected}
-          // disabled={!selectedspecializations || !selectedspecializations.length}
-          disabled
-        />
       </React.Fragment>
     );
   };

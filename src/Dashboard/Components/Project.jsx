@@ -86,13 +86,10 @@ function Project() {
       setProject(emptyProject);
     }
   };
-  console.log(project);
-
   const confirmDeleteProject = (project) => {
     setProject(project);
     setDeleteProjectDialog(true);
   };
-  console.log(!project.name && !project.budget);
 
   // Delete from DB
   const deleteHandel = (id) => {
@@ -214,7 +211,7 @@ function Project() {
       <div className="datatable-crud-demo">
         <Toast ref={toast} />
         <div className="card">
-          <Toolbar left={leftToolbarTemplate}></Toolbar>
+          <Toolbar className="mb-4" left={leftToolbarTemplate}></Toolbar>
           <DataTable
             resizableColumns
             columnResizeMode="expand"

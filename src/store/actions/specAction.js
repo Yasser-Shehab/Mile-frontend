@@ -15,7 +15,8 @@ const getSpecializations = () => (dispatch) => {
 const addSpecializations = (data) => {
 
   return (dispatch) => {
-    axios.post("http://localhost:8000/specialization", data).then(res => {
+    axios.post("http://localhost:8000/specialization", data)
+      .then(res => {
       console.log(res);
       dispatch({
         type: "ADD_SPECS",
