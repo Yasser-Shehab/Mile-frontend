@@ -16,7 +16,7 @@ const ProjectReducer = (state = INITIAL_VALUE, action) => {
         ...state,
         project: action.payload,
       };
-
+    case "EDIT_PROJECT":
     case "DELETE_PROJECT":
       return {
         ...state,

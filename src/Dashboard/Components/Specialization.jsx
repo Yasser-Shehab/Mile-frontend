@@ -44,25 +44,28 @@ function Specialization() {
     setLoading1(true);
     setSubmitted(true);
     if (inputValues.name.trim() && inputValues.type.trim()) {
+     
+      console.log(inputValues);
+      if (!inputValues.id) {
+        dispatch(addSpecializations(inputValues));
+      } else {
+        dispatch(
+          editSpecializations(
+            { name: inputValues.name, type: inputValues.type },
+            inputValues.id
+          )
+        );
+      }
+
       setspecializationDialog(false);
+      setInputValues({ name: "", type: "" });
     }
-    console.log(inputValues);
-    if (!inputValues.id) {
-      dispatch(addSpecializations(inputValues));
-    } else {
-      dispatch(
-        editSpecializations(
-          {name:inputValues.name,type: inputValues.type},
-          inputValues.id
-        )
-      );
-    }
+    
 
     setLoading1(false);
-    setInputValues({ name: "", type: "" });
+    
   };
-  console.log(!inputValues.id);
-
+  
   const confirmDeletespecialization = (spec) => {
     // console.log(spec);
     setDeleteValue(spec);
@@ -191,7 +194,7 @@ function Specialization() {
         rows={10}
         rowsPerPageOptions={[5, 10, 25]}
         paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
-        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} specialization"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} of specialization"
       >
         <Column field="name" header="First Name"></Column>
         <Column field="type" header="Type"></Column>
