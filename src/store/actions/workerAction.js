@@ -57,6 +57,9 @@ const editWorker = (data,id) => {
     axios
       .patch(`http://localhost:8000/worker/${id}`,data)
       .then((res) => {
+        console.log(res);
+        console.log("id in action",id);
+        console.log("data in action",data);
         dispatch({
           type: "EDIT_WORKER",
           payload: data,

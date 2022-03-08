@@ -6,7 +6,13 @@ import { SplitButton } from "primereact/splitbutton";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProjects } from "../../store/actions/projectAction";
-import { getWorkers, asignProject } from "../../store/actions/workerAction";
+import {
+  getWorkers,
+  asignProject,
+  addWorker,
+  deleteWorker,
+  editWorker,
+} from "../../store/actions/workerAction";
 
 import "./DataTable.css";
 import Details from "./Details";
@@ -29,13 +35,15 @@ function Worker() {
   const projectsList = useSelector((state) => state.projectReducer.projects);
   const [workerProjects, setWorkerProjects] = useState([]);
   const [submitted, setSubmitted] = useState(false);
-  const [specializationDialog, setspecializationDialog] = useState(false);
+  const [workerDialog, setWorkerDialog] = useState(false);
+  const [deleteWorkerDialog, setDeleteWorkerDialog] = useState(false);
   const [inputValues, setInputValues] = useState({
     name: "",
     address: "",
-    mobile: null,
-    nationalID: null,
+    mobile: "",
+    nationalID: "",
   });
+  const [deleteValue, setDeleteValue] = useState("");
   const [deleteProjectFlag, setDeleteProjectFlag] = useState(false);
   const [selectedDeleteProject, setSelectedDeleteProject] = useState([""]);
 
@@ -45,8 +53,8 @@ function Worker() {
     setWorkerProjects([...workerProjects, project]);
     dispatch(asignProject(workerId, project.projectId));
   };
-  console.log(workerProjects);
-  console.log(project);
+  // console.log(workerProjects);
+  // console.log(project);
   useEffect(() => {
     isMounted.current = true;
     dispatch(getProjects());
@@ -58,8 +66,8 @@ function Worker() {
     setSelectedDeleteProject(dataa);
     setDeleteProjectFlag(!deleteProjectFlag);
   };
-  console.log(deleteProjectFlag);
-  console.log("selectedDeleteProject", selectedDeleteProject);
+  // console.log(deleteProjectFlag);
+  // console.log("selectedDeleteProject", selectedDeleteProject);
   // ***********   show nested data   ******************
   const rowExpansionTemplate = (data) => {
     console.log("selected user Data", data);
@@ -96,7 +104,7 @@ function Worker() {
               </>
             );
         })}
-        {console.log(data.projects)}
+        {/* {console.log(data.projects)} */}
         {/* {console.log(workerProjects)} */}
 
         {(!(data.projects.length === 0) || !(workerProjects.length === 0)) && (
@@ -147,12 +155,50 @@ function Worker() {
   const openNew = () => {
     setInputValues(inputValues);
     setSubmitted(false);
-    setspecializationDialog(true);
+    setWorkerDialog(true);
   };
+
+  const saveWorker = () => {
+    setSubmitted(true);
+    if (
+      inputValues.name.trim() &&
+      inputValues.address.trim() &&
+      inputValues.mobile !== 0 &&
+      inputValues.nationalID !== 0
+    ) {
+      console.log(inputValues);
+      if (!inputValues.id) {
+        dispatch(addWorker(inputValues));
+        console.log(inputValues);
+      } else {
+        console.log("edit values",inputValues);
+        dispatch(
+          editWorker(
+            {
+              name: inputValues.name,
+              address: inputValues.address,
+              mobile: inputValues.mobile,
+              nationalID: inputValues.nationalID,
+            },
+            inputValues.id
+          )
+        );
+      }
+
+      setWorkerDialog(false);
+      setInputValues({
+        name: "",
+        address: "",
+        mobile: "",
+        nationalID: "",
+      });
+    }
+  };
+
   const hideDialog = () => {
     setSubmitted(false);
-    setspecializationDialog(false);
-    setInputValues(inputValues);
+    setWorkerDialog(false);
+    setInputValues({ name: "", address: "", mobile: "", nationalID: "" });
   };
   const onInputChange = (val, name) => {
     let _input = { ...inputValues };
@@ -160,14 +206,38 @@ function Worker() {
     console.log(_input);
     setInputValues(_input);
   };
-
   const onInputNumberChange = (e, name) => {
-    console.log(e);
     const val = e.value;
     let _input = { ...inputValues };
     _input[`${name}`] = val;
     setInputValues(_input);
   };
+  const confirmDeleteWorker = (worker) => {
+    setDeleteValue(worker);
+    setDeleteWorkerDialog(true);
+  };
+  const deleteHandel = (data) => {
+    console.log("data", data._id);
+    dispatch(deleteWorker(data._id));
+    setDeleteWorkerDialog(false);
+  };
+  const hideDeleteWorkerDialog = () => {
+    setDeleteWorkerDialog(false);
+  };
+  const editWorkers = (data) => {
+    console.log("data", data);
+    setInputValues({
+      ...inputValues,
+      id: data._id,
+      name: data.name,
+      address: data.address,
+      mobile: data.mobile,
+      nationalID: data.nationalID,
+    });
+    // console.log(data);
+    setWorkerDialog(true);
+  };
+  console.log(inputValues);
   const header = (
     <div className="table-header-container">
       <Button
@@ -206,9 +276,44 @@ function Worker() {
         className="p-button-text"
         //  loading={loading1}
         // type="submit"
-        //  onClick={saveSpecialization}
+        onClick={saveWorker}
       />
       {/* </form> */}
+    </>
+  );
+  const actionBodyTemplate = (rowData) => {
+    return (
+      <>
+        <Button
+          icon="pi pi-pencil"
+          className="p-button-rounded p-button-success mr-2"
+          onClick={() => editWorkers(rowData)}
+        />
+        <Button
+          icon="pi pi-trash"
+          className="p-button-rounded p-button-warning"
+          onClick={() => confirmDeleteWorker(rowData)}
+        />
+      </>
+    );
+  };
+
+  const deletespecializationDialogFooter = (
+    <>
+      <Button
+        label="No"
+        icon="pi pi-times"
+        className="p-button-text"
+        onClick={hideDeleteWorkerDialog}
+      />
+      <Button
+        label="Yes"
+        icon="pi pi-check"
+        className="p-button-text"
+        onClick={() => {
+          deleteHandel(deleteValue);
+        }}
+      />
     </>
   );
 
@@ -241,10 +346,15 @@ function Worker() {
             <Column field="address" header="العنوان"></Column>
             <Column field="mobile" header="الموبايل"></Column>
             <Column field="nationalID" header="الرقم القومي"></Column>
+            <Column
+              body={actionBodyTemplate}
+              exportable={false}
+              style={{ minWidth: "8rem" }}
+            ></Column>
           </DataTable>
           <form /*onSubmit={submitHandel}*/ noValidate>
             <Dialog
-              visible={specializationDialog}
+              visible={workerDialog}
               style={{ width: "450px" }}
               header="Specialization Details"
               modal
@@ -315,16 +425,46 @@ function Worker() {
                   required
                   value={inputValues.nationalID}
                   className={classNames({
-                    "p-invalid": submitted && !inputValues.nationalID,
+                    "p-invalid": submitted && !inputValues.nationalID /*||
+                        inputValues.nationalID.toString().legnth !== 14)*/,
                   })}
                   onValueChange={(e) => onInputNumberChange(e, "nationalID")}
                 />
+                {/* {console.log(inputValues.nationalID.toString().length)}
+                {console.log(inputValues.nationalID.toString().legnth > 2)}
+                {console.log(inputValues.nationalID)} */}
+
                 {submitted && !inputValues.nationalID && (
                   <small className="p-error">الرقم القومي مطلوب</small>
                 )}
+                {/* {submitted &&
+                  inputValues.nationalID.toString().legnth !== 14 && (
+                    <small className="p-error">الرقم القومي يجب ان يكون 14 رقم</small>
+                  )} */}
               </div>
             </Dialog>
           </form>
+          <Dialog
+            visible={deleteWorkerDialog}
+            style={{ width: "450px" }}
+            header="Confirm"
+            modal
+            footer={deletespecializationDialogFooter}
+            onHide={hideDeleteWorkerDialog}
+          >
+            <div className="confirmation-content">
+              <i
+                className="pi pi-exclamation-triangle mr-3"
+                style={{ fontSize: "2rem" }}
+              />
+              {deleteValue && (
+                <span>
+                  Are you sure you want to delete
+                  <b>{deleteValue.name}</b>?
+                </span>
+              )}
+            </div>
+          </Dialog>
         </div>
       </div>
     </>
