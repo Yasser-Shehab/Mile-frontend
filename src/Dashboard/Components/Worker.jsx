@@ -36,6 +36,8 @@ function Worker() {
     mobile: null,
     nationalID: null,
   });
+  const [deleteProjectFlag, setDeleteProjectFlag] = useState(false);
+  const [selectedDeleteProject, setSelectedDeleteProject] = useState([""]);
 
   const dispatch = useDispatch();
 
@@ -43,14 +45,24 @@ function Worker() {
     setWorkerProjects([...workerProjects, project]);
     dispatch(asignProject(workerId, project.projectId));
   };
-
+  console.log(workerProjects);
+  console.log(project);
   useEffect(() => {
     isMounted.current = true;
     dispatch(getProjects());
     dispatch(getWorkers());
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const deleteProjectsHandel = (dataa) => {
+    console.log(dataa);
+    setSelectedDeleteProject(dataa);
+    setDeleteProjectFlag(!deleteProjectFlag);
+  };
+  console.log(deleteProjectFlag);
+  console.log("selectedDeleteProject", selectedDeleteProject);
   // ***********   show nested data   ******************
   const rowExpansionTemplate = (data) => {
+    console.log("selected user Data", data);
     return (
       <Details>
         <h1>{data.name}</h1>
@@ -64,7 +76,7 @@ function Worker() {
                   key={p._id}
                   value={p.name}
                   size="large"
-                  severity="success"
+                  severity={deleteProjectFlag ? "danger" : "success"}
                   style={{ marginRight: "1rem", marginTop: "1rem" }}
                 ></Badge>
               );
@@ -73,24 +85,28 @@ function Worker() {
         {workerProjects.map((p) => {
           if (p.workerId === data._id)
             return (
-              <Badge
-                key={p.projectId}
-                value={p.projectName}
-                size="large"
-                severity="success"
-                style={{ margin: "1rem" }}
-              ></Badge>
+              <>
+                <Badge
+                  key={p.projectId}
+                  value={p.projectName}
+                  size="large"
+                  severity="success"
+                  style={{ margin: "1rem" }}
+                ></Badge>
+              </>
             );
         })}
-        {data.projects ? (
+        {console.log(data.projects)}
+        {/* {console.log(workerProjects)} */}
+
+        {(!(data.projects.length === 0) || !(workerProjects.length === 0)) && (
           <Button
             icon="pi pi-trash"
             className="p-button-rounded p-button-warning"
-            // onClick={() => confirmDeletespecialization(rowData)}
+            onClick={() => deleteProjectsHandel(data.projects)}
           />
-        ) : (
-          console.log(data.projects)
         )}
+
         <h3 className="mb-3">Add new project</h3>
         <SplitButton
           label={
@@ -128,7 +144,6 @@ function Worker() {
     setExpandedRows(null);
   };
 
- 
   const openNew = () => {
     setInputValues(inputValues);
     setSubmitted(false);
@@ -140,14 +155,12 @@ function Worker() {
     setInputValues(inputValues);
   };
   const onInputChange = (val, name) => {
-    
     let _input = { ...inputValues };
     _input[`${name}`] = val;
     console.log(_input);
     setInputValues(_input);
-    
   };
-  console.log(inputValues);
+
   const onInputNumberChange = (e, name) => {
     console.log(e);
     const val = e.value;
@@ -155,17 +168,17 @@ function Worker() {
     _input[`${name}`] = val;
     setInputValues(_input);
   };
- const header = (
-   <div className="table-header-container">
-     <Button
-       icon="pi pi-plus"
-       label="Expand All"
-       onClick={expandAll}
-       style={{ marginRight: "1rem" }}
-     />
-     <Button icon="pi pi-minus" label="Collapse All" onClick={collapseAll} />
-   </div>
- );
+  const header = (
+    <div className="table-header-container">
+      <Button
+        icon="pi pi-plus"
+        label="Expand All"
+        onClick={expandAll}
+        style={{ marginRight: "1rem" }}
+      />
+      <Button icon="pi pi-minus" label="Collapse All" onClick={collapseAll} />
+    </div>
+  );
   const leftToolbarTemplate = () => {
     return (
       <>
@@ -174,14 +187,6 @@ function Worker() {
           icon="pi pi-plus"
           className="p-button-success mr-2"
           onClick={openNew}
-        />
-        <Button
-          label="Delete"
-          icon="pi pi-trash"
-          className="p-button-danger"
-          // onClick={confirmDeleteSelected}
-          // disabled={!selectedspecializations || !selectedspecializations.length}
-          disabled
         />
       </>
     );
@@ -206,7 +211,7 @@ function Worker() {
       {/* </form> */}
     </>
   );
-  console.log("inputValue array", inputValues);
+
   return (
     <>
       <div className="datatable-rowexpansion-demo">
