@@ -5,7 +5,7 @@ import { Badge } from "primereact/badge";
 import { SplitButton } from "primereact/splitbutton";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getProjects } from "../../store/actions/projectAction";
+import {  getProjects } from "../../store/actions/projectAction";
 import {
   getWorkers,
   asignProject,
@@ -46,7 +46,7 @@ function Worker() {
   const [deleteValue, setDeleteValue] = useState("");
   const [deleteProjectFlag, setDeleteProjectFlag] = useState(false);
   const [selectedDeleteProject, setSelectedDeleteProject] = useState([""]);
-
+const [deletedProject,setDeletedProject]=useState("")
   const dispatch = useDispatch();
 
   const addProject = (workerId, project) => {
@@ -62,15 +62,38 @@ function Worker() {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const deleteProjectsHandel = (dataa) => {
-    console.log(dataa);
+    // console.log(dataa);
     setSelectedDeleteProject(dataa);
     setDeleteProjectFlag(!deleteProjectFlag);
   };
+  
+  const onBadgeClick = (ev, id) => {
+    if (deleteProjectFlag) {
+      setDeletedProject(
+        selectedDeleteProject.filter((ele) => ele !== ev.target.name)
+      );
+      confirmDeleteProject(id)
+    }
+    
+  };
+  const confirmDeleteProject = (id) => {
+    console.log(id);
+    console.log(deletedProject);
+  dispatch(
+    editWorker(
+      {
+        projects: deletedProject,
+      },
+      id
+    )
+  );
+}
   // console.log(deleteProjectFlag);
   // console.log("selectedDeleteProject", selectedDeleteProject);
   // ***********   show nested data   ******************
   const rowExpansionTemplate = (data) => {
-    console.log("selected user Data", data);
+    console.log(data);
+    // setSelectedUser(data._id);
     return (
       <Details>
         <h1>{data.name}</h1>
@@ -80,13 +103,19 @@ function Worker() {
           return projectsList.map((p) => {
             if (p._id === id)
               return (
-                <Badge
+                <Button
+                  name={id}
                   key={p._id}
-                  value={p.name}
-                  size="large"
-                  severity={deleteProjectFlag ? "danger" : "success"}
+                  // label={p.name}
+                  size="xlarge"
+                  onClick={(e) => {
+                    onBadgeClick(e,data._id);
+                  }}
+                  className={
+                    deleteProjectFlag ? "p-button-danger" : "p-button-success"
+                  }
                   style={{ marginRight: "1rem", marginTop: "1rem" }}
-                ></Badge>
+                >{ p.name}</Button>
               );
           });
         })}
@@ -94,13 +123,15 @@ function Worker() {
           if (p.workerId === data._id)
             return (
               <>
-                <Badge
+                <Button
                   key={p.projectId}
-                  value={p.projectName}
+                  label={p.projectName}
                   size="large"
-                  severity="success"
-                  style={{ margin: "1rem" }}
-                ></Badge>
+                  className={
+                    deleteProjectFlag ? "p-button-danger" : "p-button-success"
+                  }
+                  style={{ margin: "1rem", marginTop: "1rem" }}
+                ></Button>
               </>
             );
         })}
@@ -171,7 +202,7 @@ function Worker() {
         dispatch(addWorker(inputValues));
         console.log(inputValues);
       } else {
-        console.log("edit values",inputValues);
+        console.log("edit values", inputValues);
         dispatch(
           editWorker(
             {
@@ -237,7 +268,7 @@ function Worker() {
     // console.log(data);
     setWorkerDialog(true);
   };
-  console.log(inputValues);
+
   const header = (
     <div className="table-header-container">
       <Button
