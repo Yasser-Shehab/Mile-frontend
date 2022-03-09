@@ -23,4 +23,16 @@ const addCost = (data) => (dispatch) => {
     .catch((err) => console.log(err));
 };
 
-export { getCosts, addCost };
+const deleteCost = (id) => (dispatch) => {
+  axios
+    .delete(`http://localhost:8000/cost/${id}`)
+    .then(({ data }) =>
+      dispatch({
+        type: "DELETE_COST",
+        payload: data,
+      })
+    )
+    .catch((err) => console.log(err));
+};
+
+export { getCosts, addCost, deleteCost };

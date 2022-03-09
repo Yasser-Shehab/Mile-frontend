@@ -7,7 +7,7 @@ import { InputNumber } from "primereact/inputnumber";
 import { InputText } from "primereact/inputtext";
 import { Dropdown } from "primereact/dropdown";
 import { useSelector, useDispatch } from "react-redux";
-import { getCosts, addCost } from "../../store/actions/costAction";
+import { getCosts, addCost, deleteCost } from "../../store/actions/costAction";
 import { getWorkers } from "../../store/actions/workerAction";
 import { getProjects } from "../../store/actions/projectAction";
 
@@ -16,23 +16,27 @@ function Cost() {
   const workersList = useSelector((state) => state.workerReducer.workers);
   const projectsList = useSelector((state) => state.projectReducer.projects);
 
+  const [allCosts, setAllCosts] = useState(costsList);
+
   const [display, setDisplay] = useState(false);
-  const [selectedWorker, setSelectedWorker] = useState(null);
-  const [selectedProject, setSelectedProject] = useState(null);
+  const [selectedWorker, setSelectedWorker] = useState("");
+  const [selectedProject, setSelectedProject] = useState("");
   const [amount, setAmount] = useState(null);
   const [notes, setNotes] = useState(null);
 
   const dispatch = useDispatch();
+
   useEffect(() => {
+    setAllCosts(costsList);
     dispatch(getCosts());
     dispatch(getProjects());
     dispatch(getWorkers());
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-  console.log(selectedWorker, selectedProject, amount);
+  }, [costsList]); // eslint-disable-line react-hooks/exhaustive-deps
+
   const addNewCost = () => {
     let data = {
-      workerId: selectedWorker,
-      projectId: selectedProject,
+      workerId: selectedWorker._id,
+      projectId: selectedProject._id,
       amount,
       notes,
     };
@@ -71,7 +75,7 @@ function Cost() {
             <Dropdown
               value={selectedWorker}
               options={workersList}
-              onChange={(e) => setSelectedWorker(e.target.value._id)}
+              onChange={(e) => setSelectedWorker(e.target.value)}
               optionLabel="name"
               placeholder="Select a Worker"
             />
@@ -80,7 +84,7 @@ function Cost() {
             <Dropdown
               value={selectedProject}
               options={projectsList}
-              onChange={(e) => setSelectedProject(e.target.value._id)}
+              onChange={(e) => setSelectedProject(e.target.value)}
               optionLabel="name"
               placeholder="Select a Project"
             />
@@ -103,6 +107,26 @@ function Cost() {
       </Dialog>
     </div>
   );
+  const handleDelete = (data) => {
+    dispatch(deleteCost(data._id));
+  };
+
+  const actionBodyTemplate = (rowData) => {
+    return (
+      <>
+        {/* <Button
+          icon="pi pi-pencil"
+          className="p-button-rounded p-button-success mr-2"
+          onClick={() => editspecialization(rowData)}
+        /> */}
+        <Button
+          icon="pi pi-trash"
+          className="p-button-rounded p-button-warning"
+          onClick={() => handleDelete(rowData)}
+        />
+      </>
+    );
+  };
 
   return (
     <>
@@ -110,7 +134,7 @@ function Cost() {
         resizableColumns
         columnResizeMode="expand"
         showGridlines
-        value={costsList}
+        value={allCosts}
         responsiveLayout="scroll"
         header={header}
       >
@@ -118,6 +142,11 @@ function Cost() {
         <Column field="project.name" header="ProjectName"></Column>
         <Column field="amount" header="Cost"></Column>
         <Column field="createdAt" header="CreatedAt"></Column>
+        <Column
+          body={(e) => actionBodyTemplate(e)}
+          exportable={false}
+          style={{ minWidth: "8rem" }}
+        ></Column>
       </DataTable>
     </>
   );
