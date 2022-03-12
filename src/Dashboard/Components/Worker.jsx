@@ -5,7 +5,7 @@ import { Badge } from "primereact/badge";
 import { SplitButton } from "primereact/splitbutton";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {  getProjects } from "../../store/actions/projectAction";
+import { getProjects } from "../../store/actions/projectAction";
 import {
   getWorkers,
   asignProject,
@@ -45,17 +45,12 @@ function Worker() {
     nationalID: "",
   });
   const [deleteValue, setDeleteValue] = useState("");
-<<<<<<< HEAD
-  const [deleteProjectFlag, setDeleteProjectFlag] = useState(false);
-  const [selectedDeleteProject, setSelectedDeleteProject] = useState([""]);
 
   const [globalFilter, setGlobalFilter] = useState(null);
 
-=======
-  const [deleteProjectFlag, setDeleteProjectFlag] = useState(false);//the flag to switch between delete project or not
-  const [selectedDeleteProject, setSelectedDeleteProject] = useState([""]);//the selected delete project
-const [deletedProject,setDeletedProject]=useState("")
->>>>>>> 86cafb7dd74ac944588973bbf6ae107277e021f0
+  const [deleteProjectFlag, setDeleteProjectFlag] = useState(false); //the flag to switch between delete project or not
+  const [selectedDeleteProject, setSelectedDeleteProject] = useState([""]); //the selected delete project
+  // const [deletedProject,setDeletedProject]=useState("")
   const dispatch = useDispatch();
 
   const addProject = (workerId, project) => {
@@ -64,8 +59,6 @@ const [deletedProject,setDeletedProject]=useState("")
   };
   // console.log(workerProjects);
   // console.log(projectsList);
-
-
 
   console.log(project);
   useEffect(() => {
@@ -79,39 +72,38 @@ const [deletedProject,setDeletedProject]=useState("")
     setSelectedDeleteProject(dataa);
     setDeleteProjectFlag(!deleteProjectFlag);
   };
-  
+
   const onBadgeClick = (ev, id) => {
     if (deleteProjectFlag) {
       console.log("slectedDeleteProject", selectedDeleteProject);
-       // setDeletedProject(
+      // setDeletedProject(
       //   selectedDeleteProject.filter((ele) => ele !== ev.target.name));
       let arr = selectedDeleteProject.filter((ele) => ele !== ev.target.name);
       dispatch(
         editWorker(
           {
-            projects: arr
+            projects: arr,
           },
           id
         )
       );
       setDeleteProjectFlag(!deleteProjectFlag);
-      console.log("aarr",arr);
+      console.log("aarr", arr);
       // confirmDeleteProject(id)
     }
-    
   };
-//   const confirmDeleteProject = (id) => {
-//     console.log(id);
-//     console.log(deletedProject);
-//   dispatch(
-//     editWorker(
-//       {
-//         projects: deletedProject,
-//       },
-//       id
-//     )
-//   );
-// }
+  //   const confirmDeleteProject = (id) => {
+  //     console.log(id);
+  //     console.log(deletedProject);
+  //   dispatch(
+  //     editWorker(
+  //       {
+  //         projects: deletedProject,
+  //       },
+  //       id
+  //     )
+  //   );
+  // }
 
   // ***********   show nested data   ******************
   const rowExpansionTemplate = (data) => {
@@ -128,18 +120,21 @@ const [deletedProject,setDeletedProject]=useState("")
               return (
                 <Button
                   name={id}
-                  
                   key={p._id}
                   // label={p.name}
                   size="xlarge"
                   onClick={(e) => {
-                    onBadgeClick(e,data._id);
+                    onBadgeClick(e, data._id);
                   }}
                   className={
-                    deleteProjectFlag && data._id ? "p-button-danger" : "p-button-success"
+                    deleteProjectFlag && data._id
+                      ? "p-button-danger"
+                      : "p-button-success"
                   }
                   style={{ marginRight: "1rem", marginTop: "1rem" }}
-                >{ p.name}</Button>
+                >
+                  {p.name}
+                </Button>
               );
           });
         })}
