@@ -24,6 +24,7 @@ function Specialization() {
     useState(false);
   const [deleteValue, setDeleteValue] = useState("");
   const [loading1, setLoading1] = useState(false);
+  const [globalFilter, setGlobalFilter] = useState(null);
   useEffect(() => {
     dispatch(getSpecializations());
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
@@ -44,7 +45,6 @@ function Specialization() {
     setLoading1(true);
     setSubmitted(true);
     if (inputValues.name.trim() && inputValues.type.trim()) {
-     
       console.log(inputValues);
       if (!inputValues.id) {
         dispatch(addSpecializations(inputValues));
@@ -60,12 +60,10 @@ function Specialization() {
       setspecializationDialog(false);
       setInputValues({ name: "", type: "" });
     }
-    
 
     setLoading1(false);
-    
   };
-  
+
   const confirmDeletespecialization = (spec) => {
     // console.log(spec);
     setDeleteValue(spec);
@@ -129,7 +127,7 @@ function Specialization() {
     return (
       <React.Fragment>
         <Button
-          label="New"
+          label="Add New Specialization"
           icon="pi pi-plus"
           className="p-button-success mr-2"
           onClick={openNew}
@@ -174,9 +172,28 @@ function Specialization() {
     </React.Fragment>
   );
 
+  const rightToolbarTemplate = () => {
+    return (
+      <React.Fragment>
+        <span className="p-input-icon-left">
+          <i className="pi pi-search" />
+          <InputText
+            type="search"
+            onInput={(e) => setGlobalFilter(e.target.value)}
+            placeholder="Search..."
+          />
+        </span>
+      </React.Fragment>
+    );
+  };
+
   return (
     <>
-      <Toolbar className="mb-4" left={leftToolbarTemplate}></Toolbar>
+      <Toolbar
+        className="mb-4"
+        left={leftToolbarTemplate}
+        right={rightToolbarTemplate}
+      ></Toolbar>
       <DataTable
         resizableColumns
         columnResizeMode="expand"
@@ -186,7 +203,8 @@ function Specialization() {
         rows={10}
         rowsPerPageOptions={[5, 10, 25]}
         paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
-        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} of specialization"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} of Specialization"
+        globalFilter={globalFilter}
       >
         <Column field="name" header="First Name"></Column>
         <Column field="type" header="Type"></Column>

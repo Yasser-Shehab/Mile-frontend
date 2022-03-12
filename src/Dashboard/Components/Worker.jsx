@@ -21,6 +21,7 @@ import { classNames } from "primereact/utils";
 import { InputText } from "primereact/inputtext";
 import { Dialog } from "primereact/dialog";
 import { InputNumber } from "primereact/inputnumber";
+import React from "react";
 
 function Worker() {
   const [project, setProject] = useState({
@@ -46,6 +47,8 @@ function Worker() {
   const [deleteValue, setDeleteValue] = useState("");
   const [deleteProjectFlag, setDeleteProjectFlag] = useState(false);
   const [selectedDeleteProject, setSelectedDeleteProject] = useState([""]);
+
+  const [globalFilter, setGlobalFilter] = useState(null);
 
   const dispatch = useDispatch();
 
@@ -171,7 +174,7 @@ function Worker() {
         dispatch(addWorker(inputValues));
         console.log(inputValues);
       } else {
-        console.log("edit values",inputValues);
+        console.log("edit values", inputValues);
         dispatch(
           editWorker(
             {
@@ -253,7 +256,7 @@ function Worker() {
     return (
       <>
         <Button
-          label="New"
+          label="Add New Worker"
           icon="pi pi-plus"
           className="p-button-success mr-2"
           onClick={openNew}
@@ -298,6 +301,21 @@ function Worker() {
     );
   };
 
+  const rightToolbarTemplate = () => {
+    return (
+      <React.Fragment>
+        <span className="p-input-icon-left">
+          <i className="pi pi-search" />
+          <InputText
+            type="search"
+            onInput={(e) => setGlobalFilter(e.target.value)}
+            placeholder="Search..."
+          />
+        </span>
+      </React.Fragment>
+    );
+  };
+
   const deletespecializationDialogFooter = (
     <>
       <Button
@@ -321,7 +339,11 @@ function Worker() {
     <>
       <div className="datatable-rowexpansion-demo">
         <div className="card">
-          <Toolbar className="mb-4" left={leftToolbarTemplate}></Toolbar>
+          <Toolbar
+            className="mb-4"
+            left={leftToolbarTemplate}
+            right={rightToolbarTemplate}
+          ></Toolbar>
           <DataTable
             resizableColumns
             columnResizeMode="expand"
@@ -338,6 +360,7 @@ function Worker() {
             rowsPerPageOptions={[5, 10, 25]}
             paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} of workers"
+            globalFilter={globalFilter}
           >
             <Column expander style={{ width: "3em" }} />
             <Column field="name" header="الاسم"></Column>
@@ -356,14 +379,14 @@ function Worker() {
             <Dialog
               visible={workerDialog}
               style={{ width: "450px" }}
-              header="Specialization Details"
+              header="Worker Details"
               modal
               className="p-fluid"
               footer={specializationDialogFooter}
               onHide={hideDialog}
             >
               <div className="field">
-                <label htmlFor="name">أسم التخصص </label>
+                <label htmlFor="name"> اسم العامل </label>
                 <InputText
                   id="name"
                   value={inputValues.name}
@@ -377,9 +400,10 @@ function Worker() {
                   })}
                 />
                 {submitted && !inputValues.name && (
-                  <small className="p-error">أسم التخصص مطلوب</small>
+                  <small className="p-error">أسم العامل مطلوب</small>
                 )}
               </div>
+
               <div className="field">
                 <label htmlFor="address">العنوان</label>
                 <InputText
@@ -394,7 +418,7 @@ function Worker() {
                   })}
                 />
                 {submitted && !inputValues.address && (
-                  <small className="p-error">نوع التخصص مطلوب</small>
+                  <small className="p-error">العنوان مطلوب</small>
                 )}
               </div>
               <div className="field">

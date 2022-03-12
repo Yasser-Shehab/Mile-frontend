@@ -60,7 +60,7 @@ function Cost() {
     <div className="table-header-container">
       <Button icon="pi pi-plus" label="Asign new cost" onClick={onClick} />
       <Dialog
-        header="Header"
+        header="Add New Cost"
         visible={display}
         style={{ width: "50vw" }}
         footer={renderFooter}

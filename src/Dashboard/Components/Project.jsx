@@ -35,6 +35,7 @@ function Project() {
   const toast = useRef(null);
   const dt = useRef(null);
   const projectsList = useSelector((state) => state.projectReducer.projects);
+  const [globalFilter, setGlobalFilter] = useState(null);
 
   const dispatch = useDispatch();
 
@@ -86,6 +87,7 @@ function Project() {
       setProject(emptyProject);
     }
   };
+
   const confirmDeleteProject = (project) => {
     setProject(project);
     setDeleteProjectDialog(true);
@@ -95,7 +97,7 @@ function Project() {
   const deleteHandel = (id) => {
     dispatch(deleteProject(id));
     setDeleteProjectDialog(false);
-    dispatch(getProjects());
+    // dispatch(getProjects());
     setProject(emptyProject);
   };
 
@@ -205,13 +207,31 @@ function Project() {
       />
     </React.Fragment>
   );
+  const rightToolbarTemplate = () => {
+    return (
+      <React.Fragment>
+        <span className="p-input-icon-left">
+          <i className="pi pi-search" />
+          <InputText
+            type="search"
+            onInput={(e) => setGlobalFilter(e.target.value)}
+            placeholder="Search..."
+          />
+        </span>
+      </React.Fragment>
+    );
+  };
 
   return (
     <>
       <div className="datatable-crud-demo">
         <Toast ref={toast} />
         <div className="card">
-          <Toolbar className="mb-4" left={leftToolbarTemplate}></Toolbar>
+          <Toolbar
+            className="mb-4"
+            left={leftToolbarTemplate}
+            right={rightToolbarTemplate}
+          ></Toolbar>
           <DataTable
             resizableColumns
             columnResizeMode="expand"
@@ -220,6 +240,12 @@ function Project() {
             dataKey="_id"
             responsiveLayout="scroll"
             ref={dt}
+            paginator
+            rows={10}
+            rowsPerPageOptions={[5, 10, 25]}
+            paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} of Projects"
+            globalFilter={globalFilter}
           >
             <Column
               resizableColumns
@@ -227,7 +253,7 @@ function Project() {
               showGridlines
               sortable
               field="name"
-              header="First Name"
+              header="Project Name"
             ></Column>
             <Column
               resizableColumns
@@ -243,6 +269,7 @@ function Project() {
               // body={dateBodyTemplate}
               columnResizeMode="expand"
               showGridlines
+              sortable
               field="createdAt"
               header="Created At"
             ></Column>
