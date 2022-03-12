@@ -11,7 +11,7 @@ function Account() {
   useEffect(() => {
     dispatch(getSumCost());
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
-  console.log(costsSumList);
+
   return (
     <>
       <DataTable
@@ -19,6 +19,7 @@ function Account() {
         columnResizeMode="expand"
         showGridlines
         value={costsSumList}
+        responsiveLayout="scroll"
       >
         <Column field="_id" header="Project Name"></Column>
         <Column field="total" header="Sum"></Column>
