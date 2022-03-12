@@ -10,9 +10,11 @@ import {
 } from "../../store/actions/projectAction";
 import { Button } from "primereact/button";
 import React from "react";
+import { Image } from "primereact/image";
 import { Toast } from "primereact/toast";
 import { Toolbar } from "primereact/toolbar";
 import { Dialog } from "primereact/dialog";
+import { FileUpload } from "primereact/fileupload";
 import { InputText } from "primereact/inputtext";
 import { InputTextarea } from "primereact/inputtextarea";
 import { InputNumber } from "primereact/inputnumber";
@@ -20,6 +22,8 @@ import { classNames } from "primereact/utils";
 
 function Project() {
   let emptyProject = {
+    thumbnail: "",
+    images: [],
     name: "",
     budget: 0,
     description: "",
@@ -64,10 +68,10 @@ function Project() {
   /*************************** Add in DB  **********************************/
   const saveProject = () => {
     setSubmitted(true);
-
-    // logic add
+    // // logic add
     if (project.name.trim() && project.budget !== 0) {
       if (!project.id) {
+        console.log(project);
         dispatch(addProject(project));
         setProject(emptyProject);
         // dispatch(getProjects());
@@ -102,7 +106,6 @@ function Project() {
   };
 
   const editHandel = (data) => {
-    console.log(data);
     setProject({
       ...projects,
       id: data._id,
@@ -116,12 +119,10 @@ function Project() {
   const onInputChange = (val, name) => {
     let _project = { ...project };
     _project[`${name}`] = val;
-    console.log(_project);
     setProject(_project);
   };
 
   const onInputNumberChange = (e, name) => {
-    console.log(e);
     const val = e.value || 0;
     let _project = { ...project };
     _project[`${name}`] = val;
@@ -143,19 +144,19 @@ function Project() {
 
   const leftToolbarTemplate = () => {
     return (
-      <React.Fragment>
+      <>
         <Button
           label="Add New Project"
           icon="pi pi-plus"
           className="p-button-success mr-2"
           onClick={openNew}
         />
-      </React.Fragment>
+      </>
     );
   };
 
   const projectDialogFooter = (
-    <React.Fragment>
+    <>
       <Button
         label="Cancel"
         icon="pi pi-times"
@@ -168,7 +169,7 @@ function Project() {
         className="p-button-text"
         onClick={saveProject}
       />
-    </React.Fragment>
+    </>
   );
 
   // Delete Icon
@@ -192,7 +193,7 @@ function Project() {
   };
 
   const DeleteProjectDialogFooter = (
-    <React.Fragment>
+    <>
       <Button
         label="No"
         icon="pi pi-times"
@@ -205,7 +206,7 @@ function Project() {
         className="p-button-text"
         onClick={() => deleteHandel(project._id)}
       />
-    </React.Fragment>
+    </>
   );
   const rightToolbarTemplate = () => {
     return (
@@ -220,6 +221,23 @@ function Project() {
         </span>
       </React.Fragment>
     );
+  };
+
+  //  *****************     upload new images   **********************
+  const handleThumbnail = (image) => {
+    let _project = { ...project };
+    _project.thumbnail = image;
+    setProject(_project);
+  };
+  const uploadImage = (data) => {
+    // const images = JSON.parse(xhr.response).images;
+    setProject({
+      thumbnail: "",
+      images: JSON.parse(data.xhr.response).images,
+      name: "",
+      budget: 0,
+      description: "",
+    });
   };
 
   return (
@@ -293,10 +311,45 @@ function Project() {
           style={{ width: "450px" }}
           header="Project Details"
           modal
+          maximizable
+          breakpoints={{
+            "2560px": "50vw",
+            "1440px": "70vw",
+            "1024px": "80vw",
+            "640px": "90vw",
+          }}
           className="p-fluid"
           footer={projectDialogFooter}
           onHide={hideDialog}
         >
+          {/* **************     Project images    *************** */}
+          <div>
+            {project.images.length !== 0 &&
+              project.images.map((image, i) => {
+                return (
+                  <div
+                    key={i}
+                    className="card"
+                    onClick={() => handleThumbnail(image)}
+                  >
+                    <Image src={image} width="250" />
+                  </div>
+                );
+              })}
+          </div>
+          <div className="field">
+            <label htmlFor="name">Project images</label>
+            <FileUpload
+              name="images"
+              onUpload={uploadImage}
+              multiple
+              accept="image/*"
+              maxFileSize={1000000}
+              url="http://localhost:8000/project/uploadImage"
+            />
+          </div>
+
+          {/* *********   name    *************** */}
           <div className="field">
             <label htmlFor="name">Name</label>
             <InputText
@@ -313,6 +366,8 @@ function Project() {
               <small className="p-error">Name is required.</small>
             )}
           </div>
+
+          {/* *********   Description    *************** */}
           <div className="field">
             <label htmlFor="description">Description</label>
             <InputTextarea
@@ -324,6 +379,8 @@ function Project() {
               cols={20}
             />
           </div>
+
+          {/* *********   Budget    *************** */}
           <div className="formgrid grid">
             <div className="field col">
               <label htmlFor="budget">Budget</label>
