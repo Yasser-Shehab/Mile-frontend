@@ -230,7 +230,6 @@ function Project() {
     setProject(_project);
   };
   const uploadImage = (data) => {
-    // const images = JSON.parse(xhr.response).images;
     setProject({
       thumbnail: "",
       images: JSON.parse(data.xhr.response).images,

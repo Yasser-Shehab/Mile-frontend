@@ -50,7 +50,6 @@ function Worker() {
 
   const [deleteProjectFlag, setDeleteProjectFlag] = useState(false); //the flag to switch between delete project or not
   const [selectedDeleteProject, setSelectedDeleteProject] = useState([""]); //the selected delete project
-  // const [deletedProject,setDeletedProject]=useState("")
   const dispatch = useDispatch();
 
   const addProject = (workerId, project) => {
@@ -60,7 +59,6 @@ function Worker() {
   // console.log(workerProjects);
   // console.log(projectsList);
 
-  console.log(project);
   useEffect(() => {
     isMounted.current = true;
     dispatch(getProjects());
@@ -75,20 +73,17 @@ function Worker() {
 
   const onBadgeClick = (ev, id) => {
     if (deleteProjectFlag) {
-      console.log("slectedDeleteProject", selectedDeleteProject);
-      // setDeletedProject(
-      //   selectedDeleteProject.filter((ele) => ele !== ev.target.name));
-      let arr = selectedDeleteProject.filter((ele) => ele !== ev.target.name);
       dispatch(
         editWorker(
           {
-            projects: arr,
+            projects: selectedDeleteProject.filter(
+              (ele) => ele !== ev.target.name
+            ),
           },
           id
         )
       );
       setDeleteProjectFlag(!deleteProjectFlag);
-      console.log("aarr", arr);
       // confirmDeleteProject(id)
     }
   };
@@ -411,8 +406,8 @@ function Worker() {
           >
             <Column expander style={{ width: "3em" }} />
             <Column field="name" header="الاسم"></Column>
-            <Column field="specs.name" header="اسم التخصص"></Column>
-            <Column field="specs.type" header="نوع التخصص"></Column>
+            <Column sortable field="specs.name" header="اسم التخصص"></Column>
+            <Column sortable field="specs.type" header="نوع التخصص"></Column>
             <Column field="address" header="العنوان"></Column>
             <Column field="mobile" header="الموبايل"></Column>
             <Column field="nationalID" header="الرقم القومي"></Column>
@@ -428,6 +423,7 @@ function Worker() {
               style={{ width: "450px" }}
               header="Worker Details"
               modal
+              maximizable
               className="p-fluid"
               footer={specializationDialogFooter}
               onHide={hideDialog}

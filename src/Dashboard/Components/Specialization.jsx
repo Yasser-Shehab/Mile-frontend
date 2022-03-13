@@ -206,8 +206,14 @@ function Specialization() {
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} of Specialization"
         globalFilter={globalFilter}
       >
-        <Column field="name" header="First Name"></Column>
-        <Column field="type" header="Type"></Column>
+        <Column
+          sortable
+          filter
+          filterPlaceholder="بونص لبسمه"
+          field="name"
+          header="First Name"
+        ></Column>
+        <Column sortable filter field="type" header="Type"></Column>
         <Column
           body={actionBodyTemplate}
           exportable={false}
