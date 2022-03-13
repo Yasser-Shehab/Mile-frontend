@@ -10,6 +10,7 @@ import {
 } from "../../store/actions/projectAction";
 import { Button } from "primereact/button";
 import React from "react";
+import { Image } from "primereact/image";
 import { Toast } from "primereact/toast";
 import { Toolbar } from "primereact/toolbar";
 import { Dialog } from "primereact/dialog";
@@ -114,7 +115,6 @@ function Project() {
   };
 
   const onInputChange = (val, name) => {
-    console.log(val, name);
     let _project = { ...project };
     _project[`${name}`] = val;
     setProject(_project);
@@ -208,6 +208,11 @@ function Project() {
   );
 
   //  *****************     upload new images   **********************
+  const handleThumbnail = (image) => {
+    let _project = { ...project };
+    _project.thumbnail = image;
+    setProject(_project);
+  };
   const uploadImage = (data) => {
     // const images = JSON.parse(xhr.response).images;
     setProject({
@@ -279,11 +284,32 @@ function Project() {
           style={{ width: "450px" }}
           header="Project Details"
           modal
+          maximizable
+          breakpoints={{
+            "2560px": "50vw",
+            "1440px": "70vw",
+            "1024px": "80vw",
+            "640px": "90vw",
+          }}
           className="p-fluid"
           footer={projectDialogFooter}
           onHide={hideDialog}
         >
           {/* **************     Project images    *************** */}
+          <div>
+            {project.images.length !== 0 &&
+              project.images.map((image, i) => {
+                return (
+                  <div
+                    key={i}
+                    className="card"
+                    onClick={() => handleThumbnail(image)}
+                  >
+                    <Image src={image} width="250" />
+                  </div>
+                );
+              })}
+          </div>
           <div className="field">
             <label htmlFor="name">Project images</label>
             <FileUpload
