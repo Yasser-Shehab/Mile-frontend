@@ -10,7 +10,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getCosts, addCost, deleteCost } from "../../store/actions/costAction";
 import { getWorkers } from "../../store/actions/workerAction";
 import { getProjects } from "../../store/actions/projectAction";
-
+/////cost
 function Cost() {
   const costsList = useSelector((state) => state.costReducer.costs);
   const workersList = useSelector((state) => state.workerReducer.workers);
