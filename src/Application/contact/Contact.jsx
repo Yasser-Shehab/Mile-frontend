@@ -8,7 +8,7 @@ import star from "../assets/imgs/contact/star.svg";
 function Contact() {
   return (
     <>
-      <Title title="تواصل معنا" />
+      <Title title="تواصل معنا" id="contact-title" />
       <form>
         <div className="contact-container">
           <div className="content-container">

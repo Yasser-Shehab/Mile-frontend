@@ -23,6 +23,10 @@ $primary: #648bf0;
     margin: 0 auto;
     align-items: center;
     justify-content: space-between;
+    a {
+      color: #fff;
+      text-decoration: none;
+    }
   }
   .nav-links {
     display: flex;

@@ -26,7 +26,7 @@ function Carousel() {
   if (projectsList.length != 0) {
     return (
       <>
-        <Title title="أبرز مشاريع الشركة" />
+        <Title title="أبرز مشاريع الشركة" id="project-title" />
         <div className="swiper-container">
           <Swiper
             slidesPerView={"auto"}

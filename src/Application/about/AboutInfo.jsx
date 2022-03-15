@@ -8,7 +8,7 @@ import Title from "../shared/Title";
 function AboutInfo() {
   return (
     <div className="container">
-      <Title title="معلومات عن شركة ميل للمقاولات العامة و التوريدات" />
+      <Title title="معلومات عن شركة ميل للمقاولات العامة و التوريدات" id="about-title" />
       <div className="about-cards mt-7">
         <div className="small-cards fadeinleft animation-duration-1000">
           <div className="creation-date">
