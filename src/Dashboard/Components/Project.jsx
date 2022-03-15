@@ -35,7 +35,7 @@ function Project() {
   // initial empty project
   const [project, setProject] = useState(emptyProject);
   const [submitted, setSubmitted] = useState(false);
-
+  const [projectEdit, setprojectEdit] = useState({});
   const toast = useRef(null);
   const dt = useRef(null);
   const projectsList = useSelector((state) => state.projectReducer.projects);
@@ -82,6 +82,7 @@ function Project() {
               name: project.name,
               description: project.description,
               budget: project.budget,
+              images: project.images,
             },
             project.id
           )
@@ -106,12 +107,12 @@ function Project() {
   };
 
   const editHandel = (data) => {
-    setProject({
-      ...projects,
+    setprojectEdit({
       id: data._id,
       name: data.name,
       budget: data.budget,
       description: data.description,
+      images: data.images,
     });
     setProjectDialog(true);
   };
@@ -157,18 +158,8 @@ function Project() {
 
   const projectDialogFooter = (
     <>
-      <Button
-        label="Cancel"
-        icon="pi pi-times"
-        className="p-button-text"
-        onClick={hideDialog}
-      />
-      <Button
-        label="Save"
-        icon="pi pi-check"
-        className="p-button-text"
-        onClick={saveProject}
-      />
+      <Button label="Cancel" icon="pi pi-times" className="p-button-text" onClick={hideDialog} />
+      <Button label="Save" icon="pi pi-check" className="p-button-text" onClick={saveProject} />
     </>
   );
 
@@ -322,15 +313,12 @@ function Project() {
           onHide={hideDialog}
         >
           {/* **************     Project images    *************** */}
+
           <div>
             {project.images.length !== 0 &&
               project.images.map((image, i) => {
                 return (
-                  <div
-                    key={i}
-                    className="card"
-                    onClick={() => handleThumbnail(image)}
-                  >
+                  <div key={i} className="card" onClick={() => handleThumbnail(image)}>
                     <Image src={image} width="250" />
                   </div>
                 );
@@ -361,9 +349,7 @@ function Project() {
                 "p-invalid": submitted && !project.name,
               })}
             />
-            {submitted && !project.name && (
-              <small className="p-error">Name is required.</small>
-            )}
+            {submitted && !project.name && <small className="p-error">Name is required.</small>}
           </div>
 
           {/* *********   Description    *************** */}
@@ -409,10 +395,7 @@ function Project() {
           onHide={hideDeleteProjectDialog}
         >
           <div className="confirmation-content">
-            <i
-              className="pi pi-exclamation-triangle mr-3"
-              style={{ fontSize: "2rem" }}
-            />
+            <i className="pi pi-exclamation-triangle mr-3" style={{ fontSize: "2rem" }} />
             {project && (
               <span>
                 Are you sure you want to delete <b>{project.name}</b>?

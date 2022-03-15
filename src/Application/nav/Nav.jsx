@@ -34,7 +34,9 @@ function Nav() {
           </div>
           <div className="hero-btn">
             <i className="pi pi-angle-left"></i>
-            <p>تصفح اخر المشاريع </p>
+            <p>
+              <a href="#projectsSection">تصفح اخر المشاريع </a>
+            </p>
           </div>
         </div>
       </div>
