@@ -38,6 +38,14 @@ function Dashboard() {
         navigate("/dashboard/workers");
       },
     },
+    {
+      label: "Logout",
+      icon: "pi pi-fw pi-power-off",
+      command: () => {
+        localStorage.setItem("token", "");
+        navigate("/");
+      },
+    },
   ];
 
   return (
