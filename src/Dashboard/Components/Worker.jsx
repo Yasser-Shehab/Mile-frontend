@@ -149,9 +149,6 @@ function Worker() {
               </>
             );
         })}
-        {/* {console.log(data.projects)} */}
-        {/* {console.log(workerProjects)} */}
-
         {(!(data.projects.length === 0) || !(workerProjects.length === 0)) && (
           <Button
             icon="pi pi-trash"
@@ -382,7 +379,6 @@ function Worker() {
       <div className="datatable-rowexpansion-demo">
         <div className="card">
           <Toolbar
-            className="mb-4"
             left={leftToolbarTemplate}
             right={rightToolbarTemplate}
           ></Toolbar>

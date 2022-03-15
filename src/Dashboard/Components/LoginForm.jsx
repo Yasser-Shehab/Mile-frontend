@@ -18,6 +18,7 @@ function LoginForm() {
   useEffect(() => {
     if (token && token !== "") {
       localStorage.setItem("token", token);
+      navigate("/dashboard");
     } else {
       localStorage.setItem("token", "");
     }

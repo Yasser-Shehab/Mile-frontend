@@ -245,7 +245,6 @@ function Project() {
         <Toast ref={toast} />
         <div className="card">
           <Toolbar
-            className="mb-4"
             left={leftToolbarTemplate}
             right={rightToolbarTemplate}
           ></Toolbar>
