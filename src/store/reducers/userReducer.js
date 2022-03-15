@@ -3,7 +3,7 @@ const INITIAL_VALUE = {
   isAuth: false,
 };
 let token = localStorage.getItem("token");
-if (token) {
+if (token && token !== "") {
   INITIAL_VALUE.isAuth = true;
   INITIAL_VALUE.token = token;
 }

@@ -3,23 +3,25 @@ import { useDispatch, useSelector } from "react-redux";
 import { Form, Field } from "react-final-form";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
-import { Dropdown } from "primereact/dropdown";
-import { Calendar } from "primereact/calendar";
 import { Password } from "primereact/password";
-import { Checkbox } from "primereact/checkbox";
 import { Dialog } from "primereact/dialog";
-import { Divider } from "primereact/divider";
 import { classNames } from "primereact/utils";
 import { login } from "../../store/actions/userAction";
 import "./LoginForm.css";
+import { useNavigate } from "react-router-dom";
 
 function LoginForm() {
   const token = useSelector((state) => state.userReducer.token);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    localStorage.setItem("token", "");
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    if (token && token !== "") {
+      localStorage.setItem("token", token);
+    } else {
+      localStorage.setItem("token", "");
+    }
+  }, [token]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const validate = (data) => {
     let errors = {};
@@ -39,8 +41,8 @@ function LoginForm() {
 
   const onSubmit = (data, form) => {
     dispatch(login(data));
-    localStorage.setItem("token", token);
     form.restart();
+    navigate("/dashboard");
   };
 
   const isFormFieldValid = (meta) => !!(meta.touched && meta.error);
