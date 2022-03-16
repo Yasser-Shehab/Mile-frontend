@@ -44,15 +44,21 @@
 
 .contact-container .content-container .contact-icons .icon {
   text-align: center;
+  opacity: 75%;
 }
 
 .contact-container .content-container .contact-icons .icon p {
   font-size: 20px;
 }
 
-.contact-container .content-container .contact-icons .icon:hover {
+.contact-container .content-container .contact-icons .icon-active {
+  text-align: center;
   -webkit-transform: scale(1.1);
           transform: scale(1.1);
+}
+
+.contact-container .content-container .contact-icons .icon-active p {
+  font-size: 20px;
 }
 
 .contact-container .content-container .contact-form .required-input {

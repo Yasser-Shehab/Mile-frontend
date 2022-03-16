@@ -30,8 +30,8 @@ function Contact() {
           name="purpose"
           id="purpose"
           value={purpose}
-          hidden
           onChange={() => console.log(purpose)}
+          hidden
         />
         <div className="contact-container">
           <div className="content-container">
@@ -39,15 +39,18 @@ function Contact() {
               <p>الغرض من التواصل</p>
             </div>
             <div className="contact-icons">
-              <div className="icon" onClick={() => setPurpose("Another")}>
+              <div
+                className={purpose == "Another" ? "icon-active" : "icon"}
+                onClick={() => setPurpose("Another")}
+              >
                 <img src={contact3} alt="another" />
                 <p>أخرى</p>
               </div>
-              <div className="icon">
+              <div className={purpose == "Project" ? "icon-active" : "icon"}>
                 <img src={contact2} alt="company-project" onClick={() => setPurpose("Project")} />
                 <p>إنشاء مشروع</p>
               </div>
-              <div className="icon">
+              <div className={purpose == "Job" ? "icon-active" : "icon"}>
                 <img src={contact1} alt="job-application" onClick={() => setPurpose("Job")} />
                 <p>وظائف</p>
               </div>
