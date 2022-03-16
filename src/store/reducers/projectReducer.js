@@ -1,6 +1,7 @@
 const INITIAL_VALUE = {
   projects: [],
   project: {},
+  error: {},
 };
 
 const ProjectReducer = (state = INITIAL_VALUE, action) => {
@@ -20,6 +21,11 @@ const ProjectReducer = (state = INITIAL_VALUE, action) => {
     case "DELETE_PROJECT":
       return {
         ...state,
+      };
+    case "ON_ERROR":
+      return {
+        ...state,
+        error: action.payload,
       };
 
     default:
