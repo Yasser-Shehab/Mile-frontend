@@ -15,10 +15,18 @@ function Nav() {
             className={Mobile ? "links-mobile" : "nav-links"}
             onMouseLeave={() => setMobile(false)}
           >
-            <Navitem title="تواصل معانا" />
-            <Navitem title="الوظائف" />
-            <Navitem title="المشروعات" />
-            <Navitem title="عن الشركة" />
+            <a href="#contact-title">
+              <Navitem title="تواصل معانا" />
+            </a>
+            <a href="#contact-title">
+              <Navitem title="الوظائف" />
+            </a>
+            <a href="#project-title">
+              <Navitem title="المشروعات" />
+            </a>
+            <a href="#about-title">
+              <Navitem title="عن الشركة" />
+            </a>
           </div>
           <div className="burger" onClick={() => setMobile(!Mobile)}>
             {Mobile ? <i className="pi pi-times"></i> : <i className="pi pi-bars"></i>}
@@ -32,10 +40,12 @@ function Nav() {
             <h1 className="title-custom">معاً </h1>
             <h1>نبني رؤيتك </h1>
           </div>
-          <div className="hero-btn">
-            <i className="pi pi-angle-left"></i>
-            <p>تصفح اخر المشاريع </p>
-          </div>
+          <a href="#project-title">
+            <div className="hero-btn">
+              <i className="pi pi-angle-left"></i>
+              <p>تصفح اخر المشاريع</p>
+            </div>
+          </a>
         </div>
       </div>
     </>

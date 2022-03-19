@@ -46,7 +46,8 @@
 
 .swiper-container .slide-content .slide-text {
   padding: 1rem;
-  margin-top: 3rem;
+  font-size: 1.5rem;
+  margin: 1.5rem 0;
 }
 
 .swiper-container .slide-content .slide-badge {

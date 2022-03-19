@@ -26,6 +26,11 @@
           justify-content: space-between;
 }
 
+.hero-section .nav-container a {
+  color: #fff;
+  text-decoration: none;
+}
+
 .hero-section .nav-links {
   display: -webkit-box;
   display: -ms-flexbox;

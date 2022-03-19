@@ -16,7 +16,7 @@ function Cost() {
   const workersList = useSelector((state) => state.workerReducer.workers);
   const projectsList = useSelector((state) => state.projectReducer.projects);
 
-  const [allCosts, setAllCosts] = useState(costsList);
+  // const [allCosts, setAllCosts] = useState(costsList);
 
   const [display, setDisplay] = useState(false);
   const [selectedWorker, setSelectedWorker] = useState("");
@@ -27,11 +27,11 @@ function Cost() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setAllCosts(costsList);
+    // setAllCosts(costsList);
     dispatch(getCosts());
     dispatch(getProjects());
     dispatch(getWorkers());
-  }, [costsList]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const addNewCost = () => {
     let data = {
@@ -134,7 +134,7 @@ function Cost() {
         resizableColumns
         columnResizeMode="expand"
         showGridlines
-        value={allCosts}
+        value={costsList}
         responsiveLayout="scroll"
         header={header}
       >

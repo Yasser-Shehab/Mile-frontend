@@ -2,10 +2,15 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Button } from "primereact/button";
 import { Badge } from "primereact/badge";
+import { Dropdown } from "primereact/dropdown";
+// import { MultiSelect } from "primereact/multiselect";
 import { SplitButton } from "primereact/splitbutton";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Messages } from "primereact/messages";
+import { Message } from "primereact/message";
 import { getProjects } from "../../store/actions/projectAction";
+import { getSpecializations } from "../../store/actions/specAction.js";
 import {
   getWorkers,
   asignProject,
@@ -28,21 +33,33 @@ function Worker() {
     workerId: "",
     projectId: "",
     projectName: "",
+    specialization: "",
   });
   const [expandedRows, setExpandedRows] = useState(null);
   const isMounted = useRef(false);
   const workersList = useSelector((state) => state.workerReducer.workers);
   // const workerObj = useSelector((state) => state.workerReducer.worker);
   const projectsList = useSelector((state) => state.projectReducer.projects);
+  const specsList = useSelector((state) => state.specializationReducer.specs);
   const [workerProjects, setWorkerProjects] = useState([]);
+  const [selectedSpec, setSelectedSpec] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [workerDialog, setWorkerDialog] = useState(false);
+  const [submitErr, setSubmitErr] = useState("");
   const [deleteWorkerDialog, setDeleteWorkerDialog] = useState(false);
   const [inputValues, setInputValues] = useState({
     name: "",
     address: "",
     mobile: "",
     nationalID: "",
+    specialization: "",
+    projects: [],
+  });
+  const [errors, setErrors] = useState({
+    nameErr: "",
+    addressErr: "",
+    mobile: "",
+    nationalIDErr: "",
   });
   const [deleteValue, setDeleteValue] = useState("");
 
@@ -63,6 +80,8 @@ function Worker() {
     isMounted.current = true;
     dispatch(getProjects());
     dispatch(getWorkers());
+    dispatch(getSpecializations());
+    console.log(specsList);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const deleteProjectsHandel = (dataa) => {
@@ -76,9 +95,7 @@ function Worker() {
       dispatch(
         editWorker(
           {
-            projects: selectedDeleteProject.filter(
-              (ele) => ele !== ev.target.name
-            ),
+            projects: selectedDeleteProject.filter((ele) => ele !== ev.target.name),
           },
           id
         )
@@ -121,11 +138,7 @@ function Worker() {
                   onClick={(e) => {
                     onBadgeClick(e, data._id);
                   }}
-                  className={
-                    deleteProjectFlag && data._id
-                      ? "p-button-danger"
-                      : "p-button-success"
-                  }
+                  className={deleteProjectFlag && data._id ? "p-button-danger" : "p-button-success"}
                   style={{ marginRight: "1rem", marginTop: "1rem" }}
                 >
                   {p.name}
@@ -141,17 +154,12 @@ function Worker() {
                   key={p.projectId}
                   label={p.projectName}
                   size="large"
-                  className={
-                    deleteProjectFlag ? "p-button-danger" : "p-button-success"
-                  }
+                  className={deleteProjectFlag ? "p-button-danger" : "p-button-success"}
                   style={{ marginRight: "1rem", marginTop: "1rem" }}
                 ></Button>
               </>
             );
         })}
-        {/* {console.log(data.projects)} */}
-        {/* {console.log(workerProjects)} */}
-
         {(!(data.projects.length === 0) || !(workerProjects.length === 0)) && (
           <Button
             icon="pi pi-trash"
@@ -162,11 +170,7 @@ function Worker() {
 
         <h3 className="mb-3">Add new project</h3>
         <SplitButton
-          label={
-            data._id === project.workerId
-              ? project.projectName
-              : "Select new project"
-          }
+          label={data._id === project.workerId ? project.projectName : "Select new project"}
           model={projectsList.map((p) => {
             return {
               label: p.name,
@@ -213,7 +217,12 @@ function Worker() {
     ) {
       console.log(inputValues);
       if (!inputValues.id) {
-        dispatch(addWorker(inputValues));
+        try {
+          dispatch(addWorker(inputValues));
+        } catch (error) {
+          return setSubmitErr(error);
+        }
+
         console.log(inputValues);
       } else {
         console.log("edit values", inputValues);
@@ -236,6 +245,7 @@ function Worker() {
         address: "",
         mobile: "",
         nationalID: "",
+        specialization: "",
       });
     }
   };
@@ -244,6 +254,7 @@ function Worker() {
     setSubmitted(false);
     setWorkerDialog(false);
     setInputValues({ name: "", address: "", mobile: "", nationalID: "" });
+    setSubmitErr("");
   };
   const onInputChange = (val, name) => {
     let _input = { ...inputValues };
@@ -256,6 +267,32 @@ function Worker() {
     let _input = { ...inputValues };
     _input[`${name}`] = val;
     setInputValues(_input);
+  };
+  const nameInputChange = (event) => {
+    setInputValues({ ...inputValues, name: event.target.value });
+
+    setErrors({
+      ...errors,
+      nameErr:
+        event.target.value.length === 0
+          ? "اسم العامل مطلوب"
+          : event.target.value.length < 2
+          ? "الاسم يجب ان يكون اكثر من حرف"
+          : null,
+    });
+  };
+  const address = (event) => {
+    setInputValues({ ...inputValues, address: event.target.value });
+
+    setErrors({
+      ...errors,
+      addressErr:
+        event.target.value.length === 0
+          ? "العنوان مطلوب"
+          : event.target.value.length < 2
+          ? "العنوان يجب ان يكون اكثر من حرف"
+          : null,
+    });
   };
   const confirmDeleteWorker = (worker) => {
     setDeleteValue(worker);
@@ -309,12 +346,7 @@ function Worker() {
   const specializationDialogFooter = (
     <>
       {/* <form> */}
-      <Button
-        label="Cancel"
-        icon="pi pi-times"
-        className="p-button-text"
-        onClick={hideDialog}
-      />
+      <Button label="Cancel" icon="pi pi-times" className="p-button-text" onClick={hideDialog} />
       <Button
         label="Save"
         icon="pi pi-check"
@@ -382,7 +414,6 @@ function Worker() {
       <div className="datatable-rowexpansion-demo">
         <div className="card">
           <Toolbar
-            className="mb-4"
             left={leftToolbarTemplate}
             right={rightToolbarTemplate}
           ></Toolbar>
@@ -428,13 +459,14 @@ function Worker() {
               footer={specializationDialogFooter}
               onHide={hideDialog}
             >
+              {submitErr && <Message severity="error" text={submitErr} />}
               <div className="field">
                 <label htmlFor="name"> اسم العامل </label>
                 <InputText
                   id="name"
                   value={inputValues.name}
                   name="name"
-                  onChange={(e) => onInputChange(e.target.value, "name")}
+                  onChange={nameInputChange}
                   // onChange={nameHandel}
                   required
                   autoFocus
@@ -442,9 +474,7 @@ function Worker() {
                     "p-invalid": submitted && !inputValues.name,
                   })}
                 />
-                {submitted && !inputValues.name && (
-                  <small className="p-error">أسم العامل مطلوب</small>
-                )}
+                <small className="p-error">{errors.nameErr}</small>
               </div>
 
               <div className="field">
@@ -453,16 +483,17 @@ function Worker() {
                   id="address"
                   value={inputValues.address}
                   name="address"
-                  onChange={(e) => onInputChange(e.target.value, "address")}
+                  onChange={address}
                   // onChange={typeHandel}
                   required
                   className={classNames({
                     "p-invalid": submitted && !inputValues.address,
                   })}
                 />
-                {submitted && !inputValues.address && (
+                <small className="p-error">{errors.addressErr}</small>
+                {/* {submitted && !inputValues.address && (
                   <small className="p-error">العنوان مطلوب</small>
-                )}
+                )} */}
               </div>
               <div className="field">
                 <label htmlFor="mobile">الموبيل</label>
@@ -478,9 +509,10 @@ function Worker() {
                   })}
                   onValueChange={(e) => onInputNumberChange(e, "mobile")}
                 />
-                {submitted && !inputValues.mobile && (
+                <small className="p-error">{errors.mobileErr}</small>
+                {/* {submitted && !inputValues.mobile && (
                   <small className="p-error">رقم الموبيل مطلوب</small>
-                )}
+                )} */}
               </div>
               <div className="field">
                 <label htmlFor="nationalID">الرقم القومي</label>
@@ -508,6 +540,32 @@ function Worker() {
                   inputValues.nationalID.toString().legnth !== 14 && (
                     <small className="p-error">الرقم القومي يجب ان يكون 14 رقم</small>
                   )} */}
+                <div className="field">
+                  <label htmlFor="specialization">التخصص</label>
+                  <Dropdown
+                    value={inputValues.specialization}
+                    options={specsList}
+                    onChange={(e) => onInputChange(e.target.value._id, "specialization")}
+                    // onChange={(e) => setSelectedSpec(e.target.value)}
+                    optionLabel="type"
+                    placeholder="Select a Specialization"
+                    className={classNames({
+                      "p-invalid": submitted && !inputValues.specialization,
+                    })}
+                  />
+                  {submitted && !selectedSpec && <small className="p-error">التخصص مطلوب</small>}
+                </div>
+                <div className="field">
+                  <label htmlFor="specialization">المشروع</label>
+                  <Dropdown
+                    value={inputValues.projects}
+                    options={projectsList}
+                    onChange={(e) => onInputChange(e.target.value._id, "projects")}
+                    // onChange={(e) => setSelectedSpec(e.target.value)}
+                    optionLabel="name"
+                    placeholder="Select a Project"
+                  />
+                </div>
               </div>
             </Dialog>
           </form>
@@ -520,10 +578,7 @@ function Worker() {
             onHide={hideDeleteWorkerDialog}
           >
             <div className="confirmation-content">
-              <i
-                className="pi pi-exclamation-triangle mr-3"
-                style={{ fontSize: "2rem" }}
-              />
+              <i className="pi pi-exclamation-triangle mr-3" style={{ fontSize: "2rem" }} />
               {deleteValue && (
                 <span>
                   Are you sure you want to delete

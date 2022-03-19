@@ -4,7 +4,7 @@ import "./style/style.css";
 
 function Title(props) {
   return (
-    <div className="title-container">
+    <div className="title-container" id={props.id}>
       <div className="title-header">
         <p>{props.title}</p>
         <Sperator />

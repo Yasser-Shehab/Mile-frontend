@@ -13,19 +13,26 @@ import Project from "./Dashboard/Components/Project";
 import Specialization from "./Dashboard/Components/Specialization";
 import Test2 from "./Dashboard/Components/Test2";
 import Worker from "./Dashboard/Components/Worker";
+import PrivateRoute from "./PrivateRoute";
+import LoginForm from "./Dashboard/Components/LoginForm";
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route exact path="dashboard" element={<Dashboard />}>
-          <Route path="" element={<Navigate to="workers" />} />
-          <Route path="accounts" element={<Account />} />
-          <Route path="costs" element={<Cost />} />
-          <Route path="projects" element={<Project />} />
-          <Route path="specializations" element={<Test2 />} />
-          <Route path="workers" element={<Worker />} />
+        {/* <Route path="login" element={<Navigate to="dashboard" />} /> */}
+        <Route element={<PrivateRoute />}>
+          <Route path="dashboard" element={<Dashboard />}>
+            <Route path="" element={<Navigate to="workers" />} />
+            <Route path="accounts" element={<Account />} />
+            <Route path="costs" element={<Cost />} />
+            <Route path="projects" element={<Project />} />
+            <Route path="specializations" element={<Test2 />} />
+            <Route path="workers" element={<Worker />} />
+          </Route>
         </Route>
+
+        <Route path="login" element={<LoginForm />} />
         <Route path="/" element={<Application />} />
       </Routes>
     </Router>

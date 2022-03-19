@@ -29,16 +29,15 @@ function Project() {
     description: "",
   };
   // array to collect in it
-  const [projects, setProjects] = useState(null);
   const [projectDialog, setProjectDialog] = useState(false);
   const [DeleteProjectDialog, setDeleteProjectDialog] = useState(false);
   // initial empty project
   const [project, setProject] = useState(emptyProject);
   const [submitted, setSubmitted] = useState(false);
-
   const toast = useRef(null);
   const dt = useRef(null);
   const projectsList = useSelector((state) => state.projectReducer.projects);
+  const error = useSelector((state) => state.projectReducer.error);
   const [globalFilter, setGlobalFilter] = useState(null);
 
   const dispatch = useDispatch();
@@ -82,6 +81,7 @@ function Project() {
               name: project.name,
               description: project.description,
               budget: project.budget,
+              images: project.images,
             },
             project.id
           )
@@ -107,11 +107,11 @@ function Project() {
 
   const editHandel = (data) => {
     setProject({
-      ...projects,
-      id: data._id,
+      id: data._id || data.id,
       name: data.name,
       budget: data.budget,
       description: data.description,
+      images: data.images,
     });
     setProjectDialog(true);
   };
@@ -151,6 +151,7 @@ function Project() {
           className="p-button-success mr-2"
           onClick={openNew}
         />
+        {console.log(error.message)}
       </>
     );
   };
@@ -230,13 +231,10 @@ function Project() {
     setProject(_project);
   };
   const uploadImage = (data) => {
-    setProject({
-      thumbnail: "",
-      images: JSON.parse(data.xhr.response).images,
-      name: "",
-      budget: 0,
-      description: "",
-    });
+    let _project = { ...project };
+    _project.images = [...JSON.parse(data.xhr.response).images];
+
+    editHandel(_project);
   };
 
   return (
@@ -245,7 +243,6 @@ function Project() {
         <Toast ref={toast} />
         <div className="card">
           <Toolbar
-            className="mb-4"
             left={leftToolbarTemplate}
             right={rightToolbarTemplate}
           ></Toolbar>
@@ -322,17 +319,18 @@ function Project() {
           onHide={hideDialog}
         >
           {/* **************     Project images    *************** */}
-          <div>
+
+          {project.images.length !== 0 && <h3>Please choose Thumbnail...</h3>}
+          <div className="card">
             {project.images.length !== 0 &&
               project.images.map((image, i) => {
                 return (
-                  <div
+                  <Image
                     key={i}
-                    className="card"
+                    src={image}
                     onClick={() => handleThumbnail(image)}
-                  >
-                    <Image src={image} width="250" />
-                  </div>
+                    width="250"
+                  />
                 );
               })}
           </div>

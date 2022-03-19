@@ -190,7 +190,6 @@ function Specialization() {
   return (
     <>
       <Toolbar
-        className="mb-4"
         left={leftToolbarTemplate}
         right={rightToolbarTemplate}
       ></Toolbar>
