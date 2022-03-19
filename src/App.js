@@ -11,6 +11,7 @@ import Account from "./Dashboard/Components/Account";
 import Cost from "./Dashboard/Components/Cost";
 import Project from "./Dashboard/Components/Project";
 import Specialization from "./Dashboard/Components/Specialization";
+import Test2 from "./Dashboard/Components/Test2";
 import Worker from "./Dashboard/Components/Worker";
 
 function App() {
@@ -22,7 +23,7 @@ function App() {
           <Route path="accounts" element={<Account />} />
           <Route path="costs" element={<Cost />} />
           <Route path="projects" element={<Project />} />
-          <Route path="specializations" element={<Specialization />} />
+          <Route path="specializations" element={<Test2 />} />
           <Route path="workers" element={<Worker />} />
         </Route>
         <Route path="/" element={<Application />} />

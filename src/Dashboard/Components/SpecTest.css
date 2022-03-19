@@ -1,0 +1,47 @@
+/* DataViewDemo.css */
+.parentDir {
+  direction: rtl;
+}
+.workerTitle {
+  font-size: 1.7rem;
+  color: #7c3aed;
+  float: right;
+}
+.product-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.product-list-item {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  width: 100%;
+}
+
+.product-list-item .product-price {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  align-self: flex-end;
+}
+.product-list-item .product-list-detail {
+  flex: 1 1 0;
+}
+
+.product-list-item .product-list-action {
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (max-width: 576px) {
+  .product-list-item {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .product-list-item .product-list-action {
+    display: flex;
+    flex-direction: column;
+  }
+}
