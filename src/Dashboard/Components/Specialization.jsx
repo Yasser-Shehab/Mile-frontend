@@ -16,7 +16,7 @@ import { classNames } from "primereact/utils";
 import { getWorkers } from "../../store/actions/workerAction";
 import { Card } from "primereact/card";
 // Spec css
-import "./SpecTest.css";
+// import "./SpecTest.css";
 function Specialization() {
   const specsList = useSelector((state) => state.specializationReducer.specs);
   const dispatch = useDispatch();
@@ -248,7 +248,6 @@ function Specialization() {
   return (
     <>
       <Toolbar
-        className="mb-4"
         left={leftToolbarTemplate}
         right={rightToolbarTemplate}
       ></Toolbar>
@@ -269,7 +268,7 @@ function Specialization() {
         <Column
           sortable
           filter
-          filterPlaceholder="بونص لبسمه"
+          filterPlaceholder="filter..."
           field="name"
           header="First Name"
         ></Column>
