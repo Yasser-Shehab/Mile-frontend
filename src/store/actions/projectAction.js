@@ -9,7 +9,12 @@ const getProjects = () => (dispatch) => {
         payload: projects,
       })
     )
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      dispatch({
+        type: "ON_ERROR",
+        payload: err,
+      });
+    });
 };
 
 const addProject = (newProject) => (dispatch) => {
@@ -40,20 +45,20 @@ const deleteProject = (id) => (dispatch) => {
 };
 const editProject = (data, id) => {
   return (dispatch) => {
-     axios.patch(`http://localhost:8000/project/${id}`, data)
+    axios
+      .patch(`http://localhost:8000/project/${id}`, data)
       .then((res) => {
-        console.log("data will edit",data);
+        console.log("data will edit", data);
         dispatch({
           type: "EDIT_PROJECT",
-          payload: data
+          payload: data,
         });
-      dispatch(getProjects());
+        dispatch(getProjects());
       })
-      .catch((error)=>{
+      .catch((error) => {
         console.log(error);
-      })
-  }
+      });
+  };
+};
 
-}
-
-export { getProjects, addProject, deleteProject,editProject };
+export { getProjects, addProject, deleteProject, editProject };

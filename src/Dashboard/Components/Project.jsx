@@ -29,16 +29,15 @@ function Project() {
     description: "",
   };
   // array to collect in it
-  const [projects, setProjects] = useState(null);
   const [projectDialog, setProjectDialog] = useState(false);
   const [DeleteProjectDialog, setDeleteProjectDialog] = useState(false);
   // initial empty project
   const [project, setProject] = useState(emptyProject);
   const [submitted, setSubmitted] = useState(false);
-  const [projectEdit, setprojectEdit] = useState({});
   const toast = useRef(null);
   const dt = useRef(null);
   const projectsList = useSelector((state) => state.projectReducer.projects);
+  const error = useSelector((state) => state.projectReducer.error);
   const [globalFilter, setGlobalFilter] = useState(null);
 
   const dispatch = useDispatch();
@@ -107,8 +106,8 @@ function Project() {
   };
 
   const editHandel = (data) => {
-    setprojectEdit({
-      id: data._id,
+    setProject({
+      id: data._id || data.id,
       name: data.name,
       budget: data.budget,
       description: data.description,
@@ -152,14 +151,25 @@ function Project() {
           className="p-button-success mr-2"
           onClick={openNew}
         />
+        {console.log(error.message)}
       </>
     );
   };
 
   const projectDialogFooter = (
     <>
-      <Button label="Cancel" icon="pi pi-times" className="p-button-text" onClick={hideDialog} />
-      <Button label="Save" icon="pi pi-check" className="p-button-text" onClick={saveProject} />
+      <Button
+        label="Cancel"
+        icon="pi pi-times"
+        className="p-button-text"
+        onClick={hideDialog}
+      />
+      <Button
+        label="Save"
+        icon="pi pi-check"
+        className="p-button-text"
+        onClick={saveProject}
+      />
     </>
   );
 
@@ -221,13 +231,10 @@ function Project() {
     setProject(_project);
   };
   const uploadImage = (data) => {
-    setProject({
-      thumbnail: "",
-      images: JSON.parse(data.xhr.response).images,
-      name: "",
-      budget: 0,
-      description: "",
-    });
+    let _project = { ...project };
+    _project.images = [...JSON.parse(data.xhr.response).images];
+
+    editHandel(_project);
   };
 
   return (
@@ -313,13 +320,17 @@ function Project() {
         >
           {/* **************     Project images    *************** */}
 
-          <div>
+          {project.images.length !== 0 && <h3>Please choose Thumbnail...</h3>}
+          <div className="card">
             {project.images.length !== 0 &&
               project.images.map((image, i) => {
                 return (
-                  <div key={i} className="card" onClick={() => handleThumbnail(image)}>
-                    <Image src={image} width="250" />
-                  </div>
+                  <Image
+                    key={i}
+                    src={image}
+                    onClick={() => handleThumbnail(image)}
+                    width="250"
+                  />
                 );
               })}
           </div>
@@ -348,7 +359,9 @@ function Project() {
                 "p-invalid": submitted && !project.name,
               })}
             />
-            {submitted && !project.name && <small className="p-error">Name is required.</small>}
+            {submitted && !project.name && (
+              <small className="p-error">Name is required.</small>
+            )}
           </div>
 
           {/* *********   Description    *************** */}
@@ -394,7 +407,10 @@ function Project() {
           onHide={hideDeleteProjectDialog}
         >
           <div className="confirmation-content">
-            <i className="pi pi-exclamation-triangle mr-3" style={{ fontSize: "2rem" }} />
+            <i
+              className="pi pi-exclamation-triangle mr-3"
+              style={{ fontSize: "2rem" }}
+            />
             {project && (
               <span>
                 Are you sure you want to delete <b>{project.name}</b>?
