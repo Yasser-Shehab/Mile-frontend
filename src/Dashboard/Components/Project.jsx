@@ -29,13 +29,11 @@ function Project() {
     description: "",
   };
   // array to collect in it
-  const [projects, setProjects] = useState(null);
   const [projectDialog, setProjectDialog] = useState(false);
   const [DeleteProjectDialog, setDeleteProjectDialog] = useState(false);
   // initial empty project
   const [project, setProject] = useState(emptyProject);
   const [submitted, setSubmitted] = useState(false);
-  const [projectEdit, setprojectEdit] = useState({});
   const toast = useRef(null);
   const dt = useRef(null);
   const projectsList = useSelector((state) => state.projectReducer.projects);
@@ -322,19 +320,19 @@ function Project() {
         >
           {/* **************     Project images    *************** */}
 
-          <div>
-            {/* {project.images.length !== 0 &&
+          {project.images.length !== 0 && <h3>Please choose Thumbnail...</h3>}
+          <div className="card">
+            {project.images.length !== 0 &&
               project.images.map((image, i) => {
                 return (
-                  <div
+                  <Image
                     key={i}
-                    className="card"
+                    src={image}
                     onClick={() => handleThumbnail(image)}
-                  >
-                    <Image src={image} width="250" />
-                  </div>
+                    width="250"
+                  />
                 );
-              })} */}
+              })}
           </div>
           <div className="field">
             <label htmlFor="name">Project images</label>
