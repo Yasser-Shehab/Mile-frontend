@@ -41,6 +41,7 @@ function Cost() {
       notes,
     };
     dispatch(addCost(data));
+    dispatch(getCosts());
     onHide();
   };
   const onClick = () => {

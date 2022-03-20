@@ -151,7 +151,6 @@ function Project() {
           className="p-button-success mr-2"
           onClick={openNew}
         />
-        {console.log(error.message)}
       </>
     );
   };
@@ -233,7 +232,7 @@ function Project() {
   const uploadImage = (data) => {
     let _project = { ...project };
     _project.images = [...JSON.parse(data.xhr.response).images];
-
+    console.log(_project);
     editHandel(_project);
   };
 

@@ -17,7 +17,6 @@ axios.interceptors.request.use(
   (req) => {
     // Add configurations here
     req.headers.authorization = `Bearer ${localStorage.getItem("token")}`;
-    console.log(req);
     return req;
   },
   (err) => {

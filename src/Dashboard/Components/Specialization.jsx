@@ -13,22 +13,35 @@ import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
 import { classNames } from "primereact/utils";
-
+import { getWorkers } from "../../store/actions/workerAction";
+import { Card } from "primereact/card";
+// Spec css
+import "./SpecTest.css";
 function Specialization() {
   const specsList = useSelector((state) => state.specializationReducer.specs);
   const dispatch = useDispatch();
   const [submitted, setSubmitted] = useState(false);
   const [specializationDialog, setspecializationDialog] = useState(false);
-  const [inputValues, setInputValues] = useState({ name: "", type: "" });
+  const [inputValues, setInputValues] = useState({
+    name: "",
+    type: "",
+  });
   const [deletespecializationDialog, setDeletespecializationDialog] =
     useState(false);
   const [deleteValue, setDeleteValue] = useState("");
   const [loading1, setLoading1] = useState(false);
   const [globalFilter, setGlobalFilter] = useState(null);
+  const [expandedRows, setExpandedRows] = useState(null);
+  // worker list
+  const workersList = useSelector((state) => state.workerReducer.workers);
+  const [displayMaximizable, setDisplayMaximizable] = useState(false);
+  const [position, setPosition] = useState("center");
+  const [workersSpec, setWorkersSpec] = useState([]);
+  //const [wlist, setWList] = useState([]);
   useEffect(() => {
     dispatch(getSpecializations());
+    dispatch(getWorkers());
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
-  // console.log(specsList);
   const openNew = () => {
     setInputValues(inputValues);
     setSubmitted(false);
@@ -100,6 +113,30 @@ function Specialization() {
     // console.log(data);
     setspecializationDialog(true);
   };
+
+  const showDetails = (data) => {
+    console.log(data);
+
+    setWorkersSpec(
+      workersList.filter((w) => {
+        return data.workerId.includes(w._id);
+      })
+    );
+    // data.workerId.map((id) => {
+    //   return workersList.map((w) => {
+    //     if (w._id === id) {
+    //       setInputValues({
+    //         id: data._id,
+    //         name: w.name,
+    //         mobile: w.mobile,
+    //       });
+    //     }
+    //   });
+    // });
+
+    setDisplayMaximizable(true);
+  };
+
   // console.log(inputValues);
   // console.log(submitted);
 
@@ -135,6 +172,21 @@ function Specialization() {
       </React.Fragment>
     );
   };
+  const dialogFuncMap = {
+    displayMaximizable: setDisplayMaximizable,
+  };
+
+  const onClick = (name, position) => {
+    dialogFuncMap[`${name}`](true);
+
+    if (position) {
+      setPosition(position);
+    }
+  };
+  const onHide = (name) => {
+    dialogFuncMap[`${name}`](false);
+    setInputValues({ name: "", mobile: "" });
+  };
 
   const actionBodyTemplate = (rowData) => {
     return (
@@ -146,8 +198,14 @@ function Specialization() {
         />
         <Button
           icon="pi pi-trash"
-          className="p-button-rounded p-button-warning"
+          className="p-button-rounded p-button-warning mr-2"
           onClick={() => confirmDeletespecialization(rowData)}
+        />
+        <Button
+          label="العاملين"
+          icon="pi pi-users"
+          className="p-button-rounded"
+          onClick={() => showDetails(rowData)}
         />
       </React.Fragment>
     );
@@ -190,6 +248,7 @@ function Specialization() {
   return (
     <>
       <Toolbar
+        className="mb-4"
         left={leftToolbarTemplate}
         right={rightToolbarTemplate}
       ></Toolbar>
@@ -200,10 +259,12 @@ function Specialization() {
         value={specsList}
         paginator
         rows={10}
+        responsiveLayout="scroll"
         rowsPerPageOptions={[5, 10, 25]}
         paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} of Specialization"
         globalFilter={globalFilter}
+        dataKey="_id"
       >
         <Column
           sortable
@@ -213,6 +274,7 @@ function Specialization() {
           header="First Name"
         ></Column>
         <Column sortable filter field="type" header="Type"></Column>
+
         <Column
           body={actionBodyTemplate}
           exportable={false}
@@ -297,6 +359,30 @@ function Specialization() {
               ?
             </span>
           )}
+        </div>
+      </Dialog>
+      {/* Dialog Details  */}
+      <Dialog
+        header="أسماء العاملين"
+        visible={displayMaximizable}
+        maximizable
+        modal
+        onHide={() => onHide("displayMaximizable")}
+      >
+        <div>
+          {workersSpec.map((w, i) => {
+            return (
+              <Card
+                key={i}
+                title={w.name}
+                style={{ width: "20rem", marginBottom: "2em" }}
+              >
+                <p className="m-0" style={{ lineHeight: "1.5" }}>
+                  {w.mobile}
+                </p>
+              </Card>
+            );
+          })}
         </div>
       </Dialog>
     </>

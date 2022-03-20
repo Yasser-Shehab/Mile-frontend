@@ -1,13 +1,12 @@
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Button } from "primereact/button";
-import { Badge } from "primereact/badge";
+import { InputMask } from "primereact/inputmask";
 import { Dropdown } from "primereact/dropdown";
 // import { MultiSelect } from "primereact/multiselect";
 import { SplitButton } from "primereact/splitbutton";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Messages } from "primereact/messages";
 import { Message } from "primereact/message";
 import { getProjects } from "../../store/actions/projectAction";
 import { getSpecializations } from "../../store/actions/specAction.js";
@@ -95,7 +94,9 @@ function Worker() {
       dispatch(
         editWorker(
           {
-            projects: selectedDeleteProject.filter((ele) => ele !== ev.target.name),
+            projects: selectedDeleteProject.filter(
+              (ele) => ele !== ev.target.name
+            ),
           },
           id
         )
@@ -138,7 +139,11 @@ function Worker() {
                   onClick={(e) => {
                     onBadgeClick(e, data._id);
                   }}
-                  className={deleteProjectFlag && data._id ? "p-button-danger" : "p-button-success"}
+                  className={
+                    deleteProjectFlag && data._id
+                      ? "p-button-danger"
+                      : "p-button-success"
+                  }
                   style={{ marginRight: "1rem", marginTop: "1rem" }}
                 >
                   {p.name}
@@ -154,7 +159,9 @@ function Worker() {
                   key={p.projectId}
                   label={p.projectName}
                   size="large"
-                  className={deleteProjectFlag ? "p-button-danger" : "p-button-success"}
+                  className={
+                    deleteProjectFlag ? "p-button-danger" : "p-button-success"
+                  }
                   style={{ marginRight: "1rem", marginTop: "1rem" }}
                 ></Button>
               </>
@@ -170,7 +177,11 @@ function Worker() {
 
         <h3 className="mb-3">Add new project</h3>
         <SplitButton
-          label={data._id === project.workerId ? project.projectName : "Select new project"}
+          label={
+            data._id === project.workerId
+              ? project.projectName
+              : "Select new project"
+          }
           model={projectsList.map((p) => {
             return {
               label: p.name,
@@ -215,7 +226,6 @@ function Worker() {
       inputValues.mobile !== 0 &&
       inputValues.nationalID !== 0
     ) {
-      console.log(inputValues);
       if (!inputValues.id) {
         try {
           dispatch(addWorker(inputValues));
@@ -225,7 +235,6 @@ function Worker() {
 
         console.log(inputValues);
       } else {
-        console.log("edit values", inputValues);
         dispatch(
           editWorker(
             {
@@ -316,7 +325,6 @@ function Worker() {
       mobile: data.mobile,
       nationalID: data.nationalID,
     });
-    // console.log(data);
     setWorkerDialog(true);
   };
 
@@ -346,7 +354,12 @@ function Worker() {
   const specializationDialogFooter = (
     <>
       {/* <form> */}
-      <Button label="Cancel" icon="pi pi-times" className="p-button-text" onClick={hideDialog} />
+      <Button
+        label="Cancel"
+        icon="pi pi-times"
+        className="p-button-text"
+        onClick={hideDialog}
+      />
       <Button
         label="Save"
         icon="pi pi-check"
@@ -516,26 +529,18 @@ function Worker() {
               </div>
               <div className="field">
                 <label htmlFor="nationalID">الرقم القومي</label>
-                <InputNumber
-                  mode="decimal"
-                  useGrouping={false}
+                <InputMask
                   id="nationalID"
                   name="nationalID"
-                  required
+                  mask="99999999999999"
                   value={inputValues.nationalID}
-                  className={classNames({
-                    "p-invalid": submitted && !inputValues.nationalID /*||
-                        inputValues.nationalID.toString().legnth !== 14)*/,
-                  })}
-                  onValueChange={(e) => onInputNumberChange(e, "nationalID")}
-                />
-                {/* {console.log(inputValues.nationalID.toString().length)}
-                {console.log(inputValues.nationalID.toString().legnth > 2)}
-                {console.log(inputValues.nationalID)} */}
+                  placeholder="99999999999999"
+                  onChange={(e) => onInputNumberChange(e, "nationalID")}
+                ></InputMask>
 
-                {submitted && !inputValues.nationalID && (
+                {/* {submitted && !inputValues.nationalID && (
                   <small className="p-error">الرقم القومي مطلوب</small>
-                )}
+                )} */}
                 {/* {submitted &&
                   inputValues.nationalID.toString().legnth !== 14 && (
                     <small className="p-error">الرقم القومي يجب ان يكون 14 رقم</small>
@@ -545,7 +550,9 @@ function Worker() {
                   <Dropdown
                     value={inputValues.specialization}
                     options={specsList}
-                    onChange={(e) => onInputChange(e.target.value._id, "specialization")}
+                    onChange={(e) =>
+                      onInputChange(e.target.value._id, "specialization")
+                    }
                     // onChange={(e) => setSelectedSpec(e.target.value)}
                     optionLabel="type"
                     placeholder="Select a Specialization"
@@ -553,14 +560,18 @@ function Worker() {
                       "p-invalid": submitted && !inputValues.specialization,
                     })}
                   />
-                  {submitted && !selectedSpec && <small className="p-error">التخصص مطلوب</small>}
+                  {submitted && !selectedSpec && (
+                    <small className="p-error">التخصص مطلوب</small>
+                  )}
                 </div>
                 <div className="field">
                   <label htmlFor="specialization">المشروع</label>
                   <Dropdown
                     value={inputValues.projects}
                     options={projectsList}
-                    onChange={(e) => onInputChange(e.target.value._id, "projects")}
+                    onChange={(e) =>
+                      onInputChange(e.target.value._id, "projects")
+                    }
                     // onChange={(e) => setSelectedSpec(e.target.value)}
                     optionLabel="name"
                     placeholder="Select a Project"
@@ -578,7 +589,10 @@ function Worker() {
             onHide={hideDeleteWorkerDialog}
           >
             <div className="confirmation-content">
-              <i className="pi pi-exclamation-triangle mr-3" style={{ fontSize: "2rem" }} />
+              <i
+                className="pi pi-exclamation-triangle mr-3"
+                style={{ fontSize: "2rem" }}
+              />
               {deleteValue && (
                 <span>
                   Are you sure you want to delete
