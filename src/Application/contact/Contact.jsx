@@ -47,11 +47,19 @@ function Contact() {
                 <p>أخرى</p>
               </div>
               <div className={purpose == "Project" ? "icon-active" : "icon"}>
-                <img src={contact2} alt="company-project" onClick={() => setPurpose("Project")} />
+                <img
+                  src={contact2}
+                  alt="company-project"
+                  onClick={() => setPurpose("Project")}
+                />
                 <p>إنشاء مشروع</p>
               </div>
               <div className={purpose == "Job" ? "icon-active" : "icon"}>
-                <img src={contact1} alt="job-application" onClick={() => setPurpose("Job")} />
+                <img
+                  src={contact1}
+                  alt="job-application"
+                  onClick={() => setPurpose("Job")}
+                />
                 <p>وظائف</p>
               </div>
             </div>
@@ -63,7 +71,11 @@ function Contact() {
                     &nbsp; البريد الالكتروني
                   </p>
                   <input id="email" type="email" name="email" required />
-                  <ValidationError prefix="Email" field="email" errors={state.errors} />
+                  <ValidationError
+                    prefix="Email"
+                    field="email"
+                    errors={state.errors}
+                  />
                 </div>
                 <div className="input-container">
                   <p>
@@ -76,22 +88,29 @@ function Contact() {
               <div className="text-container">
                 <p>تفاصيل</p>
                 <textarea className="text-area" id="message" name="message" />
-                <ValidationError prefix="Message" field="message" errors={state.errors} />
+                <ValidationError
+                  prefix="Message"
+                  field="message"
+                  errors={state.errors}
+                />
               </div>
               <div className="form-btn">
                 <div className="submit-form">
                   <i className="pi pi-angle-left" />
-                  <button type="submit" disabled={state.submitting}>
+                  <button
+                    type="submit"
+                    style={{ cursor: "pointer" }}
+                    disabled={state.submitting}
+                  >
                     أرسال
                   </button>
                 </div>
-                <div className="upload-file">
-                  {/* <i className="pi pi-angle-up" /> */}
+                {/* <div className="upload-file">
                   <input type="file" id="upload" hidden name="upload" />
                   <label htmlFor="upload" className="upload-text">
                     <i className="pi pi-angle-up" /> ارفع الملف
                   </label>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
