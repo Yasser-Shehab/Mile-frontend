@@ -1,6 +1,7 @@
 const INITIAL_VALUE = {
   token: "",
   isAuth: false,
+  error: {},
 };
 let token = localStorage.getItem("token");
 if (token && token !== "") {
@@ -15,6 +16,11 @@ const UserReducer = (state = INITIAL_VALUE, action) => {
         ...state,
         token: action.payload,
         isAuth: true,
+      };
+    case "ON_ERROR":
+      return {
+        ...state,
+        error: action.payload,
       };
     default:
       return state;

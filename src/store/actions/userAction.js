@@ -9,7 +9,12 @@ const login = (credentials) => (dispatch) => {
         payload: token,
       });
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      dispatch({
+        type: "ON_ERROR",
+        payload: err.response,
+      });
+    });
 };
 
 export { login };

@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 
 function LoginForm() {
   const token = useSelector((state) => state.userReducer.token);
+  const error = useSelector((state) => state.userReducer.error);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -42,6 +43,10 @@ function LoginForm() {
 
   const onSubmit = (data, form) => {
     dispatch(login(data));
+    // if (error && error.status === 401) {
+    //   console.log("ektebhom sa7 mesh ay kalam w 5alas");
+    //   return;
+    // }
     form.restart();
     navigate("/dashboard");
   };
@@ -61,6 +66,7 @@ function LoginForm() {
         "640px": "100vw",
       }}
     >
+      {/* {console.log(error)} */}
       <div className="form-demo">
         <div className="flex justify-content-center">
           <div className="card">
@@ -73,7 +79,7 @@ function LoginForm() {
               }}
               validate={validate}
               render={({ handleSubmit }) => (
-                <form onSubmit={handleSubmit} className="p-fluid">
+                <form onSubmit={(e) => handleSubmit(e)} className="p-fluid">
                   <Field
                     name="email"
                     render={({ input, meta }) => (
