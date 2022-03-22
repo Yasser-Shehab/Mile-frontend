@@ -6,6 +6,8 @@ $primary: #648bf0;
 .hero-section {
   width: 100%;
   min-height: 700px;
+  max-width: 1920px;
+  margin: 0 auto;
   background: linear-gradient(
       90.07deg,
       rgba(45, 46, 63, 0.88) 9.74%,
@@ -34,13 +36,13 @@ $primary: #648bf0;
     font-size: 1.5em;
     text-decoration: none;
     list-style: none;
-    li {
+    .nav-item-link {
       margin: 0 15px;
-    }
-    li:hover {
-      color: #648bf0;
-      transition: 1s;
       cursor: pointer;
+      &:hover {
+        color: #648bf0;
+        transition: 1s;
+      }
     }
   }
 
@@ -74,13 +76,17 @@ $primary: #648bf0;
       float: right;
       align-items: center;
       justify-content: space-around;
-      background-color: $primary;
+      background: $primary;
       width: 250px;
       height: 50px;
       font-size: 20px;
+      transition: 1s ease-out;
       cursor: pointer;
       padding: 0.5em;
       border-radius: 5px;
+      &:hover {
+        background: darken($color: $primary, $amount: 10);
+      }
       p {
         margin-bottom: 5px;
       }

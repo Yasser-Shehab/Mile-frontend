@@ -92,4 +92,8 @@
 .swiper-container .slide-content .slide-icons div {
   margin-bottom: 10px;
 }
+
+.skeleton-container {
+  overflow: hidden;
+}
 /*# sourceMappingURL=carousel.css.map */

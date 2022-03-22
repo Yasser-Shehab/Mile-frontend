@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "../assets/styles/navStyle/nav.css";
 import logo from "../assets/imgs/logo.svg";
 import Navitem from "./Navitem";
+import Link from "react-scroll/modules/components/Link";
 
 function Nav() {
   const [Mobile, setMobile] = useState(false);
@@ -15,7 +16,19 @@ function Nav() {
             className={Mobile ? "links-mobile" : "nav-links"}
             onMouseLeave={() => setMobile(false)}
           >
-            <a href="#contact-title">
+            <Link className="nav-item-link" to="contact-title">
+              تواصل معانا
+            </Link>
+            <Link className="nav-item-link" to="contact-title">
+              الوظائف
+            </Link>
+            <Link className="nav-item-link" to="project-title">
+              المشروعات
+            </Link>
+            <Link className="nav-item-link" to="about-title">
+              عن الشركة
+            </Link>
+            {/* <a href="#contact-title">
               <Navitem title="تواصل معانا" />
             </a>
             <a href="#contact-title">
@@ -26,7 +39,7 @@ function Nav() {
             </a>
             <a href="#about-title">
               <Navitem title="عن الشركة" />
-            </a>
+            </a> */}
           </div>
           <div className="burger" onClick={() => setMobile(!Mobile)}>
             {Mobile ? <i className="pi pi-times"></i> : <i className="pi pi-bars"></i>}
@@ -40,12 +53,12 @@ function Nav() {
             <h1 className="title-custom">معاً </h1>
             <h1>نبني رؤيتك </h1>
           </div>
-          <a href="#project-title">
+          <Link to="project-title">
             <div className="hero-btn">
               <i className="pi pi-angle-left"></i>
               <p>تصفح اخر المشاريع</p>
             </div>
-          </a>
+          </Link>
         </div>
       </div>
     </>

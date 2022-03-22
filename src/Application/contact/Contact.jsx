@@ -17,105 +17,87 @@ function Contact() {
   if (state.succeeded) {
     return (
       <div className="msg-container">
-        <p>Thanks for Submitting!</p>
+        <p>تم الأرسال بنجاح</p>
       </div>
     );
   }
   return (
     <>
-      <Title title="تواصل معنا" id="contact-title" />
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="purpose"
-          id="purpose"
-          value={purpose}
-          onChange={() => console.log(purpose)}
-          hidden
-        />
-        <div className="contact-container">
-          <div className="content-container">
-            <div className="contact-title">
-              <p>الغرض من التواصل</p>
-            </div>
-            <div className="contact-icons">
-              <div
-                className={purpose == "Another" ? "icon-active" : "icon"}
-                onClick={() => setPurpose("Another")}
-              >
-                <img src={contact3} alt="another" />
-                <p>أخرى</p>
+      <div className="section-container ">
+        <Title title="تواصل معنا" id="contact-title" />
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            name="purpose"
+            id="purpose"
+            value={purpose}
+            onChange={() => console.log(purpose)}
+            hidden
+          />
+          <div className="contact-container">
+            <div className="content-container">
+              <div className="contact-title">
+                <p>الغرض من التواصل</p>
               </div>
-              <div className={purpose == "Project" ? "icon-active" : "icon"}>
-                <img
-                  src={contact2}
-                  alt="company-project"
-                  onClick={() => setPurpose("Project")}
-                />
-                <p>إنشاء مشروع</p>
-              </div>
-              <div className={purpose == "Job" ? "icon-active" : "icon"}>
-                <img
-                  src={contact1}
-                  alt="job-application"
-                  onClick={() => setPurpose("Job")}
-                />
-                <p>وظائف</p>
-              </div>
-            </div>
-            <div className="contact-form">
-              <div className="required-input">
-                <div className="input-container">
-                  <p>
-                    <img src={star} />
-                    &nbsp; البريد الالكتروني
-                  </p>
-                  <input id="email" type="email" name="email" required />
-                  <ValidationError
-                    prefix="Email"
-                    field="email"
-                    errors={state.errors}
-                  />
+              <div className="contact-icons">
+                <div
+                  className={purpose == "Another" ? "icon-active" : "icon"}
+                  onClick={() => setPurpose("Another")}
+                >
+                  <img src={contact3} alt="another" />
+                  <p>أخرى</p>
                 </div>
-                <div className="input-container">
-                  <p>
-                    <img src={star} />
-                    &nbsp; الأسم
-                  </p>
-                  <input type="name" name="name" required />
+                <div className={purpose == "Project" ? "icon-active" : "icon"}>
+                  <img src={contact2} alt="company-project" onClick={() => setPurpose("Project")} />
+                  <p>إنشاء مشروع</p>
+                </div>
+                <div className={purpose == "Job" ? "icon-active" : "icon"}>
+                  <img src={contact1} alt="job-application" onClick={() => setPurpose("Job")} />
+                  <p>وظائف</p>
                 </div>
               </div>
-              <div className="text-container">
-                <p>تفاصيل</p>
-                <textarea className="text-area" id="message" name="message" />
-                <ValidationError
-                  prefix="Message"
-                  field="message"
-                  errors={state.errors}
-                />
-              </div>
-              <div className="form-btn">
-                <div className="submit-form">
-                  <i className="pi pi-angle-left" />
-                  <button
-                    type="submit"
-                    style={{ cursor: "pointer" }}
-                    disabled={state.submitting}
-                  >
-                    أرسال
-                  </button>
+              <div className="contact-form">
+                <div className="required-input">
+                  <div className="input-container">
+                    <p>
+                      <img src={star} />
+                      &nbsp; البريد الالكتروني
+                    </p>
+                    <input id="email" type="email" name="email" required />
+                    <ValidationError prefix="Email" field="email" errors={state.errors} />
+                  </div>
+                  <div className="input-container">
+                    <p>
+                      <img src={star} />
+                      &nbsp; الأسم
+                    </p>
+                    <input type="name" name="name" required />
+                  </div>
                 </div>
-                {/* <div className="upload-file">
+                <div className="text-container">
+                  <p>تفاصيل</p>
+                  <textarea className="text-area" id="message" name="message" />
+                  <ValidationError prefix="Message" field="message" errors={state.errors} />
+                </div>
+                <div className="form-btn">
+                  <div className="submit-form">
+                    <i className="pi pi-angle-left" />
+                    <button type="submit" className="submit-contact" disabled={state.submitting}>
+                      أرسال
+                    </button>
+                  </div>
+                  {/* <div className="upload-file">
                   <input type="file" id="upload" hidden name="upload" />
                   <label htmlFor="upload" className="upload-text">
                     <i className="pi pi-angle-up" /> ارفع الملف
                   </label>
                 </div> */}
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </form>
+        </form>
+      </div>
     </>
   );
 }

@@ -6,6 +6,8 @@
 .hero-section {
   width: 100%;
   min-height: 700px;
+  max-width: 1920px;
+  margin: 0 auto;
   background: linear-gradient(90.07deg, rgba(45, 46, 63, 0.88) 9.74%, rgba(45, 46, 63, 0.52) 35.32%, rgba(45, 46, 63, 0.88) 87.07%), url("../../imgs/hero.jpg");
   background-position: 100% 85%;
   background-repeat: no-repeat;
@@ -41,15 +43,15 @@
   list-style: none;
 }
 
-.hero-section .nav-links li {
+.hero-section .nav-links .nav-item-link {
   margin: 0 15px;
+  cursor: pointer;
 }
 
-.hero-section .nav-links li:hover {
+.hero-section .nav-links .nav-item-link:hover {
   color: #648bf0;
   -webkit-transition: 1s;
   transition: 1s;
-  cursor: pointer;
 }
 
 .hero-section .burger {
@@ -96,13 +98,19 @@
           align-items: center;
   -ms-flex-pack: distribute;
       justify-content: space-around;
-  background-color: #648bf0;
+  background: #648bf0;
   width: 250px;
   height: 50px;
   font-size: 20px;
+  -webkit-transition: 1s ease-out;
+  transition: 1s ease-out;
   cursor: pointer;
   padding: 0.5em;
   border-radius: 5px;
+}
+
+.hero-section .title-container .hero-btn:hover {
+  background: #3668ec;
 }
 
 .hero-section .title-container .hero-btn p {

@@ -15,6 +15,8 @@ import bath from "../assets/imgs/carousel/bath.png";
 import space from "../assets/imgs/carousel/space.png";
 import bed from "../assets/imgs/carousel/bed.png";
 import Title from "../shared/Title";
+import SkeletonElement from "../skeletons/SkeletonElement";
+import { SkeletonCarosel } from "../skeletons/SkeletonCarosel";
 
 function Carousel() {
   const projectsList = useSelector((state) => state.projectReducer.projects);
@@ -26,59 +28,60 @@ function Carousel() {
   if (projectsList.length != 0) {
     return (
       <>
-        <Title title="أبرز مشاريع الشركة" id="project-title" />
-        <div className="swiper-container">
-          <Swiper
-            slidesPerView={"auto"}
-            spaceBetween={100}
-            centeredSlides={true}
-            effect={"coverflow"}
-            coverflowEffect={{
-              rotate: 30,
-              stretch: 0,
-              depth: 0,
-              modifier: 1,
-              slideShadows: false,
-            }}
-            grabCursor={true}
-            loop={true}
-            scrollbar={{
-              draggable: true,
-            }}
-            navigation={true}
-            modules={[EffectCoverflow, Pagination, Navigation]}
-            className="mySwiper"
-          >
-            {console.log(projectsList)}
-            {projectsList.map((project) => {
-              return (
-                <SwiperSlide className="slide" key={project._id}>
-                  <div className="slide-content">
-                    <img src={project.images[0]} alt="project" className="card-img-top" />
-                    <div className="slide-text">{project.description}</div>
-                    <div className="slide-badge">
-                      <p>{project.name}</p>
+        <div className="section-container">
+          <Title title="أبرز مشاريع الشركة" id="project-title" />
+          <div className="swiper-container">
+            <Swiper
+              slidesPerView={"auto"}
+              spaceBetween={100}
+              centeredSlides={true}
+              effect={"coverflow"}
+              coverflowEffect={{
+                rotate: 30,
+                stretch: 0,
+                depth: 0,
+                modifier: 1,
+                slideShadows: false,
+              }}
+              grabCursor={true}
+              loop={true}
+              scrollbar={{
+                draggable: true,
+              }}
+              navigation={true}
+              modules={[EffectCoverflow, Pagination, Navigation]}
+              className="mySwiper"
+            >
+              {console.log(projectsList)}
+              {projectsList.map((project) => {
+                return (
+                  <SwiperSlide className="slide" key={project._id}>
+                    <div className="slide-content">
+                      <img src={project.images[0]} alt="project" className="card-img-top" />
+                      <div className="slide-text">{project.description}</div>
+                      <div className="slide-badge">
+                        <p>{project.name}</p>
+                      </div>
+                      <div className="slide-icons">
+                        <div>
+                          <img src={bed} />
+                          <p>x4</p>
+                        </div>
+                        <div>
+                          <img src={bath} />
+                          <p>x4</p>
+                        </div>
+                        <div>
+                          <img src={space} />
+                          <p>227 m</p>
+                        </div>
+                      </div>
                     </div>
-                    <div className="slide-icons">
-                      <div>
-                        <img src={bed} />
-                        <p>x4</p>
-                      </div>
-                      <div>
-                        <img src={bath} />
-                        <p>x4</p>
-                      </div>
-                      <div>
-                        <img src={space} />
-                        <p>227 m</p>
-                      </div>
-                    </div>
-                  </div>
-                </SwiperSlide>
-              );
-            })}
+                  </SwiperSlide>
+                );
+              })}
 
-            {/* <SwiperSlide className="slide">
+              {/* <SwiperSlide className="slide">
               <div className="slide-content">
                 <img src={project2} alt="project" className="card-img-top" />
                 <div className="slide-text">
@@ -132,12 +135,19 @@ function Carousel() {
                 </div>
               </div>
             </SwiperSlide> */}
-          </Swiper>
+            </Swiper>
+          </div>
         </div>
       </>
     );
   } else {
-    return <h1> Loading</h1>;
+    return (
+      <>
+        <div className="skeleton-container">
+          <SkeletonCarosel />
+        </div>
+      </>
+    );
   }
 }
 

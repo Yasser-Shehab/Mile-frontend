@@ -13,6 +13,7 @@
 .swiper-container {
   margin-top: 50px;
   margin-bottom: 50px;
+
   .mySwiper {
     overflow: hidden;
   }
@@ -67,4 +68,8 @@
       }
     }
   }
+}
+
+.skeleton-container {
+  overflow: hidden;
 }

@@ -18,6 +18,10 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
+.section-container {
+  margin-top: 10rem;
+}
+
 @font-face {
   font-family: arabicFont;
   src: url(/src/Application/assets/font/ArbFONTS-DINNextLTArabic-Regular-4.ttf);
