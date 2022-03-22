@@ -110,29 +110,15 @@ function Specialization() {
       name: data.name,
       type: data.type,
     });
-    // console.log(data);
     setspecializationDialog(true);
   };
 
   const showDetails = (data) => {
-    console.log(data);
-
     setWorkersSpec(
       workersList.filter((w) => {
-        return data.workerId.includes(w._id);
+        return w.specialization === data._id;
       })
     );
-    // data.workerId.map((id) => {
-    //   return workersList.map((w) => {
-    //     if (w._id === id) {
-    //       setInputValues({
-    //         id: data._id,
-    //         name: w.name,
-    //         mobile: w.mobile,
-    //       });
-    //     }
-    //   });
-    // });
 
     setDisplayMaximizable(true);
   };
@@ -147,7 +133,6 @@ function Specialization() {
   const submitHandel = (event) => {
     console.log(event);
     event.preventDefault();
-    // dispatch(addSpecializations(inputValues));
   };
   const deleteHandel = (data) => {
     dispatch(deleteSpecializations(data._id));
