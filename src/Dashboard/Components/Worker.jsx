@@ -206,8 +206,8 @@ function Worker() {
           })}
         {(!(data.projects.length === 0) || !(workerProjects.length === 0)) && (
           <Button
-            icon="pi pi-trash"
-            className="p-button-rounded p-button-warning"
+            icon="pi pi-times"
+            className="p-button-rounded p-button-danger p-button-text"
             onClick={() => deleteProjectsHandel(data.projects)}
           />
         )}
@@ -234,7 +234,12 @@ function Worker() {
           className="p-button-raised mr-2"
         ></SplitButton>
 
-        <Button label="add" onClick={() => addProject(data._id, project)} />
+        <Button
+          label="Add"
+          icon="pi pi-check"
+          className="p-button-rounded p-button-text"
+          onClick={() => addProject(data._id, project)}
+        />
       </Details>
     );
   };
@@ -365,24 +370,24 @@ function Worker() {
     setWorkerDialog(true);
   };
 
-  const header = (
-    <div className="table-header-container">
-      <Button
-        icon="pi pi-plus"
-        label="Expand All"
-        onClick={expandAll}
-        style={{ marginRight: "1rem" }}
-      />
-      <Button icon="pi pi-minus" label="Collapse All" onClick={collapseAll} />
-    </div>
-  );
+  // const header = (
+  //   <div className="table-header-container">
+  //     <Button
+  //       icon="pi pi-plus"
+  //       label="Expand All"
+  //       onClick={expandAll}
+  //       style={{ marginRight: "1rem" }}
+  //     />
+  //     <Button icon="pi pi-minus" label="Collapse All" onClick={collapseAll} />
+  //   </div>
+  // );
   const leftToolbarTemplate = () => {
     return (
       <>
         <Button
           label="Add New Worker"
           icon="pi pi-plus"
-          className="p-button-success mr-2"
+          className="p-button-secondary p-button-raised p-button-outlined p-button-rounded mr-2"
           onClick={openNew}
         />
       </>
@@ -413,12 +418,12 @@ function Worker() {
       <>
         <Button
           icon="pi pi-pencil"
-          className="p-button-rounded p-button-success mr-2"
+          className="p-button-rounded  p-button-outlined p-button-secondary mr-2"
           onClick={() => editWorkers(rowData)}
         />
         <Button
-          icon="pi pi-trash"
-          className="p-button-rounded p-button-warning"
+          icon="pi pi-times"
+          className="p-button-rounded p-button-danger p-button-outlined"
           onClick={() => confirmDeleteWorker(rowData)}
         />
       </>
@@ -428,6 +433,20 @@ function Worker() {
   const rightToolbarTemplate = () => {
     return (
       <React.Fragment>
+        <Button
+          icon="pi pi-plus"
+          // label="Expand All"
+          className="p-button-rounded p-button-secondary  p-button-outlined"
+          onClick={expandAll}
+          style={{ marginRight: "1rem" }}
+        />
+        <Button
+          icon="pi pi-minus"
+          // label="Collapse All"
+          className="p-button-rounded p-button-secondary  p-button-outlined"
+          onClick={collapseAll}
+          style={{ marginRight: "1rem" }}
+        />
         <span className="p-input-icon-left">
           <i className="pi pi-search" />
           <InputText
@@ -477,7 +496,7 @@ function Worker() {
             responsiveLayout="scroll"
             rowExpansionTemplate={rowExpansionTemplate}
             dataKey="_id"
-            header={header}
+            // header={header}
             paginator
             rows={10}
             rowsPerPageOptions={[5, 10, 25]}
@@ -486,12 +505,39 @@ function Worker() {
             globalFilter={globalFilter}
           >
             <Column expander style={{ width: "3em" }} />
-            <Column field="name" header="الاسم"></Column>
-            <Column sortable field="specs.name" header="اسم التخصص"></Column>
-            <Column sortable field="specs.type" header="نوع التخصص"></Column>
+            <Column
+              filter
+              filterPlaceholder="filter..."
+              field="name"
+              header="الاسم"
+            ></Column>
+            <Column
+              filter
+              filterPlaceholder="filter..."
+              // sortable
+              field="specs.name"
+              header="اسم التخصص"
+            ></Column>
+            <Column
+              filter
+              filterPlaceholder="filter..."
+              // sortable
+              field="specs.type"
+              header="نوع التخصص"
+            ></Column>
             <Column field="address" header="العنوان"></Column>
-            <Column field="mobile" header="الموبايل"></Column>
-            <Column field="nationalID" header="الرقم القومي"></Column>
+            <Column
+              filter
+              filterPlaceholder="filter..."
+              field="mobile"
+              header="الموبايل"
+            ></Column>
+            <Column
+              filter
+              filterPlaceholder="filter..."
+              field="nationalID"
+              header="الرقم القومي"
+            ></Column>
             <Column
               body={actionBodyTemplate}
               exportable={false}
@@ -628,6 +674,7 @@ function Worker() {
             style={{ width: "450px" }}
             header="Confirm"
             modal
+            maximizable
             footer={deletespecializationDialogFooter}
             onHide={hideDeleteWorkerDialog}
           >

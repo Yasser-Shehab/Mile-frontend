@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import "../assets/styles/carousel/carousel.css";
-import Sperator from "../shared/Sperator";
+// import Sperator from "../shared/Sperator";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useDispatch, useSelector } from "react-redux";
 import { EffectCoverflow, Pagination, Navigation } from "swiper";
@@ -22,8 +22,8 @@ function Carousel() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getProjects());
-  }, []);
-  if (projectsList.length != 0) {
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  if (projectsList.length !== 0) {
     return (
       <>
         <Title title="أبرز مشاريع الشركة" id="project-title" />
@@ -54,22 +54,26 @@ function Carousel() {
               return (
                 <SwiperSlide className="slide" key={project._id}>
                   <div className="slide-content">
-                    <img src={project.images[0]} alt="project" className="card-img-top" />
+                    <img
+                      src={project.images[0]}
+                      alt="project"
+                      className="card-img-top"
+                    />
                     <div className="slide-text">{project.description}</div>
                     <div className="slide-badge">
                       <p>{project.name}</p>
                     </div>
                     <div className="slide-icons">
                       <div>
-                        <img src={bed} />
+                        <img src={bed} alt="" />
                         <p>x4</p>
                       </div>
                       <div>
-                        <img src={bath} />
+                        <img src={bath} alt="" />
                         <p>x4</p>
                       </div>
                       <div>
-                        <img src={space} />
+                        <img src={space} alt="" />
                         <p>227 m</p>
                       </div>
                     </div>

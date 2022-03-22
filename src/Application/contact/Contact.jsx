@@ -40,13 +40,13 @@ function Contact() {
             </div>
             <div className="contact-icons">
               <div
-                className={purpose == "Another" ? "icon-active" : "icon"}
+                className={purpose === "Another" ? "icon-active" : "icon"}
                 onClick={() => setPurpose("Another")}
               >
                 <img src={contact3} alt="another" />
                 <p>أخرى</p>
               </div>
-              <div className={purpose == "Project" ? "icon-active" : "icon"}>
+              <div className={purpose === "Project" ? "icon-active" : "icon"}>
                 <img
                   src={contact2}
                   alt="company-project"
@@ -54,7 +54,7 @@ function Contact() {
                 />
                 <p>إنشاء مشروع</p>
               </div>
-              <div className={purpose == "Job" ? "icon-active" : "icon"}>
+              <div className={purpose === "Job" ? "icon-active" : "icon"}>
                 <img
                   src={contact1}
                   alt="job-application"
@@ -67,7 +67,7 @@ function Contact() {
               <div className="required-input">
                 <div className="input-container">
                   <p>
-                    <img src={star} />
+                    <img src={star} alt="" />
                     &nbsp; البريد الالكتروني
                   </p>
                   <input id="email" type="email" name="email" required />
@@ -79,7 +79,7 @@ function Contact() {
                 </div>
                 <div className="input-container">
                   <p>
-                    <img src={star} />
+                    <img src={star} alt="" />
                     &nbsp; الأسم
                   </p>
                   <input type="name" name="name" required />

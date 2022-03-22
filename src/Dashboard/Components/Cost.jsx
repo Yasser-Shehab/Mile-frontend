@@ -114,7 +114,12 @@ function Cost() {
 
   const leftToolbarTemplate = (
     <div className="table-header-container">
-      <Button icon="pi pi-plus" label="Asign new cost" onClick={onClick} />
+      <Button
+        icon="pi pi-plus"
+        label="Asign new cost"
+        onClick={onClick}
+        className="p-button-secondary p-button-raised p-button-outlined p-button-rounded mr-2"
+      />
 
       <Dialog
         header="Add New Cost"
@@ -122,6 +127,7 @@ function Cost() {
         style={{ width: "50vw" }}
         footer={renderFooter}
         onHide={onHide}
+        maximizable
       >
         <div className="p-fluid grid formgrid">
           <div className="field col-12 ">
@@ -165,14 +171,15 @@ function Cost() {
       <Button
         label="Export"
         icon="pi pi-upload"
-        className="p-button-help"
+        className="p-button-rounded p-button-secondary  p-button-outlined"
         onClick={exportCSV}
       />
       <Button
+        label="PDF"
         type="button"
         icon="pi pi-file-pdf"
         onClick={exportPdf}
-        className="p-button-warning ml-2"
+        className="p-button-rounded p-button-secondary  p-button-outlined ml-2"
         data-pr-tooltip="PDF"
       />
     </div>
@@ -191,8 +198,8 @@ function Cost() {
           onClick={() => editspecialization(rowData)}
         /> */}
         <Button
-          icon="pi pi-trash"
-          className="p-button-rounded p-button-warning"
+          icon="pi pi-times"
+          className="p-button-rounded p-button-danger p-button-outlined "
           onClick={() => handleDelete(rowData)}
         />
       </>

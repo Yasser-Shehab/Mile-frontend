@@ -21,7 +21,12 @@ function Account() {
         value={costsSumList}
         responsiveLayout="scroll"
       >
-        <Column field="_id" header="Project Name"></Column>
+        <Column
+          filter
+          filterPlaceholder="filter..."
+          field="_id"
+          header="Project Name"
+        ></Column>
         <Column field="total" header="Sum"></Column>
         <Column field="budget" header="Budget"></Column>
       </DataTable>

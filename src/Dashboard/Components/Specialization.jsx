@@ -31,11 +31,11 @@ function Specialization() {
   const [deleteValue, setDeleteValue] = useState("");
   const [loading1, setLoading1] = useState(false);
   const [globalFilter, setGlobalFilter] = useState(null);
-  const [expandedRows, setExpandedRows] = useState(null);
+  // const [expandedRows, setExpandedRows] = useState(null);
   // worker list
   const workersList = useSelector((state) => state.workerReducer.workers);
   const [displayMaximizable, setDisplayMaximizable] = useState(false);
-  const [position, setPosition] = useState("center");
+  // const [position, setPosition] = useState("center");
   const [workersSpec, setWorkersSpec] = useState([]);
   //const [wlist, setWList] = useState([]);
   useEffect(() => {
@@ -162,7 +162,7 @@ function Specialization() {
         <Button
           label="Add New Specialization"
           icon="pi pi-plus"
-          className="p-button-success mr-2"
+          className="p-button-secondary p-button-raised p-button-outlined p-button-rounded mr-2"
           onClick={openNew}
         />
       </React.Fragment>
@@ -189,18 +189,18 @@ function Specialization() {
       <React.Fragment>
         <Button
           icon="pi pi-pencil"
-          className="p-button-rounded p-button-success mr-2"
+          className="p-button-rounded  p-button-outlined p-button-secondary mr-2"
           onClick={() => editspecialization(rowData)}
         />
         <Button
-          icon="pi pi-trash"
-          className="p-button-rounded p-button-warning mr-2"
+          icon="pi pi-times"
+          className="p-button-rounded p-button-danger p-button-outlined mr-2"
           onClick={() => confirmDeletespecialization(rowData)}
         />
         <Button
           label="العاملين"
           icon="pi pi-users"
-          className="p-button-rounded"
+          className="p-button-rounded p-button-outlined"
           onClick={() => showDetails(rowData)}
         />
       </React.Fragment>
@@ -262,13 +262,18 @@ function Specialization() {
         dataKey="_id"
       >
         <Column
-          sortable
+          //sortable
           filter
           filterPlaceholder="filter..."
           field="name"
-          header="First Name"
+          header="اسم التخصص"
         ></Column>
-        <Column sortable filter field="type" header="Type"></Column>
+        <Column
+          // sortable
+          filter
+          field="type"
+          header="نوع التخصص"
+        ></Column>
 
         <Column
           body={actionBodyTemplate}
@@ -283,6 +288,7 @@ function Specialization() {
           style={{ width: "450px" }}
           header="Specialization Details"
           modal
+          maximizable
           className="p-fluid"
           footer={specializationDialogFooter}
           onHide={hideDialog}
@@ -337,6 +343,7 @@ function Specialization() {
         style={{ width: "450px" }}
         header="Confirm"
         modal
+        maximizable
         footer={deletespecializationDialogFooter}
         onHide={hideDeletespecializationDialog}
       >
