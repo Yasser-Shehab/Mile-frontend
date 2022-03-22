@@ -78,7 +78,7 @@ function Cost() {
   const exportPdf = () => {
     import("jspdf").then((jsPDF) => {
       import("jspdf-autotable").then(() => {
-        import("../../Application/assets/font/dinnext-normal");
+        // import("../../Application/assets/font/dinnext-normal");
         const doc = new jsPDF.default(0, 0);
         doc.autoTable(exportColumns, costsList);
         doc.autoTable({
@@ -203,10 +203,7 @@ function Cost() {
 
   return (
     <>
-      <Toolbar
-        left={leftToolbarTemplate}
-        right={rightToolbarTemplate}
-      ></Toolbar>
+      <Toolbar left={leftToolbarTemplate} right={rightToolbarTemplate}></Toolbar>
       <DataTable
         ref={dt}
         resizableColumns
