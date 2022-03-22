@@ -157,18 +157,8 @@ function Project() {
 
   const projectDialogFooter = (
     <>
-      <Button
-        label="Cancel"
-        icon="pi pi-times"
-        className="p-button-text"
-        onClick={hideDialog}
-      />
-      <Button
-        label="Save"
-        icon="pi pi-check"
-        className="p-button-text"
-        onClick={saveProject}
-      />
+      <Button label="Cancel" icon="pi pi-times" className="p-button-text" onClick={hideDialog} />
+      <Button label="Save" icon="pi pi-check" className="p-button-text" onClick={saveProject} />
     </>
   );
 
@@ -235,15 +225,18 @@ function Project() {
     editHandel(_project);
   };
 
+  const dateBodyTemplate = (rowData) => {
+    const date = rowData.createdAt;
+    const newDate = date.toString().split(":");
+    const formatedDate = newDate[0].toString().substr(0, 10);
+    return formatedDate;
+  };
   return (
     <>
       <div className="datatable-crud-demo">
         <Toast ref={toast} />
         <div className="card">
-          <Toolbar
-            left={leftToolbarTemplate}
-            right={rightToolbarTemplate}
-          ></Toolbar>
+          <Toolbar left={leftToolbarTemplate} right={rightToolbarTemplate}></Toolbar>
           <DataTable
             resizableColumns
             columnResizeMode="expand"
@@ -286,6 +279,8 @@ function Project() {
               //sortable
               field="createdAt"
               header="التاريخ"
+              filterField="date"
+              body={dateBodyTemplate}
             ></Column>
             <Column
               resizableColumns
@@ -325,12 +320,7 @@ function Project() {
             {project.images.length !== 0 &&
               project.images.map((image, i) => {
                 return (
-                  <Image
-                    key={i}
-                    src={image}
-                    onClick={() => handleThumbnail(image)}
-                    width="250"
-                  />
+                  <Image key={i} src={image} onClick={() => handleThumbnail(image)} width="250" />
                 );
               })}
           </div>
@@ -359,9 +349,7 @@ function Project() {
                 "p-invalid": submitted && !project.name,
               })}
             />
-            {submitted && !project.name && (
-              <small className="p-error">Name is required.</small>
-            )}
+            {submitted && !project.name && <small className="p-error">Name is required.</small>}
           </div>
 
           {/* *********   Description    *************** */}
@@ -408,10 +396,7 @@ function Project() {
           onHide={hideDeleteProjectDialog}
         >
           <div className="confirmation-content">
-            <i
-              className="pi pi-exclamation-triangle mr-3"
-              style={{ fontSize: "2rem" }}
-            />
+            <i className="pi pi-exclamation-triangle mr-3" style={{ fontSize: "2rem" }} />
             {project && (
               <span>
                 Are you sure you want to delete <b>{project.name}</b>?
