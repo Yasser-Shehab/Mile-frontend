@@ -1,4 +1,5 @@
 import React from "react";
+import { ScrollTop } from "primereact/scrolltop";
 import AboutInfo from "./about/AboutInfo";
 import Carousel from "./carousel/Carousel";
 import Contact from "./contact/Contact";
@@ -14,6 +15,7 @@ function Application() {
       <Carousel />
       <Contact />
       <Footer />
+      <ScrollTop />
     </>
   );
 }
