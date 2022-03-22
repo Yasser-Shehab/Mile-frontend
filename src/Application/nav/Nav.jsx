@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "../assets/styles/navStyle/nav.css";
 import logo from "../assets/imgs/logo.svg";
-import Navitem from "./Navitem";
 import Link from "react-scroll/modules/components/Link";
 
 function Nav() {
@@ -16,36 +15,16 @@ function Nav() {
             className={Mobile ? "links-mobile" : "nav-links"}
             onMouseLeave={() => setMobile(false)}
           >
-            <Link
-              smooth={true}
-              duration={1000}
-              className="nav-item-link"
-              to="contact-title"
-            >
+            <Link smooth={true} duration={1000} className="nav-item-link" to="contact-title">
               تواصل معانا
             </Link>
-            <Link
-              smooth={true}
-              duration={1000}
-              className="nav-item-link"
-              to="contact-title"
-            >
+            <Link smooth={true} duration={1000} className="nav-item-link" to="contact-title">
               الوظائف
             </Link>
-            <Link
-              smooth={true}
-              duration={1000}
-              className="nav-item-link"
-              to="project-title"
-            >
+            <Link smooth={true} duration={1000} className="nav-item-link" to="project-title">
               المشروعات
             </Link>
-            <Link
-              smooth={true}
-              duration={1000}
-              className="nav-item-link"
-              to="about-title"
-            >
+            <Link smooth={true} duration={1000} className="nav-item-link" to="about-title">
               عن الشركة
             </Link>
             {/* <a href="#contact-title">
@@ -62,11 +41,7 @@ function Nav() {
             </a> */}
           </div>
           <div className="burger" onClick={() => setMobile(!Mobile)}>
-            {Mobile ? (
-              <i className="pi pi-times"></i>
-            ) : (
-              <i className="pi pi-bars"></i>
-            )}
+            {Mobile ? <i className="pi pi-times"></i> : <i className="pi pi-bars"></i>}
           </div>
           <div className="brand">
             <img src={logo} alt="logo" />

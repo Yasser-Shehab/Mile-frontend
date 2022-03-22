@@ -202,7 +202,10 @@ function Cost() {
 
   return (
     <>
-      <Toolbar left={leftToolbarTemplate} right={rightToolbarTemplate}></Toolbar>
+      <Toolbar
+        left={leftToolbarTemplate}
+        right={rightToolbarTemplate}
+      ></Toolbar>
       <DataTable
         ref={dt}
         resizableColumns
