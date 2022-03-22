@@ -137,16 +137,12 @@ function Specialization() {
     setDisplayMaximizable(true);
   };
 
-  // console.log(inputValues);
-  // console.log(submitted);
-
   const nameHandel = (event) => {
     setInputValues({ ...inputValues, name: event.target.value });
   };
 
   const typeHandel = (event) => {
     setInputValues({ ...inputValues, type: event.target.value });
-    // console.log(inputValues);
   };
   const submitHandel = (event) => {
     console.log(event);
@@ -176,13 +172,13 @@ function Specialization() {
     displayMaximizable: setDisplayMaximizable,
   };
 
-  const onClick = (name, position) => {
-    dialogFuncMap[`${name}`](true);
+  // const onClick = (name, position) => {
+  //   dialogFuncMap[`${name}`](true);
 
-    if (position) {
-      setPosition(position);
-    }
-  };
+  //   if (position) {
+  //     setPosition(position);
+  //   }
+  // };
   const onHide = (name) => {
     dialogFuncMap[`${name}`](false);
     setInputValues({ name: "", mobile: "" });

@@ -3,7 +3,7 @@ import { Column } from "primereact/column";
 import { Button } from "primereact/button";
 import { InputMask } from "primereact/inputmask";
 import { Dropdown } from "primereact/dropdown";
-// import { MultiSelect } from "primereact/multiselect";
+import { TreeSelect } from "primereact/treeselect";
 import { SplitButton } from "primereact/splitbutton";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -68,29 +68,58 @@ function Worker() {
   const [selectedDeleteProject, setSelectedDeleteProject] = useState([""]); //the selected delete project
   const dispatch = useDispatch();
 
+  // ///////    tree select    ---------------------->>>>>>
+  const [nodes, setNodes] = useState(null);
+  const [selectedNodeKey, setSelectedNodeKey] = useState(null);
+
   const addProject = (workerId, project) => {
     setWorkerProjects([...workerProjects, project]);
     dispatch(asignProject(workerId, project.projectId));
   };
-  // console.log(workerProjects);
-  // console.log(projectsList);
+
+  const specNames = specsList.reduce((previousValue, currentValue) => {
+    return {
+      ...previousValue,
+      [currentValue.name]: specsList.filter((e) => {
+        return e.name === currentValue.name;
+      }),
+    };
+  }, {});
+
+  // const obj =  {
+  //   "key": "0",
+  //   "label": "Documents",
+  //   "data": "Documents Folder",
+  //   "icon": "pi pi-fw pi-inbox",
+  //   "children": [{
+  //       "key": "0-0",
+  //       "label": "Work",
+  //       "data": "Work Folder",
+  //       "icon": "pi pi-fw pi-cog",
+  //       "children": [{ "key": "0-0-0", "label": "Expenses.doc", "icon": "pi pi-fw pi-file", "data": "Expenses Document" }, { "key": "0-0-1", "label": "Resume.doc", "icon": "pi pi-fw pi-file", "data": "Resume Document" }]
+  //   }
 
   useEffect(() => {
+    // console.log(Object.keys(specNames));
+    // setNodes(Object.keys(specNames));
     isMounted.current = true;
     dispatch(getProjects());
     dispatch(getWorkers());
     dispatch(getSpecializations());
-    console.log(specsList);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const deleteProjectsHandel = (dataa) => {
-    console.log(dataa);
-    setSelectedDeleteProject(dataa);
+  const deleteProjectsHandel = (data) => {
+    setSelectedDeleteProject(data);
     setDeleteProjectFlag(!deleteProjectFlag);
   };
 
   const onBadgeClick = (ev, id) => {
     if (deleteProjectFlag) {
+      setWorkerProjects(
+        workerProjects.filter((p) => {
+          return p._id === id;
+        })
+      );
       dispatch(
         editWorker(
           {
@@ -126,7 +155,6 @@ function Worker() {
       <Details>
         <h1>{data.name}</h1>
         {data.projects.length !== 0 && <h3>Projects</h3>}
-
         {data.projects.map((id) => {
           return projectsList.map((p) => {
             if (p._id === id)
@@ -151,22 +179,31 @@ function Worker() {
               );
           });
         })}
-        {workerProjects.map((p) => {
-          if (p.workerId === data._id)
+        {console.log(workerProjects)}
+        {workerProjects
+          .filter((p) => {
+            return p.workerId === data._id;
+          })
+          .map((project, i) => {
             return (
               <>
                 <Button
-                  key={p.projectId}
-                  label={p.projectName}
+                  key={i}
+                  label={project.projectName}
                   size="large"
+                  onClick={(e) => {
+                    onBadgeClick(e, data._id);
+                  }}
                   className={
-                    deleteProjectFlag ? "p-button-danger" : "p-button-success"
+                    deleteProjectFlag && data._id
+                      ? "p-button-danger"
+                      : "p-button-success"
                   }
                   style={{ marginRight: "1rem", marginTop: "1rem" }}
                 ></Button>
               </>
             );
-        })}
+          })}
         {(!(data.projects.length === 0) || !(workerProjects.length === 0)) && (
           <Button
             icon="pi pi-trash"
@@ -547,6 +584,12 @@ function Worker() {
                   )} */}
                 <div className="field">
                   <label htmlFor="specialization">التخصص</label>
+                  <TreeSelect
+                    value={selectedNodeKey}
+                    options={nodes}
+                    onChange={(e) => setSelectedNodeKey(e.value)}
+                    placeholder="Select Item"
+                  ></TreeSelect>
                   <Dropdown
                     value={inputValues.specialization}
                     options={specsList}
