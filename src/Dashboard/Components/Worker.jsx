@@ -621,6 +621,7 @@ function Worker() {
                     options={nodes}
                     onChange={(e) => onInputChange(e.value, "specialization")}
                     placeholder="Select Item"
+                    filter
                   ></TreeSelect>
 
                   {submitted && !selectedSpec && (
