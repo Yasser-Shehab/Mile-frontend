@@ -50,7 +50,7 @@ function Dashboard() {
   ];
 
   return (
-    <>
+    <div className="dashboard">
       <div>
         <div className="card">
           <Menubar model={items} />
@@ -58,7 +58,7 @@ function Dashboard() {
       </div>
 
       <Outlet />
-    </>
+    </div>
   );
 }
 

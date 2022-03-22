@@ -34,3 +34,8 @@ code {
   font-weight: bold;
   font-style: bold;
 }
+
+.dashboard {
+  min-height: 100vh;
+  background: #1e1e1e;
+}
