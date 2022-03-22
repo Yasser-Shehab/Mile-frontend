@@ -15,8 +15,6 @@ import { InputText } from "primereact/inputtext";
 import { classNames } from "primereact/utils";
 import { getWorkers } from "../../store/actions/workerAction";
 import { Card } from "primereact/card";
-// Spec css
-// import "./SpecTest.css";
 function Specialization() {
   const specsList = useSelector((state) => state.specializationReducer.specs);
   const dispatch = useDispatch();
@@ -31,13 +29,11 @@ function Specialization() {
   const [deleteValue, setDeleteValue] = useState("");
   const [loading1, setLoading1] = useState(false);
   const [globalFilter, setGlobalFilter] = useState(null);
-  // const [expandedRows, setExpandedRows] = useState(null);
-  // worker list
   const workersList = useSelector((state) => state.workerReducer.workers);
   const [displayMaximizable, setDisplayMaximizable] = useState(false);
-  // const [position, setPosition] = useState("center");
+
   const [workersSpec, setWorkersSpec] = useState([]);
-  //const [wlist, setWList] = useState([]);
+
   useEffect(() => {
     dispatch(getSpecializations());
     dispatch(getWorkers());
@@ -78,11 +74,10 @@ function Specialization() {
   };
 
   const confirmDeletespecialization = (spec) => {
-    // console.log(spec);
     setDeleteValue(spec);
     setDeletespecializationDialog(true);
   };
-  // console.log("deleteValue is", deleteValue);
+
   const specializationDialogFooter = (
     <>
       {/* <form> */}
@@ -157,13 +152,6 @@ function Specialization() {
     displayMaximizable: setDisplayMaximizable,
   };
 
-  // const onClick = (name, position) => {
-  //   dialogFuncMap[`${name}`](true);
-
-  //   if (position) {
-  //     setPosition(position);
-  //   }
-  // };
   const onHide = (name) => {
     dialogFuncMap[`${name}`](false);
     setInputValues({ name: "", mobile: "" });
@@ -313,14 +301,6 @@ function Specialization() {
               <small className="p-error">نوع التخصص مطلوب</small>
             )}
           </div>
-          {/* <Button
-            label="Save"
-            icon="pi pi-check"
-            className="p-button-text"
-            // type="submit"
-          >
-            submijj
-          </Button> */}
         </Dialog>
       </form>
       <Dialog
