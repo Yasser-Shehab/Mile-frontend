@@ -25,10 +25,10 @@ function Account() {
           filter
           filterPlaceholder="filter..."
           field="_id"
-          header="Project Name"
+          header="اسم المشروع"
         ></Column>
-        <Column field="total" header="Sum"></Column>
-        <Column field="budget" header="Budget"></Column>
+        <Column field="total" header="المبلغ المنفق حتى الان"></Column>
+        <Column field="budget" header="المبلغ المتوقع"></Column>
       </DataTable>
     </>
   );
