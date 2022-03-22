@@ -10,10 +10,7 @@ import star from "../assets/imgs/contact/star.svg";
 function Contact() {
   const [state, handleSubmit] = useForm("xpzblpkr");
   const [purpose, setPurpose] = useState("Job");
-  // function clickHandle(event) {
-  //   setPurpose(event);
-  //   console.log(event);
-  // }
+
   if (state.succeeded) {
     return (
       <div className="msg-container">
@@ -41,18 +38,26 @@ function Contact() {
               </div>
               <div className="contact-icons">
                 <div
-                  className={purpose == "Another" ? "icon-active" : "icon"}
+                  className={purpose === "Another" ? "icon-active" : "icon"}
                   onClick={() => setPurpose("Another")}
                 >
                   <img src={contact3} alt="another" />
                   <p>أخرى</p>
                 </div>
-                <div className={purpose == "Project" ? "icon-active" : "icon"}>
-                  <img src={contact2} alt="company-project" onClick={() => setPurpose("Project")} />
+                <div className={purpose === "Project" ? "icon-active" : "icon"}>
+                  <img
+                    src={contact2}
+                    alt="company-project"
+                    onClick={() => setPurpose("Project")}
+                  />
                   <p>إنشاء مشروع</p>
                 </div>
-                <div className={purpose == "Job" ? "icon-active" : "icon"}>
-                  <img src={contact1} alt="job-application" onClick={() => setPurpose("Job")} />
+                <div className={purpose === "Job" ? "icon-active" : "icon"}>
+                  <img
+                    src={contact1}
+                    alt="job-application"
+                    onClick={() => setPurpose("Job")}
+                  />
                   <p>وظائف</p>
                 </div>
               </div>
@@ -60,15 +65,19 @@ function Contact() {
                 <div className="required-input">
                   <div className="input-container">
                     <p>
-                      <img src={star} />
+                      <img src={star} alt="" />
                       &nbsp; البريد الالكتروني
                     </p>
                     <input id="email" type="email" name="email" required />
-                    <ValidationError prefix="Email" field="email" errors={state.errors} />
+                    <ValidationError
+                      prefix="Email"
+                      field="email"
+                      errors={state.errors}
+                    />
                   </div>
                   <div className="input-container">
                     <p>
-                      <img src={star} />
+                      <img src={star} alt="" />
                       &nbsp; الأسم
                     </p>
                     <input type="name" name="name" required />
@@ -77,12 +86,20 @@ function Contact() {
                 <div className="text-container">
                   <p>تفاصيل</p>
                   <textarea className="text-area" id="message" name="message" />
-                  <ValidationError prefix="Message" field="message" errors={state.errors} />
+                  <ValidationError
+                    prefix="Message"
+                    field="message"
+                    errors={state.errors}
+                  />
                 </div>
                 <div className="form-btn">
                   <div className="submit-form">
                     <i className="pi pi-angle-left" />
-                    <button type="submit" className="submit-contact" disabled={state.submitting}>
+                    <button
+                      type="submit"
+                      className="submit-contact"
+                      disabled={state.submitting}
+                    >
                       أرسال
                     </button>
                   </div>

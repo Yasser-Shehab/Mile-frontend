@@ -38,14 +38,7 @@ function Dashboard() {
         navigate("/dashboard/workers");
       },
     },
-    {
-      label: "Report",
-      icon: "pi pi-fw pi-chart-bar",
-      // command: () => {
-      //   localStorage.setItem("token", "");
-      //   navigate("/");
-      // },
-    },
+
     {
       label: "Logout",
       icon: "pi pi-fw pi-power-off",
