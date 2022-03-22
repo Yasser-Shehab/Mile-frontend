@@ -185,11 +185,6 @@ function Cost() {
   const actionBodyTemplate = (rowData) => {
     return (
       <>
-        {/* <Button
-          icon="pi pi-pencil"
-          className="p-button-rounded p-button-success mr-2"
-          onClick={() => editspecialization(rowData)}
-        /> */}
         <Button
           icon="pi pi-trash"
           className="p-button-rounded p-button-warning"

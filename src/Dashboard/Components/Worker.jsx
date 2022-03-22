@@ -69,39 +69,51 @@ function Worker() {
   const dispatch = useDispatch();
 
   // ///////    tree select    ---------------------->>>>>>
-  const [nodes, setNodes] = useState(null);
-  const [selectedNodeKey, setSelectedNodeKey] = useState(null);
+  const [nodes, setNodes] = useState([
+    {
+      key: 1,
+      label: "hisham",
+      children: [
+        {
+          key: 2,
+          label: "mohammed",
+        },
+      ],
+    },
+  ]);
 
   const addProject = (workerId, project) => {
     setWorkerProjects([...workerProjects, project]);
     dispatch(asignProject(workerId, project.projectId));
   };
 
-  const specNames = specsList.reduce((previousValue, currentValue) => {
-    return {
-      ...previousValue,
-      [currentValue.name]: specsList.filter((e) => {
-        return e.name === currentValue.name;
-      }),
-    };
-  }, {});
+  const getNodes = (arr) => {
+    const names = arr.reduce((previousValue, currentValue) => {
+      return {
+        ...previousValue,
+        [currentValue.name]: arr
+          .filter((e) => {
+            return e.name === currentValue.name;
+          })
+          .map((child) => {
+            return {
+              key: child._id,
+              label: child.type,
+            };
+          }),
+      };
+    }, {});
 
-  // const obj =  {
-  //   "key": "0",
-  //   "label": "Documents",
-  //   "data": "Documents Folder",
-  //   "icon": "pi pi-fw pi-inbox",
-  //   "children": [{
-  //       "key": "0-0",
-  //       "label": "Work",
-  //       "data": "Work Folder",
-  //       "icon": "pi pi-fw pi-cog",
-  //       "children": [{ "key": "0-0-0", "label": "Expenses.doc", "icon": "pi pi-fw pi-file", "data": "Expenses Document" }, { "key": "0-0-1", "label": "Resume.doc", "icon": "pi pi-fw pi-file", "data": "Resume Document" }]
-  //   }
+    return Object.keys(names).map((s) => {
+      return {
+        key: s,
+        label: s,
+        children: names[s],
+      };
+    });
+  };
 
   useEffect(() => {
-    // console.log(Object.keys(specNames));
-    // setNodes(Object.keys(specNames));
     isMounted.current = true;
     dispatch(getProjects());
     dispatch(getWorkers());
@@ -131,21 +143,8 @@ function Worker() {
         )
       );
       setDeleteProjectFlag(!deleteProjectFlag);
-      // confirmDeleteProject(id)
     }
   };
-  //   const confirmDeleteProject = (id) => {
-  //     console.log(id);
-  //     console.log(deletedProject);
-  //   dispatch(
-  //     editWorker(
-  //       {
-  //         projects: deletedProject,
-  //       },
-  //       id
-  //     )
-  //   );
-  // }
 
   // ***********   show nested data   ******************
   const rowExpansionTemplate = (data) => {
@@ -253,6 +252,7 @@ function Worker() {
     setInputValues(inputValues);
     setSubmitted(false);
     setWorkerDialog(true);
+    setNodes(getNodes(specsList));
   };
 
   const saveWorker = () => {
@@ -265,12 +265,11 @@ function Worker() {
     ) {
       if (!inputValues.id) {
         try {
+          inputValues.projects = [inputValues.projects._id];
           dispatch(addWorker(inputValues));
         } catch (error) {
           return setSubmitErr(error);
         }
-
-        console.log(inputValues);
       } else {
         dispatch(
           editWorker(
@@ -279,6 +278,7 @@ function Worker() {
               address: inputValues.address,
               mobile: inputValues.mobile,
               nationalID: inputValues.nationalID,
+              specialization: inputValues.specialization,
             },
             inputValues.id
           )
@@ -299,15 +299,21 @@ function Worker() {
   const hideDialog = () => {
     setSubmitted(false);
     setWorkerDialog(false);
-    setInputValues({ name: "", address: "", mobile: "", nationalID: "" });
+    setInputValues({
+      name: "",
+      address: "",
+      mobile: "",
+      nationalID: "",
+      specialization: "",
+    });
     setSubmitErr("");
   };
   const onInputChange = (val, name) => {
     let _input = { ...inputValues };
     _input[`${name}`] = val;
-    console.log(_input);
     setInputValues(_input);
   };
+
   const onInputNumberChange = (e, name) => {
     const val = e.value;
     let _input = { ...inputValues };
@@ -345,7 +351,6 @@ function Worker() {
     setDeleteWorkerDialog(true);
   };
   const deleteHandel = (data) => {
-    console.log("data", data._id);
     dispatch(deleteWorker(data._id));
     setDeleteWorkerDialog(false);
   };
@@ -353,7 +358,6 @@ function Worker() {
     setDeleteWorkerDialog(false);
   };
   const editWorkers = (data) => {
-    console.log("data", data);
     setInputValues({
       ...inputValues,
       id: data._id,
@@ -361,6 +365,7 @@ function Worker() {
       address: data.address,
       mobile: data.mobile,
       nationalID: data.nationalID,
+      specialization: data.specialization,
     });
     setWorkerDialog(true);
   };
@@ -498,7 +503,7 @@ function Worker() {
               style={{ minWidth: "8rem" }}
             ></Column>
           </DataTable>
-          <form /*onSubmit={submitHandel}*/ noValidate>
+          <form noValidate>
             <Dialog
               visible={workerDialog}
               style={{ width: "450px" }}
@@ -517,7 +522,6 @@ function Worker() {
                   value={inputValues.name}
                   name="name"
                   onChange={nameInputChange}
-                  // onChange={nameHandel}
                   required
                   autoFocus
                   className={classNames({
@@ -534,7 +538,6 @@ function Worker() {
                   value={inputValues.address}
                   name="address"
                   onChange={address}
-                  // onChange={typeHandel}
                   required
                   className={classNames({
                     "p-invalid": submitted && !inputValues.address,
@@ -585,37 +588,22 @@ function Worker() {
                 <div className="field">
                   <label htmlFor="specialization">التخصص</label>
                   <TreeSelect
-                    value={selectedNodeKey}
+                    value={inputValues.specialization}
                     options={nodes}
-                    onChange={(e) => setSelectedNodeKey(e.value)}
+                    onChange={(e) => onInputChange(e.value, "specialization")}
                     placeholder="Select Item"
                   ></TreeSelect>
-                  <Dropdown
-                    value={inputValues.specialization}
-                    options={specsList}
-                    onChange={(e) =>
-                      onInputChange(e.target.value._id, "specialization")
-                    }
-                    // onChange={(e) => setSelectedSpec(e.target.value)}
-                    optionLabel="type"
-                    placeholder="Select a Specialization"
-                    className={classNames({
-                      "p-invalid": submitted && !inputValues.specialization,
-                    })}
-                  />
+
                   {submitted && !selectedSpec && (
                     <small className="p-error">التخصص مطلوب</small>
                   )}
                 </div>
                 <div className="field">
-                  <label htmlFor="specialization">المشروع</label>
+                  <label htmlFor="projects">المشروع</label>
                   <Dropdown
                     value={inputValues.projects}
                     options={projectsList}
-                    onChange={(e) =>
-                      onInputChange(e.target.value._id, "projects")
-                    }
-                    // onChange={(e) => setSelectedSpec(e.target.value)}
+                    onChange={(e) => onInputChange(e.target.value, "projects")}
                     optionLabel="name"
                     placeholder="Select a Project"
                   />

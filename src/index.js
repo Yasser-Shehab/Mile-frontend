@@ -1,4 +1,4 @@
-import "primereact/resources/themes/lara-dark-purple/theme.css"; //theme
+import "primereact/resources/themes/arya-purple/theme.css"; //theme
 import "primereact/resources/primereact.min.css"; //core css
 import "primeicons/primeicons.css"; //icons
 import "primereact/resources/primereact.css";
