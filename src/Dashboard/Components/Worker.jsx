@@ -67,7 +67,6 @@ function Worker() {
   const [deleteProjectFlag, setDeleteProjectFlag] = useState(false); //the flag to switch between delete project or not
   const [selectedDeleteProject, setSelectedDeleteProject] = useState([""]); //the selected delete project
   const dispatch = useDispatch();
-
   // ///////    tree select    ---------------------->>>>>>
   const [nodes, setNodes] = useState([
     {
@@ -406,13 +405,13 @@ function Worker() {
     return (
       <>
         <Button
-          icon="pi pi-pencil"
+          icon="pi pi-user-edit"
           className="p-button-rounded  p-button-outlined p-button-secondary mr-2"
           onClick={() => editWorkers(rowData)}
         />
         <Button
           icon="pi pi-times"
-          className="p-button-rounded p-button-danger p-button-outlined"
+          className="p-button-rounded p-button-danger p-button-outlined mr-2"
           onClick={() => confirmDeleteWorker(rowData)}
         />
       </>
@@ -423,7 +422,7 @@ function Worker() {
     return (
       <React.Fragment>
         <Button
-          icon="pi pi-plus"
+          icon="pi pi-user-plus"
           // label="Expand All"
           className="p-button-rounded p-button-secondary  p-button-outlined"
           onClick={expandAll}
