@@ -31,13 +31,10 @@ function Specialization() {
   const [deleteValue, setDeleteValue] = useState("");
   const [loading1, setLoading1] = useState(false);
   const [globalFilter, setGlobalFilter] = useState(null);
-  // const [expandedRows, setExpandedRows] = useState(null);
   // worker list
   const workersList = useSelector((state) => state.workerReducer.workers);
   const [displayMaximizable, setDisplayMaximizable] = useState(false);
-  // const [position, setPosition] = useState("center");
   const [workersSpec, setWorkersSpec] = useState([]);
-  //const [wlist, setWList] = useState([]);
   useEffect(() => {
     dispatch(getSpecializations());
     dispatch(getWorkers());
