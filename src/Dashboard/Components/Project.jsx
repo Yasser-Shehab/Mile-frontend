@@ -37,7 +37,7 @@ function Project() {
   const toast = useRef(null);
   const dt = useRef(null);
   const projectsList = useSelector((state) => state.projectReducer.projects);
-  const error = useSelector((state) => state.projectReducer.error);
+  // const error = useSelector((state) => state.projectReducer.error);
   const [globalFilter, setGlobalFilter] = useState(null);
 
   const dispatch = useDispatch();
@@ -148,7 +148,7 @@ function Project() {
         <Button
           label="Add New Project"
           icon="pi pi-plus"
-          className="p-button-success mr-2"
+          className="p-button-secondary p-button-raised p-button-outlined p-button-rounded mr-2"
           onClick={openNew}
         />
       </>
@@ -179,13 +179,13 @@ function Project() {
       <>
         <Button
           icon="pi pi-pencil"
-          className="p-button-rounded p-button-success mr-2"
+          className="p-button-rounded  p-button-outlined p-button-secondary mr-2"
           onClick={() => editHandel(rowData)}
         />
 
         <Button
-          icon="pi pi-trash"
-          className="p-button-rounded p-button-warning"
+          icon="pi pi-times"
+          className="p-button-rounded p-button-danger p-button-outlined"
           onClick={() => confirmDeleteProject(rowData)}
         />
       </>
@@ -263,17 +263,19 @@ function Project() {
               resizableColumns
               columnResizeMode="expand"
               showGridlines
-              sortable
+              //sortable
+              filter
+              filterPlaceholder="filter..."
               field="name"
-              header="Project Name"
+              header="اسم المشروع"
             ></Column>
             <Column
               resizableColumns
               columnResizeMode="expand"
               showGridlines
-              sortable
+              //sortable
               field="budget"
-              header="Budget"
+              header="المبلغ"
             ></Column>
             <Column
               resizableColumns
@@ -281,16 +283,16 @@ function Project() {
               // body={dateBodyTemplate}
               columnResizeMode="expand"
               showGridlines
-              sortable
+              //sortable
               field="createdAt"
-              header="Created At"
+              header="التاريخ"
             ></Column>
             <Column
               resizableColumns
               columnResizeMode="expand"
               showGridlines
               field="description"
-              header="Description"
+              header="بعض التفاصيل"
             ></Column>
             <Column
               body={actionBodyTemplate}
@@ -401,6 +403,7 @@ function Project() {
           style={{ width: "450px" }}
           header="Confirm"
           modal
+          maximizable
           footer={DeleteProjectDialogFooter}
           onHide={hideDeleteProjectDialog}
         >
