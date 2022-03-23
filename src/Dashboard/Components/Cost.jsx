@@ -114,10 +114,10 @@ function Cost() {
   const leftToolbarTemplate = (
     <div className="table-header-container">
       <Button
-        icon="pi pi-plus"
+        icon="pi pi-plus ml-3"
         label="Asign new cost"
         onClick={onClick}
-        className="p-button-secondary p-button-raised p-button-outlined p-button-rounded mr-2"
+        className="p-button-primary p-button-raised p-button-outlined p-button-rounded ml-2"
       />
 
       <Dialog
@@ -170,7 +170,7 @@ function Cost() {
       <Button
         label="Export"
         icon="pi pi-upload"
-        className="p-button-rounded p-button-secondary  p-button-outlined"
+        className="p-button-rounded p-button-secondary  p-button-outlined mr-3"
         onClick={exportCSV}
       />
       <Button
@@ -178,7 +178,7 @@ function Cost() {
         type="button"
         icon="pi pi-file-pdf"
         onClick={exportPdf}
-        className="p-button-rounded p-button-secondary  p-button-outlined ml-2"
+        className="p-button-rounded p-button-secondary  p-button-outlined mr-3"
         data-pr-tooltip="PDF"
       />
     </div>
