@@ -1,10 +1,5 @@
 import "./App.css";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Dashboard from "./Dashboard/Dashboard";
 import Application from "./Application/Application";
 import Account from "./Dashboard/Components/Account";
@@ -14,6 +9,9 @@ import Specialization from "./Dashboard/Components/Specialization";
 import Worker from "./Dashboard/Components/Worker";
 import PrivateRoute from "./PrivateRoute";
 import LoginForm from "./Dashboard/Components/LoginForm";
+import NotFound from "./Application/NotFound/NotFound";
+import { Link } from "react-router-dom";
+import ProjectDetails from "./Application/projectDetails/ProjectDetails";
 
 function App() {
   return (
@@ -33,6 +31,8 @@ function App() {
 
         <Route path="login" element={<LoginForm />} />
         <Route path="/" element={<Application />} />
+        <Route path="projectDetails/:id" element={<ProjectDetails />} />
+        <Route path={"*"} element={<NotFound />} />
       </Routes>
     </Router>
   );

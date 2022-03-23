@@ -130,8 +130,8 @@ function Project() {
       <>
         <Button
           label="Add New Project"
-          icon="pi pi-plus"
-          className="p-button-secondary p-button-raised p-button-outlined p-button-rounded mr-2"
+          icon="pi pi-plus ml-3"
+          className="p-button-secondary p-button-raised p-button-outlined p-button-rounded ml-2"
           onClick={openNew}
         />
       </>
@@ -150,13 +150,13 @@ function Project() {
       <>
         <Button
           icon="pi pi-pencil"
-          className="p-button-rounded  p-button-outlined p-button-secondary mr-2"
+          className="p-button-rounded  p-button-outlined p-button-secondary mr-3"
           onClick={() => editHandel(rowData)}
         />
 
         <Button
           icon="pi pi-times"
-          className="p-button-rounded p-button-danger p-button-outlined"
+          className="p-button-rounded p-button-danger p-button-outlined mr-3"
           onClick={() => confirmDeleteProject(rowData)}
         />
       </>
@@ -187,7 +187,7 @@ function Project() {
           <InputText
             type="search"
             onInput={(e) => setGlobalFilter(e.target.value)}
-            placeholder="Search..."
+            placeholder="إبحث ..."
           />
         </span>
       </React.Fragment>
@@ -207,10 +207,13 @@ function Project() {
   };
 
   const dateBodyTemplate = (rowData) => {
-    const date = rowData.createdAt;
-    const newDate = date.toString().split(":");
-    const formatedDate = newDate[0].toString().substr(0, 10);
-    return formatedDate;
+    const date = new Date(rowData.createdAt);
+
+    // const newDate = date.toLocalString().split(":");
+    // const newDate = date.toLocalString();
+    // const formatedDate = newDate[0].toString().substr(0, 10);
+
+    return `${date.getFullYear()}/${date.getMonth()}/${date.getDay()}  : الساعة ${date.getHours()}`;
   };
   return (
     <>
@@ -254,7 +257,6 @@ function Project() {
             <Column
               resizableColumns
               dataType="date"
-              // body={dateBodyTemplate}
               columnResizeMode="expand"
               showGridlines
               //sortable

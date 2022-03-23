@@ -25,11 +25,22 @@ function Cost() {
   const [amount, setAmount] = useState(null);
   const [notes, setNotes] = useState(null);
 
+  // const dateBodyTemplate = (rowData) => {
+  //   console.log(rowData);
+  //   const date = rowData.createdAt;
+  //   const newDate = date.toString().split(":");
+  //   const formatedDate = newDate[0].toString().substr(0, 10);
+  //   return formatedDate;
+  // };
+
   const cols = [
     { field: "worker.name", header: "اسم العامل" },
     { field: "project.name", header: "اسم المشروع" },
     { field: "amount", header: "المبلغ" },
-    { field: "createdAt", header: "التاريخ" },
+    {
+      field: "createdAt",
+      header: "التاريخ",
+    },
   ];
 
   const exportColumns = cols.map((col) => ({
@@ -114,10 +125,10 @@ function Cost() {
   const leftToolbarTemplate = (
     <div className="table-header-container">
       <Button
-        icon="pi pi-plus"
+        icon="pi pi-plus ml-3"
         label="Asign new cost"
         onClick={onClick}
-        className="p-button-secondary p-button-raised p-button-outlined p-button-rounded mr-2"
+        className="p-button-primary p-button-raised p-button-outlined p-button-rounded ml-2"
       />
 
       <Dialog
@@ -169,16 +180,16 @@ function Cost() {
     <div className="table-header-container">
       <Button
         label="Export"
-        icon="pi pi-upload"
-        className="p-button-rounded p-button-secondary  p-button-outlined"
+        icon="pi pi-download ml-2"
+        className="p-button-rounded p-button-secondary  p-button-outlined mr-3"
         onClick={exportCSV}
       />
       <Button
         label="PDF"
         type="button"
-        icon="pi pi-file-pdf"
+        icon="pi pi-file-pdf ml-2"
         onClick={exportPdf}
-        className="p-button-rounded p-button-secondary  p-button-outlined ml-2"
+        className="p-button-rounded p-button-secondary  p-button-outlined mr-3"
         data-pr-tooltip="PDF"
       />
     </div>
@@ -200,12 +211,19 @@ function Cost() {
     );
   };
 
+  const dateBodyTemplate = (rowData) => {
+    if (rowData.createdAt) {
+      const date = rowData.createdAt;
+      const newDate = date.toString().split(":");
+      const formatedDate = newDate[0].toString().substr(0, 10);
+      return formatedDate;
+    }
+    return;
+  };
+
   return (
     <>
-      <Toolbar
-        left={leftToolbarTemplate}
-        right={rightToolbarTemplate}
-      ></Toolbar>
+      <Toolbar left={leftToolbarTemplate} right={rightToolbarTemplate}></Toolbar>
       <DataTable
         ref={dt}
         resizableColumns
@@ -221,6 +239,7 @@ function Cost() {
             filterPlaceholder="filter..."
             field={col.field}
             header={col.header}
+            // body={dateBodyTemplate}
           />
         ))}
         <Column

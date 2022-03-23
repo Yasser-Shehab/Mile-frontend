@@ -142,7 +142,7 @@ function Specialization() {
         <Button
           label="Add New Specialization"
           icon="pi pi-plus"
-          className="p-button-secondary p-button-raised p-button-outlined p-button-rounded mr-2"
+          className="p-button-secondary p-button-raised p-button-outlined p-button-rounded ml-3"
           onClick={openNew}
         />
       </React.Fragment>
@@ -162,17 +162,17 @@ function Specialization() {
       <React.Fragment>
         <Button
           icon="pi pi-pencil"
-          className="p-button-rounded  p-button-outlined p-button-secondary mr-2"
+          className="p-button-rounded  p-button-outlined p-button-secondary ml-3"
           onClick={() => editspecialization(rowData)}
         />
         <Button
           icon="pi pi-times"
-          className="p-button-rounded p-button-danger p-button-outlined mr-2"
+          className="p-button-rounded p-button-danger p-button-outlined ml-3"
           onClick={() => confirmDeletespecialization(rowData)}
         />
         <Button
           label="العاملين"
-          icon="pi pi-users"
+          icon="pi pi-users ml-2"
           className="p-button-rounded p-button-outlined"
           onClick={() => showDetails(rowData)}
         />
@@ -207,7 +207,7 @@ function Specialization() {
           <InputText
             type="search"
             onInput={(e) => setGlobalFilter(e.target.value)}
-            placeholder="Search..."
+            placeholder="إبحث ..."
           />
         </span>
       </React.Fragment>

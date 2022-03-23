@@ -15,7 +15,7 @@ function Application() {
       <Carousel />
       <Contact />
       <Footer />
-      <ScrollTop />
+      <ScrollTop className="scroll-top-btn" />
     </>
   );
 }

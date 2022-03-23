@@ -17,6 +17,12 @@ const getProjects = () => (dispatch) => {
     });
 };
 
+const getSingleProject = (id) => (dispatch) => {
+  axios.get("http://localhost:8000/project/${id}").then(({ data }) => {
+    console.log(data);
+  });
+};
+
 const addProject = (newProject) => (dispatch) => {
   axios
     .post("http://localhost:8000/project", newProject)
