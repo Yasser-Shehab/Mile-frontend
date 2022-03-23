@@ -28,10 +28,10 @@ function Project() {
     budget: 0,
     description: "",
   };
-  // array to collect in it
+
   const [projectDialog, setProjectDialog] = useState(false);
   const [DeleteProjectDialog, setDeleteProjectDialog] = useState(false);
-  // initial empty project
+
   const [project, setProject] = useState(emptyProject);
   const [submitted, setSubmitted] = useState(false);
   const toast = useRef(null);
@@ -44,11 +44,8 @@ function Project() {
 
   useEffect(() => {
     dispatch(getProjects());
-    // fill my array with data
-    // setProjects(projectsList);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  //   header
   const openNew = () => {
     setProject(emptyProject);
     setSubmitted(false);
@@ -67,13 +64,12 @@ function Project() {
   /*************************** Add in DB  **********************************/
   const saveProject = () => {
     setSubmitted(true);
-    // // logic add
+
     if (project.name.trim() && project.budget !== 0) {
       if (!project.id) {
         console.log(project);
         dispatch(addProject(project));
         setProject(emptyProject);
-        // dispatch(getProjects());
       } else {
         dispatch(
           editProject(
@@ -97,11 +93,10 @@ function Project() {
     setDeleteProjectDialog(true);
   };
 
-  // Delete from DB
   const deleteHandel = (id) => {
     dispatch(deleteProject(id));
     setDeleteProjectDialog(false);
-    // dispatch(getProjects());
+
     setProject(emptyProject);
   };
 
@@ -129,18 +124,6 @@ function Project() {
 
     setProject(_project);
   };
-
-  // const formatDate = (value) => {
-
-  //   return value.toLocaleDateString("en-US", {
-  //     day: "2-digit",
-  //     month: "2-digit",
-  //     year: "numeric",
-  //   });
-  // };
-  // const dateBodyTemplate = (rowData) => {
-  //   return formatDate(rowData.createdAt);
-  // };
 
   const leftToolbarTemplate = () => {
     return (
@@ -171,8 +154,6 @@ function Project() {
       />
     </>
   );
-
-  // Delete Icon
 
   const actionBodyTemplate = (rowData) => {
     return (
