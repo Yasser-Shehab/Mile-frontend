@@ -20,6 +20,11 @@ function Account() {
         showGridlines
         value={costsSumList}
         responsiveLayout="scroll"
+        paginator
+        rows={10}
+        rowsPerPageOptions={[5, 10, 25]}
+        paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} of Accounts"
       >
         <Column
           filter

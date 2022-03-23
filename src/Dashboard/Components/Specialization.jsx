@@ -227,11 +227,11 @@ function Specialization() {
         value={specsList}
         paginator
         rows={10}
-        responsiveLayout="scroll"
         rowsPerPageOptions={[5, 10, 25]}
         paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} of Specialization"
         globalFilter={globalFilter}
+        responsiveLayout="scroll"
         dataKey="_id"
       >
         <Column

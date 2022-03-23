@@ -65,7 +65,7 @@ function Cost() {
     setSelectedWorker("");
     setSelectedProject("");
     setAmount(null);
-    setNotes(null);
+    setNotes("");
   };
   const onClick = () => {
     setDisplay(true);
@@ -110,7 +110,13 @@ function Cost() {
     return (
       <div>
         <Button label="Cancel" onClick={onHide} className="p-button-text" />
-        <Button label="Add" icon="pi pi-check" onClick={addNewCost} autoFocus />
+        <Button
+          label="Save"
+          icon="pi pi-check"
+          className="p-button-text"
+          onClick={addNewCost}
+          autoFocus
+        />
       </div>
     );
   };
@@ -217,6 +223,11 @@ function Cost() {
         showGridlines
         value={costsList}
         responsiveLayout="scroll"
+        paginator
+        rows={10}
+        rowsPerPageOptions={[5, 10, 25]}
+        paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} of Costs"
       >
         {/* {cols.map((col, index) => (
           <Column

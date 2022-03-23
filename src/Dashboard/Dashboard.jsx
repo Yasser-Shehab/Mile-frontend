@@ -39,7 +39,13 @@ function Dashboard() {
         navigate("/dashboard/workers");
       },
     },
-
+    {
+      label: "الصفحة الرئيسية",
+      icon: "pi pi-fw pi-home ml-2",
+      command: () => {
+        navigate("/");
+      },
+    },
     {
       label: "خروج",
       icon: "pi pi-fw pi-power-off ml-2",
