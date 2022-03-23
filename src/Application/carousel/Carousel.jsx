@@ -15,10 +15,10 @@ import bed from "../assets/imgs/carousel/bed.png";
 import Title from "../shared/Title";
 
 import { SkeletonCarosel } from "../skeletons/SkeletonCarosel";
+import { Link } from "react-router-dom";
 
 function Carousel() {
   const projectsList = useSelector((state) => state.projectReducer.projects);
-
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getProjects());
@@ -55,11 +55,10 @@ function Carousel() {
                 return (
                   <SwiperSlide className="slide" key={project._id}>
                     <div className="slide-content">
-                      <img
-                        src={project.images[0]}
-                        alt="project"
-                        className="card-img-top"
-                      />
+                      <Link key={project._id} to={`/projectDetails/${project._id}`}>
+                        <img src={project.images[0]} alt="project" className="card-img-top" />
+                      </Link>
+
                       <div className="slide-text">{project.description}</div>
                       <div className="slide-badge">
                         <p>{project.name}</p>

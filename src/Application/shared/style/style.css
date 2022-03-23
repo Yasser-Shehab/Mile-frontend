@@ -13,8 +13,9 @@
 }
 
 .title-container .title-header {
-  font-size: 30px;
+  font-size: 2rem;
   max-width: 400px;
+  margin-right: 1rem;
   direction: rtl;
 }
 /*# sourceMappingURL=style.css.map */

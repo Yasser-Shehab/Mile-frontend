@@ -25,6 +25,14 @@ function Cost() {
   const [amount, setAmount] = useState(null);
   const [notes, setNotes] = useState(null);
 
+  const dateBodyTemplate = (rowData) => {
+    console.log(rowData);
+    const date = rowData.createdAt;
+    const newDate = date.toString().split(":");
+    const formatedDate = newDate[0].toString().substr(0, 10);
+    return formatedDate;
+  };
+
   const cols = [
     { field: "worker.name", header: "اسم العامل" },
     { field: "project.name", header: "اسم المشروع" },
@@ -202,10 +210,7 @@ function Cost() {
 
   return (
     <>
-      <Toolbar
-        left={leftToolbarTemplate}
-        right={rightToolbarTemplate}
-      ></Toolbar>
+      <Toolbar left={leftToolbarTemplate} right={rightToolbarTemplate}></Toolbar>
       <DataTable
         ref={dt}
         resizableColumns

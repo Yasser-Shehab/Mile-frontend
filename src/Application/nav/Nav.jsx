@@ -52,7 +52,7 @@ function Nav() {
             <h1 className="title-custom">معاً </h1>
             <h1>نبني رؤيتك </h1>
           </div>
-          <Link to="project-title">
+          <Link smooth={true} duration={1000} to="project-title">
             <div className="hero-btn">
               <i className="pi pi-angle-left"></i>
               <p>تصفح اخر المشاريع</p>
