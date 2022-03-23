@@ -29,7 +29,10 @@ function Cost() {
     { field: "worker.name", header: "اسم العامل" },
     { field: "project.name", header: "اسم المشروع" },
     { field: "amount", header: "المبلغ" },
-    { field: "createdAt", header: "التاريخ" },
+    {
+      field: "createdAt",
+      header: "التاريخ",
+    },
   ];
 
   const exportColumns = cols.map((col) => ({
@@ -169,14 +172,14 @@ function Cost() {
     <div className="table-header-container">
       <Button
         label="Export"
-        icon="pi pi-upload"
+        icon="pi pi-download ml-2"
         className="p-button-rounded p-button-secondary  p-button-outlined mr-3"
         onClick={exportCSV}
       />
       <Button
         label="PDF"
         type="button"
-        icon="pi pi-file-pdf"
+        icon="pi pi-file-pdf ml-2"
         onClick={exportPdf}
         className="p-button-rounded p-button-secondary  p-button-outlined mr-3"
         data-pr-tooltip="PDF"
@@ -200,6 +203,16 @@ function Cost() {
     );
   };
 
+  const dateBodyTemplate = (rowData) => {
+    if (rowData.createdAt) {
+      const date = rowData.createdAt;
+      const newDate = date.toString().split(":");
+      const formatedDate = newDate[0].toString().substr(0, 10);
+      return formatedDate;
+    }
+    return;
+  };
+
   return (
     <>
       <Toolbar
@@ -221,6 +234,7 @@ function Cost() {
             filterPlaceholder="filter..."
             field={col.field}
             header={col.header}
+            // body={dateBodyTemplate}
           />
         ))}
         <Column

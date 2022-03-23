@@ -267,7 +267,6 @@ function Project() {
             <Column
               resizableColumns
               dataType="date"
-              // body={dateBodyTemplate}
               columnResizeMode="expand"
               showGridlines
               //sortable
