@@ -16,48 +16,41 @@ function Cost() {
   const costsList = useSelector((state) => state.costReducer.costs);
   const workersList = useSelector((state) => state.workerReducer.workers);
   const projectsList = useSelector((state) => state.projectReducer.projects);
-
-  // const [allCosts, setAllCosts] = useState(costsList);
-
   const [display, setDisplay] = useState(false);
   const [selectedWorker, setSelectedWorker] = useState("");
   const [selectedProject, setSelectedProject] = useState("");
   const [amount, setAmount] = useState(null);
-  const [notes, setNotes] = useState(null);
-
-  // const dateBodyTemplate = (rowData) => {
-  //   console.log(rowData);
-  //   const date = rowData.createdAt;
-  //   const newDate = date.toString().split(":");
-  //   const formatedDate = newDate[0].toString().substr(0, 10);
-  //   return formatedDate;
-  // };
-
-  const cols = [
-    { field: "worker.name", header: "اسم العامل" },
-    { field: "project.name", header: "اسم المشروع" },
-    { field: "amount", header: "المبلغ" },
-    {
-      field: "createdAt",
-      header: "التاريخ",
-    },
-  ];
-
-  const exportColumns = cols.map((col) => ({
-    title: col.header,
-    dataKey: col.field,
-  }));
+  const [notes, setNotes] = useState("");
 
   const dt = useRef(null);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // setAllCosts(costsList);
     dispatch(getCosts());
     dispatch(getProjects());
     dispatch(getWorkers());
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const dateBodyTemplate = (rowData) => {
+    const date = new Date(rowData.createdAt);
+    return `${date.getFullYear()}/${date.getMonth()}/${date.getDay()}  : الساعة ${date.getHours()}`;
+  };
+  // const cols = [
+  //   { field: "worker", header: "اسم العامل" },
+  //   { field: "project", header: "اسم المشروع" },
+  //   { field: "amount", header: "المبلغ" },
+  //   {
+  //     field: "createdAt",
+  //     header: "التاريخ",
+
+  //   },
+  // ];
+
+  // const exportColumns = cols.map((col) => ({
+  //   title: col.header,
+  //   dataKey: col.field,
+  // }));
 
   const addNewCost = () => {
     let data = {
@@ -86,20 +79,20 @@ function Cost() {
     dt.current.exportCSV();
   };
 
-  const exportPdf = () => {
-    import("jspdf").then((jsPDF) => {
-      import("jspdf-autotable").then(() => {
-        const doc = new jsPDF.default(0, 0);
-        doc.autoTable(exportColumns, costsList);
-        doc.autoTable({
-          headStyles: { fontStyle: "dinnext" },
-          body: costsList,
-          columns: exportColumns,
-        });
-        doc.save("costsList.pdf");
-      });
-    });
-  };
+  // const exportPdf = () => {
+  //   import("jspdf").then((jsPDF) => {
+  //     import("jspdf-autotable").then(() => {
+  //       const doc = new jsPDF.default(0, 0);
+  //       doc.autoTable(exportColumns, costsList);
+  //       doc.autoTable({
+  //         headStyles: { fontStyle: "dinnext" },
+  //         body: costsList,
+  //         columns: exportColumns,
+  //       });
+  //       doc.save("costsList.pdf");
+  //     });
+  //   });
+  // };
 
   // const exportExcel = () => {
   //   import("xlsx").then((xlsx) => {
@@ -126,9 +119,9 @@ function Cost() {
     <div className="table-header-container">
       <Button
         icon="pi pi-plus ml-3"
-        label="Asign new cost"
+        label="اضافة تكلفة جديدة"
         onClick={onClick}
-        className="p-button-primary p-button-raised p-button-outlined p-button-rounded ml-2"
+        className="p-button-info p-button-raised p-button-outlined p-button-rounded ml-2"
       />
 
       <Dialog
@@ -184,14 +177,14 @@ function Cost() {
         className="p-button-rounded p-button-secondary  p-button-outlined mr-3"
         onClick={exportCSV}
       />
-      <Button
+      {/* <Button
         label="PDF"
         type="button"
         icon="pi pi-file-pdf ml-2"
         onClick={exportPdf}
         className="p-button-rounded p-button-secondary  p-button-outlined mr-3"
         data-pr-tooltip="PDF"
-      />
+      /> */}
     </div>
   );
   const handleDelete = (data) => {
@@ -211,19 +204,12 @@ function Cost() {
     );
   };
 
-  const dateBodyTemplate = (rowData) => {
-    if (rowData.createdAt) {
-      const date = rowData.createdAt;
-      const newDate = date.toString().split(":");
-      const formatedDate = newDate[0].toString().substr(0, 10);
-      return formatedDate;
-    }
-    return;
-  };
-
   return (
     <>
-      <Toolbar left={leftToolbarTemplate} right={rightToolbarTemplate}></Toolbar>
+      <Toolbar
+        left={leftToolbarTemplate}
+        right={rightToolbarTemplate}
+      ></Toolbar>
       <DataTable
         ref={dt}
         resizableColumns
@@ -232,16 +218,51 @@ function Cost() {
         value={costsList}
         responsiveLayout="scroll"
       >
-        {cols.map((col, index) => (
+        {/* {cols.map((col, index) => (
           <Column
             key={index}
-            filter
-            filterPlaceholder="filter..."
             field={col.field}
             header={col.header}
             // body={dateBodyTemplate}
           />
-        ))}
+        ))} */}
+        <Column
+          resizableColumns
+          columnResizeMode="expand"
+          showGridlines
+          filter
+          filterPlaceholder="filter..."
+          //sortable
+          field="worker.name"
+          header="اسم العامل"
+        ></Column>
+        <Column
+          resizableColumns
+          columnResizeMode="expand"
+          showGridlines
+          filter
+          filterPlaceholder="filter..."
+          //sortable
+          field="project.name"
+          header="اسم المشروع"
+        ></Column>
+        <Column
+          resizableColumns
+          columnResizeMode="expand"
+          showGridlines
+          //sortable
+          field="amount"
+          header="المبلغ"
+        ></Column>
+        <Column
+          resizableColumns
+          columnResizeMode="expand"
+          showGridlines
+          //sortable
+          field="createdAt"
+          header="التاريخ"
+          body={dateBodyTemplate}
+        ></Column>
         <Column
           body={(e) => actionBodyTemplate(e)}
           exportable={false}

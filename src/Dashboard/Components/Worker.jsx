@@ -26,6 +26,7 @@ import { InputText } from "primereact/inputtext";
 import { Dialog } from "primereact/dialog";
 import { InputNumber } from "primereact/inputnumber";
 import React from "react";
+import { Divider } from "primereact/divider";
 
 function Worker() {
   const [project, setProject] = useState({
@@ -145,12 +146,27 @@ function Worker() {
     }
   };
 
+  const onProjectChange = (e, workerId) => {
+    setProject({
+      workerId,
+      projectId: e.value._id,
+      projectName: e.value.name,
+    });
+  };
+
   // ***********   show nested data   ******************
   const rowExpansionTemplate = (data) => {
     return (
       <Details>
         <h1>{data.name}</h1>
-        {data.projects.length !== 0 && <h3>Projects</h3>}
+        {data.projects.length !== 0 && (
+          <Divider align="left">
+            <div className="inline-flex align-items-center">
+              <i className="pi pi-building ml-2"></i>
+              <b>المشاريع</b>
+            </div>
+          </Divider>
+        )}
         {data.projects.map((id) => {
           return projectsList.map((p) => {
             if (p._id === id)
@@ -164,8 +180,8 @@ function Worker() {
                   }}
                   className={
                     deleteProjectFlag && data._id
-                      ? "p-button-danger"
-                      : "p-button-success"
+                      ? "p-button-rounded p-button-danger"
+                      : "p-button-rounded p-button-warning"
                   }
                   style={{ marginRight: "1rem", marginTop: "1rem" }}
                 >
@@ -191,8 +207,8 @@ function Worker() {
                   }}
                   className={
                     deleteProjectFlag && data._id
-                      ? "p-button-danger"
-                      : "p-button-success"
+                      ? "p-button-rounded p-button-danger"
+                      : "p-button-rounded p-button-warning"
                   }
                   style={{ marginRight: "1rem", marginTop: "1rem" }}
                 ></Button>
@@ -202,17 +218,31 @@ function Worker() {
         {(!(data.projects.length === 0) || !(workerProjects.length === 0)) && (
           <Button
             icon="pi pi-times"
-            className="p-button-rounded p-button-danger p-button-text"
+            className="p-button-rounded p-button-danger p-button-outlined mr-3"
             onClick={() => deleteProjectsHandel(data.projects)}
           />
         )}
 
-        <h3 className="mb-3">Add new project</h3>
-        <SplitButton
+        <Divider align="left" className="mt-5 mb-5">
+          <div className="inline-flex align-items-center">
+            <i className="pi pi-building ml-2"></i>
+            <b>اضافة مشروع جديد</b>
+          </div>
+        </Divider>
+
+        <Dropdown
+          className="mr-2"
+          value={project}
+          options={projectsList}
+          onChange={(e) => onProjectChange(e, data._id)}
+          optionLabel="name"
+          placeholder="اختر مشروع جديد"
+        />
+        {/* <SplitButton
           label={
             data._id === project.workerId
               ? project.projectName
-              : "Select new project"
+              : "اختار مشروع جديد"
           }
           model={projectsList.map((p) => {
             return {
@@ -226,13 +256,13 @@ function Worker() {
               },
             };
           })}
-          className="p-button-raised mr-2"
-        ></SplitButton>
+          className="p-button-raised p-button-outlined mr-5"
+        ></SplitButton> */}
 
         <Button
-          label="Add"
-          icon="pi pi-check"
-          className="p-button-rounded p-button-text"
+          label="اضافة"
+          icon="pi pi-plus ml-2"
+          className="p-button-rounded p-button-outlined p-button-info mr-2"
           onClick={() => addProject(data._id, project)}
         />
       </Details>
@@ -375,9 +405,9 @@ function Worker() {
     return (
       <>
         <Button
-          label="Add New Worker"
-          icon="pi pi-plus ml-3"
-          className="p-button-primary p-button-raised p-button-outlined p-button-rounded ml-2"
+          label="اضافة عامل جديد"
+          icon="pi pi-user-plus ml-3"
+          className="p-button-info p-button-raised p-button-outlined p-button-rounded ml-2"
           onClick={openNew}
         />
       </>
@@ -422,7 +452,7 @@ function Worker() {
     return (
       <React.Fragment>
         <Button
-          icon="pi pi-user-plus"
+          icon="pi pi-plus"
           // label="Expand All"
           className="p-button-rounded p-button-secondary  p-button-outlined ml-3"
           onClick={expandAll}
@@ -554,7 +584,9 @@ function Worker() {
                     "p-invalid": submitted && !inputValues.name,
                   })}
                 />
-                <small className="p-error">{errors.nameErr}</small>
+                {submitted && !inputValues.nationalID && (
+                  <small className="p-error">الاسم مطلوب</small>
+                )}
               </div>
 
               <div className="field">
@@ -570,9 +602,9 @@ function Worker() {
                   })}
                 />
                 <small className="p-error">{errors.addressErr}</small>
-                {/* {submitted && !inputValues.address && (
+                {submitted && !inputValues.address && (
                   <small className="p-error">العنوان مطلوب</small>
-                )} */}
+                )}
               </div>
               <div className="field">
                 <label htmlFor="mobile">الموبيل</label>
@@ -580,9 +612,9 @@ function Worker() {
                   id="mobile"
                   name="mobile"
                   required
-                  mask="01999999999999"
+                  mask="01999999999"
                   slotChar=""
-                  placeholder="01000000000000"
+                  placeholder="01000000000"
                   value={inputValues.mobile}
                   className={classNames({
                     "p-invalid": submitted && !inputValues.mobile,
@@ -590,9 +622,9 @@ function Worker() {
                   onChange={(e) => onInputNumberChange(e, "mobile")}
                 ></InputMask>
                 <small className="p-error">{errors.mobileErr}</small>
-                {/* {submitted && !inputValues.mobile && (
+                {submitted && !inputValues.mobile && (
                   <small className="p-error">رقم الموبيل مطلوب</small>
-                )} */}
+                )}
               </div>
               <div className="field">
                 <label htmlFor="nationalID">الرقم القومي</label>
@@ -607,14 +639,17 @@ function Worker() {
                   onChange={(e) => onInputNumberChange(e, "nationalID")}
                 ></InputMask>
 
-                {/* {submitted && !inputValues.nationalID && (
+                {submitted && !inputValues.nationalID && (
                   <small className="p-error">الرقم القومي مطلوب</small>
-                )} */}
+                )}
                 {/* {submitted &&
-                  inputValues.nationalID.toString().legnth !== 14 && (
-                    <small className="p-error">الرقم القومي يجب ان يكون 14 رقم</small>
+                  inputValues.nationalID.toString().length > 0 &&
+                  inputValues.nationalID.toString().length < 14 && (
+                    <small className="p-error">
+                      الرقم القومي يجب ان يكون 14 رقم
+                    </small>
                   )} */}
-                <div className="field">
+                <div className="field mt-3">
                   <label htmlFor="specialization">التخصص</label>
                   <TreeSelect
                     value={inputValues.specialization}

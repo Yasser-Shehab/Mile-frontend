@@ -140,9 +140,9 @@ function Specialization() {
     return (
       <React.Fragment>
         <Button
-          label="Add New Specialization"
-          icon="pi pi-plus"
-          className="p-button-secondary p-button-raised p-button-outlined p-button-rounded ml-3"
+          label="اضافة تخصص جديد"
+          icon="pi pi-plus ml-3"
+          className="p-button-info p-button-raised p-button-outlined p-button-rounded ml-3"
           onClick={openNew}
         />
       </React.Fragment>
@@ -236,14 +236,13 @@ function Specialization() {
       >
         <Column
           //sortable
-          filter
-          filterPlaceholder="filter..."
+
           field="name"
           header="اسم التخصص"
         ></Column>
         <Column
           // sortable
-          filter
+
           field="type"
           header="نوع التخصص"
         ></Column>
