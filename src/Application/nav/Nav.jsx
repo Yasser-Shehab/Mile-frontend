@@ -47,7 +47,7 @@ function Nav() {
             <img src={logo} alt="logo" />
           </div>
         </div>
-        <div className="title-container">
+        <div className="title-container" data-aos="fade-left">
           <div className="title">
             <h1 className="title-custom">معاً </h1>
             <h1>نبني رؤيتك </h1>
