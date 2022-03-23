@@ -377,8 +377,8 @@ function Worker() {
       <>
         <Button
           label="Add New Worker"
-          icon="pi pi-plus"
-          className="p-button-secondary p-button-raised p-button-outlined p-button-rounded mr-2"
+          icon="pi pi-plus ml-3"
+          className="p-button-primary p-button-raised p-button-outlined p-button-rounded ml-2"
           onClick={openNew}
         />
       </>
@@ -407,7 +407,7 @@ function Worker() {
       <>
         <Button
           icon="pi pi-pencil"
-          className="p-button-rounded  p-button-outlined p-button-secondary mr-2"
+          className="p-button-rounded  p-button-outlined p-button-secondary ml-3"
           onClick={() => editWorkers(rowData)}
         />
         <Button
@@ -425,23 +425,21 @@ function Worker() {
         <Button
           icon="pi pi-plus"
           // label="Expand All"
-          className="p-button-rounded p-button-secondary  p-button-outlined"
+          className="p-button-rounded p-button-secondary  p-button-outlined ml-3"
           onClick={expandAll}
-          style={{ marginRight: "1rem" }}
         />
         <Button
           icon="pi pi-minus"
           // label="Collapse All"
-          className="p-button-rounded p-button-secondary  p-button-outlined"
+          className="p-button-rounded p-button-secondary  p-button-outlined ml-3"
           onClick={collapseAll}
-          style={{ marginRight: "1rem" }}
         />
         <span className="p-input-icon-left">
           <i className="pi pi-search" />
           <InputText
             type="search"
             onInput={(e) => setGlobalFilter(e.target.value)}
-            placeholder="Search..."
+            placeholder="إبحث ..."
           />
         </span>
       </React.Fragment>
@@ -579,18 +577,19 @@ function Worker() {
               </div>
               <div className="field">
                 <label htmlFor="mobile">الموبيل</label>
-                <InputNumber
-                  mode="decimal"
-                  useGrouping={false}
+                <InputMask
                   id="mobile"
                   name="mobile"
                   required
+                  mask="01999999999999"
+                  slotChar=""
+                  placeholder="01000000000000"
                   value={inputValues.mobile}
                   className={classNames({
                     "p-invalid": submitted && !inputValues.mobile,
                   })}
-                  onValueChange={(e) => onInputNumberChange(e, "mobile")}
-                />
+                  onChange={(e) => onInputNumberChange(e, "mobile")}
+                ></InputMask>
                 <small className="p-error">{errors.mobileErr}</small>
                 {/* {submitted && !inputValues.mobile && (
                   <small className="p-error">رقم الموبيل مطلوب</small>
@@ -601,9 +600,11 @@ function Worker() {
                 <InputMask
                   id="nationalID"
                   name="nationalID"
+                  required
                   mask="99999999999999"
+                  slotChar="-"
                   value={inputValues.nationalID}
-                  placeholder="99999999999999"
+                  placeholder="00000000000000"
                   onChange={(e) => onInputNumberChange(e, "nationalID")}
                 ></InputMask>
 

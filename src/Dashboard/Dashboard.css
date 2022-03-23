@@ -1,0 +1,7 @@
+/* * {
+  direction: rtl;
+} */
+
+.p-datatable .p-datatable-tbody > tr > td {
+  text-align: right !important;
+}

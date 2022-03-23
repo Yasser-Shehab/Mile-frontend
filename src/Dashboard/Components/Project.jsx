@@ -130,8 +130,8 @@ function Project() {
       <>
         <Button
           label="Add New Project"
-          icon="pi pi-plus"
-          className="p-button-secondary p-button-raised p-button-outlined p-button-rounded mr-2"
+          icon="pi pi-plus ml-3"
+          className="p-button-secondary p-button-raised p-button-outlined p-button-rounded ml-2"
           onClick={openNew}
         />
       </>
@@ -140,8 +140,18 @@ function Project() {
 
   const projectDialogFooter = (
     <>
-      <Button label="Cancel" icon="pi pi-times" className="p-button-text" onClick={hideDialog} />
-      <Button label="Save" icon="pi pi-check" className="p-button-text" onClick={saveProject} />
+      <Button
+        label="Cancel"
+        icon="pi pi-times"
+        className="p-button-text"
+        onClick={hideDialog}
+      />
+      <Button
+        label="Save"
+        icon="pi pi-check"
+        className="p-button-text"
+        onClick={saveProject}
+      />
     </>
   );
 
@@ -150,13 +160,13 @@ function Project() {
       <>
         <Button
           icon="pi pi-pencil"
-          className="p-button-rounded  p-button-outlined p-button-secondary mr-2"
+          className="p-button-rounded  p-button-outlined p-button-secondary mr-3"
           onClick={() => editHandel(rowData)}
         />
 
         <Button
           icon="pi pi-times"
-          className="p-button-rounded p-button-danger p-button-outlined"
+          className="p-button-rounded p-button-danger p-button-outlined mr-3"
           onClick={() => confirmDeleteProject(rowData)}
         />
       </>
@@ -187,7 +197,7 @@ function Project() {
           <InputText
             type="search"
             onInput={(e) => setGlobalFilter(e.target.value)}
-            placeholder="Search..."
+            placeholder="إبحث ..."
           />
         </span>
       </React.Fragment>
@@ -217,7 +227,10 @@ function Project() {
       <div className="datatable-crud-demo">
         <Toast ref={toast} />
         <div className="card">
-          <Toolbar left={leftToolbarTemplate} right={rightToolbarTemplate}></Toolbar>
+          <Toolbar
+            left={leftToolbarTemplate}
+            right={rightToolbarTemplate}
+          ></Toolbar>
           <DataTable
             resizableColumns
             columnResizeMode="expand"
@@ -254,7 +267,6 @@ function Project() {
             <Column
               resizableColumns
               dataType="date"
-              // body={dateBodyTemplate}
               columnResizeMode="expand"
               showGridlines
               //sortable
@@ -301,7 +313,12 @@ function Project() {
             {project.images.length !== 0 &&
               project.images.map((image, i) => {
                 return (
-                  <Image key={i} src={image} onClick={() => handleThumbnail(image)} width="250" />
+                  <Image
+                    key={i}
+                    src={image}
+                    onClick={() => handleThumbnail(image)}
+                    width="250"
+                  />
                 );
               })}
           </div>
@@ -330,7 +347,9 @@ function Project() {
                 "p-invalid": submitted && !project.name,
               })}
             />
-            {submitted && !project.name && <small className="p-error">Name is required.</small>}
+            {submitted && !project.name && (
+              <small className="p-error">Name is required.</small>
+            )}
           </div>
 
           {/* *********   Description    *************** */}
@@ -377,7 +396,10 @@ function Project() {
           onHide={hideDeleteProjectDialog}
         >
           <div className="confirmation-content">
-            <i className="pi pi-exclamation-triangle mr-3" style={{ fontSize: "2rem" }} />
+            <i
+              className="pi pi-exclamation-triangle mr-3"
+              style={{ fontSize: "2rem" }}
+            />
             {project && (
               <span>
                 Are you sure you want to delete <b>{project.name}</b>?
