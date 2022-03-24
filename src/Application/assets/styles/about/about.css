@@ -2,6 +2,7 @@
   margin: 0 auto;
   max-width: 1200px;
   direction: rtl;
+  overflow: hidden;
 }
 
 .container .info-card {

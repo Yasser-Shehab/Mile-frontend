@@ -176,4 +176,16 @@
 .form-btn .submit-form button:hover {
   background: #3668ec;
 }
+
+@media screen and (max-width: 360px) {
+  .contact-container .content-container .contact-form .required-input {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .contact-container .content-container .contact-form .required-input .input-container {
+    width: 100%;
+  }
+}
 /*# sourceMappingURL=contact.css.map */

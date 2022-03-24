@@ -13,7 +13,7 @@ function AboutInfo() {
   AOS.init();
   return (
     <div className="section-container">
-      <div className="container">
+      <div className="container about-container">
         <Title title="معلومات عن شركة ميل للمقاولات العامة و التوريدات" id="about-title" />
         <div className="about-cards mt-7">
           <div className="small-cards" data-aos="fade-right" data-aos-duration="1000">

@@ -165,3 +165,18 @@
     }
   }
 }
+
+@media screen and (max-width: 360px) {
+  .contact-container {
+    .content-container {
+      .contact-form {
+        .required-input {
+          flex-direction: column;
+          .input-container {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}

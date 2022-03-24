@@ -3,6 +3,7 @@ $secondary: #2d2e3f;
   margin: 0 auto;
   max-width: 1200px;
   direction: rtl;
+  overflow: hidden;
 
   .info-card {
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
@@ -52,6 +53,9 @@ $secondary: #2d2e3f;
       background-color: $secondary;
     }
   }
+}
+
+.about-container {
 }
 
 @media screen and (max-width: 1100px) {

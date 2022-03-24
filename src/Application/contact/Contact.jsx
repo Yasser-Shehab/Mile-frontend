@@ -93,7 +93,7 @@ function Contact() {
                   <div className="submit-form">
                     <i className="pi pi-angle-left" />
                     <button type="submit" className="submit-contact" disabled={state.submitting}>
-                      أرسال
+                      <span> أرسال</span>
                     </button>
                   </div>
                   {/* <div className="upload-file">

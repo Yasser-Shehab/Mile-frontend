@@ -173,12 +173,14 @@
     transition: all 0.5s ease-out;
     width: 100%;
   }
-  .hero-section .links-mobile li {
+  .hero-section .links-mobile .nav-item-link {
+    display: block;
     color: #fff;
     text-align: center;
     font-weight: bold;
     padding: 32px;
     width: 100%;
+    z-index: 3123123123;
     -webkit-transition: all 0.5 ease;
     transition: all 0.5 ease;
   }

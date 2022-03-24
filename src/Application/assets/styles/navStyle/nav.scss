@@ -171,12 +171,15 @@ $primary: #648bf0;
       margin-top: 15px;
       transition: all 0.5s ease-out;
       width: 100%;
-      li {
+
+      .nav-item-link {
+        display: block;
         color: #fff;
         text-align: center;
         font-weight: bold;
         padding: 32px;
         width: 100%;
+        z-index: 3123123123;
         transition: all 0.5 ease;
       }
     }
