@@ -54,7 +54,6 @@ function Specialization() {
     setLoading1(true);
     setSubmitted(true);
     if (inputValues.name.trim() && inputValues.type.trim()) {
-      console.log(inputValues);
       if (!inputValues.id) {
         dispatch(addSpecializations(inputValues));
       } else {
@@ -126,7 +125,6 @@ function Specialization() {
     setInputValues({ ...inputValues, type: event.target.value });
   };
   const submitHandel = (event) => {
-    console.log(event);
     event.preventDefault();
   };
   const deleteHandel = (data) => {
