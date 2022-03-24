@@ -372,8 +372,8 @@ function Project() {
                 value={project.budget}
                 onValueChange={(e) => onInputNumberChange(e, "budget")}
                 mode="currency"
-                currency="USD"
-                locale="en-US"
+                currency="EGP"
+                locale="en-EG"
                 className={classNames({
                   "p-invalid": submitted && project.budget === 0,
                 })}
