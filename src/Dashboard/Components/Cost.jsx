@@ -7,10 +7,13 @@ import { InputNumber } from "primereact/inputnumber";
 import { InputText } from "primereact/inputtext";
 import { Toolbar } from "primereact/toolbar";
 import { Dropdown } from "primereact/dropdown";
+import { classNames } from "primereact/utils";
+
 import { useSelector, useDispatch } from "react-redux";
 import { getCosts, addCost, deleteCost } from "../../store/actions/costAction";
 import { getWorkers } from "../../store/actions/workerAction";
 import { getProjects } from "../../store/actions/projectAction";
+
 
 function Cost() {
   const costsList = useSelector((state) => state.costReducer.costs);
@@ -18,6 +21,7 @@ function Cost() {
   const projectsList = useSelector((state) => state.projectReducer.projects);
   const [display, setDisplay] = useState(false);
   const [selectedWorker, setSelectedWorker] = useState("");
+  const [submitted, setSubmitted] = useState(false);
   const [selectedProject, setSelectedProject] = useState("");
   const [amount, setAmount] = useState(null);
   const [notes, setNotes] = useState("");
@@ -53,27 +57,41 @@ function Cost() {
   // }));
 
   const addNewCost = () => {
-    let data = {
-      workerId: selectedWorker._id,
-      projectId: selectedProject._id,
-      amount,
-      notes,
-    };
-    dispatch(addCost(data));
-    dispatch(getCosts());
-    onHide();
-    setSelectedWorker("");
-    setSelectedProject("");
-    setAmount(null);
-    setNotes("");
+    setSubmitted(true);
+    if (
+      (selectedWorker &&
+        selectedProject &&
+        amount)
+    ) {
+      let data = {
+        workerId: selectedWorker._id,
+        projectId: selectedProject._id,
+        amount,
+        notes,
+      };
+      dispatch(addCost(data));
+      dispatch(getCosts());
+      setDisplay(false)
+      setSelectedWorker("");
+      setSelectedProject("");
+      setAmount(null);
+      setNotes("");
+    }
   };
   const onClick = () => {
     setDisplay(true);
+    setSubmitted(false);
+
   };
 
   const onHide = () => {
     setDisplay(false);
+    setSubmitted(false);
+    setSelectedWorker("");
+    setSelectedProject("");
+    setAmount(null);
   };
+  // console.log(display,submitted)
   //    export new report
   const exportCSV = () => {
     dt.current.exportCSV();
@@ -143,26 +161,44 @@ function Cost() {
             <Dropdown
               value={selectedWorker}
               options={workersList}
+              className={classNames({
+                "p-invalid": submitted && ! selectedWorker,
+              })}
               onChange={(e) => setSelectedWorker(e.target.value)}
               optionLabel="name"
               placeholder="Select a Worker"
             />
+            {submitted && !selectedWorker && (
+              <small className="p-error">العامل مطلوب</small>
+            )}
           </div>
           <div className="field col-12 ">
             <Dropdown
               value={selectedProject}
               options={projectsList}
+              className={classNames({
+                "p-invalid": submitted && !selectedProject,
+              })}
               onChange={(e) => setSelectedProject(e.target.value)}
               optionLabel="name"
               placeholder="Select a Project"
             />
+            {submitted && !selectedProject && (
+              <small className="p-error">المشروع مطلوب</small>
+            )}
           </div>
           <div className="field col-12 ">
             <InputNumber
               placeholder="Please enter amount..."
               value={amount}
+              className={classNames({
+                "p-invalid": submitted && !amount,
+              })}
               onValueChange={(e) => setAmount(e.value)}
             />
+            {submitted && !amount && (
+              <small className="p-error">المبلغ مطلوب</small>
+            )}
           </div>
           <div className="field col-12 ">
             <InputText
