@@ -4,7 +4,7 @@ import { Button } from "primereact/button";
 import { InputMask } from "primereact/inputmask";
 import { Dropdown } from "primereact/dropdown";
 import { TreeSelect } from "primereact/treeselect";
-import { SplitButton } from "primereact/splitbutton";
+
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Message } from "primereact/message";
@@ -24,7 +24,7 @@ import { Toolbar } from "primereact/toolbar";
 import { classNames } from "primereact/utils";
 import { InputText } from "primereact/inputtext";
 import { Dialog } from "primereact/dialog";
-import { InputNumber } from "primereact/inputnumber";
+
 import React from "react";
 import { Divider } from "primereact/divider";
 
@@ -135,7 +135,9 @@ function Worker() {
       dispatch(
         editWorker(
           {
-            projects: selectedDeleteProject.filter((ele) => ele !== ev.target.name),
+            projects: selectedDeleteProject.filter(
+              (ele) => ele !== ev.target.name
+            ),
           },
           id
         )
@@ -414,8 +416,18 @@ function Worker() {
   const specializationDialogFooter = (
     <>
       {/* <form> */}
-      <Button label="Cancel" icon="pi pi-times" className="p-button-text" onClick={hideDialog} />
-      <Button label="Save" icon="pi pi-check" className="p-button-text" onClick={saveWorker} />
+      <Button
+        label="Cancel"
+        icon="pi pi-times"
+        className="p-button-text"
+        onClick={hideDialog}
+      />
+      <Button
+        label="Save"
+        icon="pi pi-check"
+        className="p-button-text"
+        onClick={saveWorker}
+      />
       {/* </form> */}
     </>
   );
@@ -486,7 +498,10 @@ function Worker() {
     <>
       <div className="datatable-rowexpansion-demo">
         <div className="card">
-          <Toolbar left={leftToolbarTemplate} right={rightToolbarTemplate}></Toolbar>
+          <Toolbar
+            left={leftToolbarTemplate}
+            right={rightToolbarTemplate}
+          ></Toolbar>
           <DataTable
             resizableColumns
             columnResizeMode="expand"
@@ -505,7 +520,12 @@ function Worker() {
             globalFilter={globalFilter}
           >
             <Column expander style={{ width: "3em" }} />
-            <Column filter filterPlaceholder="filter..." field="name" header="الاسم"></Column>
+            <Column
+              filter
+              filterPlaceholder="filter..."
+              field="name"
+              header="الاسم"
+            ></Column>
             <Column
               filter
               filterPlaceholder="filter..."
@@ -521,7 +541,12 @@ function Worker() {
               header="نوع التخصص"
             ></Column>
             <Column field="address" header="العنوان"></Column>
-            <Column filter filterPlaceholder="filter..." field="mobile" header="الموبايل"></Column>
+            <Column
+              filter
+              filterPlaceholder="filter..."
+              field="mobile"
+              header="الموبايل"
+            ></Column>
             <Column
               filter
               filterPlaceholder="filter..."
@@ -634,7 +659,9 @@ function Worker() {
                     filter
                   ></TreeSelect>
 
-                  {submitted && !selectedSpec && <small className="p-error">التخصص مطلوب</small>}
+                  {submitted && !selectedSpec && (
+                    <small className="p-error">التخصص مطلوب</small>
+                  )}
                 </div>
                 <div className="field">
                   <label htmlFor="projects">المشروع</label>
@@ -659,7 +686,10 @@ function Worker() {
             onHide={hideDeleteWorkerDialog}
           >
             <div className="confirmation-content">
-              <i className="pi pi-exclamation-triangle mr-3" style={{ fontSize: "2rem" }} />
+              <i
+                className="pi pi-exclamation-triangle mr-3"
+                style={{ fontSize: "2rem" }}
+              />
               {deleteValue && (
                 <span>
                   Are you sure you want to delete
