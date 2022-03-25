@@ -11,7 +11,21 @@ function Account() {
   useEffect(() => {
     dispatch(getSumCost());
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
+  const moneyData = (rowData) => {
+    return (
+      <>
+        <p
+          className={
+            rowData.total > rowData.budget
+              ? "text-orange-500 font-bold"
+              : "text-green-500 font-bold"
+          }
+        >
+          {rowData.total}
+        </p>
+      </>
+    );
+  };
   return (
     <>
       <DataTable
@@ -32,8 +46,16 @@ function Account() {
           field="_id"
           header="اسم المشروع"
         ></Column>
-        <Column field="total" header="المبلغ المنفق حتى الان"></Column>
-        <Column field="budget" header="المبلغ المتوقع"></Column>
+        <Column
+          body={moneyData}
+          field="total"
+          header="المبلغ المنفق حتى الان"
+        ></Column>
+        <Column
+          field="budget"
+          className="font-bold"
+          header="المبلغ المتوقع"
+        ></Column>
       </DataTable>
     </>
   );
