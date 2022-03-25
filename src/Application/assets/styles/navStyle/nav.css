@@ -181,6 +181,7 @@
     padding: 32px;
     width: 100%;
     z-index: 3123123123;
+    cursor: pointer;
     -webkit-transition: all 0.5 ease;
     transition: all 0.5 ease;
   }
