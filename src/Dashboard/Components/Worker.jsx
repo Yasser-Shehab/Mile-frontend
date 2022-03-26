@@ -58,8 +58,6 @@ function Worker() {
   const [errors, setErrors] = useState({
     nameErr: "",
     addressErr: "",
-    mobile: "",
-    nationalIDErr: "",
   });
   const [deleteValue, setDeleteValue] = useState("");
 
@@ -291,8 +289,8 @@ function Worker() {
     if (
       inputValues.name.trim() &&
       inputValues.address.trim() &&
-      inputValues.mobile !== 0 &&
-      inputValues.nationalID !== 0
+      inputValues.mobile !=='' &&
+      inputValues.nationalID !==''
     ) {
       if (!inputValues.id) {
         try {
@@ -316,6 +314,7 @@ function Worker() {
         );
       }
 
+      setSubmitted(false);
       setWorkerDialog(false);
       setInputValues({
         name: "",
@@ -326,6 +325,13 @@ function Worker() {
       });
     }
   };
+  console.log("submitted", submitted);
+  console.log(
+    inputValues.name.trim() &&
+      inputValues.address.trim() &&
+      inputValues.mobile !=='' &&
+      inputValues.nationalID !==''
+  );
 
   const hideDialog = () => {
     setSubmitted(false);
@@ -493,7 +499,7 @@ function Worker() {
       />
     </>
   );
-
+  console.log(inputValues);
   return (
     <>
       <div className="datatable-rowexpansion-demo">
@@ -584,7 +590,7 @@ function Worker() {
                     "p-invalid": submitted && !inputValues.name,
                   })}
                 />
-                {submitted && !inputValues.nationalID && (
+                {submitted && !inputValues.name && (
                   <small className="p-error">الاسم مطلوب</small>
                 )}
               </div>
@@ -621,7 +627,7 @@ function Worker() {
                   })}
                   onChange={(e) => onInputNumberChange(e, "mobile")}
                 ></InputMask>
-                <small className="p-error">{errors.mobileErr}</small>
+                {/* <small className="p-error">{errors.mobileErr}</small> */}
                 {submitted && !inputValues.mobile && (
                   <small className="p-error">رقم الموبيل مطلوب</small>
                 )}
@@ -637,7 +643,7 @@ function Worker() {
                   value={inputValues.nationalID}
                   placeholder="00000000000000"
                   className={classNames({
-                    "p-invalid": submitted && !inputValues.nationalId,
+                    "p-invalid": submitted && !inputValues.nationalID,
                   })}
                   onChange={(e) => onInputNumberChange(e, "nationalID")}
                 ></InputMask>
@@ -665,7 +671,7 @@ function Worker() {
                     filter
                   ></TreeSelect>
 
-                  {submitted && !selectedSpec && (
+                  {submitted && !inputValues.specialization && (
                     <small className="p-error">التخصص مطلوب</small>
                   )}
                 </div>

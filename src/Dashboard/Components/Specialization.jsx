@@ -64,9 +64,9 @@ function Specialization() {
           )
         );
       }
-
-      setspecializationDialog(false);
       setInputValues({ name: "", type: "" });
+      setspecializationDialog(false);
+      setSubmitted(false);
     }
 
     setLoading1(false);
