@@ -561,6 +561,9 @@ function Worker() {
                   slotChar="-"
                   value={inputValues.nationalID}
                   placeholder="00000000000000"
+                  className={classNames({
+                    "p-invalid": submitted && !inputValues.nationalId,
+                  })}
                   onChange={(e) => onInputNumberChange(e, "nationalID")}
                 ></InputMask>
                 {submitted && !inputValues.nationalID && (
@@ -573,6 +576,9 @@ function Worker() {
                     value={inputValues.specialization}
                     options={nodes}
                     onChange={(e) => onInputNumberChange(e, "specialization")}
+                    className={classNames({
+                      "p-invalid": submitted && !inputValues.specialization,
+                    })}
                     placeholder="Select Item"
                     filter
                   ></TreeSelect>
