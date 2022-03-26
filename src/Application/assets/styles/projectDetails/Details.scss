@@ -2,6 +2,11 @@
   max-width: 1200px;
   margin: 0 auto;
 }
+a,
+a:visited {
+  color: #fff;
+  text-decoration: none;
+}
 
 .main-img {
   max-height: 500px;
@@ -41,15 +46,32 @@
 }
 
 .details-header {
-  background: #648bf0;
-  color: #fff;
-  padding: 1rem 1.5rem;
-  margin: 2rem auto;
-  border-radius: 10px;
-  text-align: center;
-  // display: inline-block;
-  max-width: 600px;
-  min-width: 200px;
+  display: flex;
+  justify-content: center;
+  h1 {
+    background: #648bf0;
+    color: #fff;
+    padding: 1rem 1.5rem;
+    margin: 2rem auto;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 600px;
+    min-width: 200px;
+  }
+
+  .back-btn {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    background: #fff;
+    color: #648bf0;
+    padding: 1rem 1.5rem;
+    margin: 2rem auto;
+    border: 2px solid #648bf0;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 600px;
+    min-width: 200px;
+  }
 }
 
 .details-desc {

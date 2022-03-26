@@ -14,7 +14,6 @@ import { getCosts, addCost, deleteCost } from "../../store/actions/costAction";
 import { getWorkers } from "../../store/actions/workerAction";
 import { getProjects } from "../../store/actions/projectAction";
 
-
 function Cost() {
   const costsList = useSelector((state) => state.costReducer.costs);
   const workersList = useSelector((state) => state.workerReducer.workers);
@@ -38,31 +37,14 @@ function Cost() {
 
   const dateBodyTemplate = (rowData) => {
     const date = new Date(rowData.createdAt);
-    return `${date.getFullYear()}/${date.getMonth()}/${date.getDay()}  : الساعة ${date.getHours()}`;
+    return `${date.getFullYear()}/${
+      date.getMonth() + 1
+    }/${date.getDate()}  : الساعة ${date.getHours()}`;
   };
-  // const cols = [
-  //   { field: "worker", header: "اسم العامل" },
-  //   { field: "project", header: "اسم المشروع" },
-  //   { field: "amount", header: "المبلغ" },
-  //   {
-  //     field: "createdAt",
-  //     header: "التاريخ",
-
-  //   },
-  // ];
-
-  // const exportColumns = cols.map((col) => ({
-  //   title: col.header,
-  //   dataKey: col.field,
-  // }));
 
   const addNewCost = () => {
     setSubmitted(true);
-    if (
-      (selectedWorker &&
-        selectedProject &&
-        amount)
-    ) {
+    if (selectedWorker && selectedProject && amount) {
       let data = {
         workerId: selectedWorker._id,
         projectId: selectedProject._id,
@@ -71,7 +53,7 @@ function Cost() {
       };
       dispatch(addCost(data));
       dispatch(getCosts());
-      setDisplay(false)
+      setDisplay(false);
       setSelectedWorker("");
       setSelectedProject("");
       setAmount(null);
@@ -79,9 +61,9 @@ function Cost() {
     }
   };
   const onClick = () => {
+    console.log(costsList);
     setDisplay(true);
     setSubmitted(false);
-
   };
 
   const onHide = () => {
@@ -91,38 +73,10 @@ function Cost() {
     setSelectedProject("");
     setAmount(null);
   };
-  // console.log(display,submitted)
-  //    export new report
+
   const exportCSV = () => {
     dt.current.exportCSV();
   };
-
-  // const exportPdf = () => {
-  //   import("jspdf").then((jsPDF) => {
-  //     import("jspdf-autotable").then(() => {
-  //       const doc = new jsPDF.default(0, 0);
-  //       doc.autoTable(exportColumns, costsList);
-  //       doc.autoTable({
-  //         headStyles: { fontStyle: "dinnext" },
-  //         body: costsList,
-  //         columns: exportColumns,
-  //       });
-  //       doc.save("costsList.pdf");
-  //     });
-  //   });
-  // };
-
-  // const exportExcel = () => {
-  //   import("xlsx").then((xlsx) => {
-  //     const worksheet = xlsx.utils.json_to_sheet(products);
-  //     const workbook = { Sheets: { data: worksheet }, SheetNames: ["data"] };
-  //     const excelBuffer = xlsx.write(workbook, {
-  //       bookType: "xlsx",
-  //       type: "array",
-  //     });
-  //     saveAsExcelFile(excelBuffer, "products");
-  //   });
-  // };
 
   const renderFooter = () => {
     return (
@@ -162,7 +116,7 @@ function Cost() {
               value={selectedWorker}
               options={workersList}
               className={classNames({
-                "p-invalid": submitted && ! selectedWorker,
+                "p-invalid": submitted && !selectedWorker,
               })}
               onChange={(e) => setSelectedWorker(e.target.value)}
               optionLabel="name"
@@ -219,14 +173,6 @@ function Cost() {
         className="p-button-rounded p-button-secondary  p-button-outlined mr-3"
         onClick={exportCSV}
       />
-      {/* <Button
-        label="PDF"
-        type="button"
-        icon="pi pi-file-pdf ml-2"
-        onClick={exportPdf}
-        className="p-button-rounded p-button-secondary  p-button-outlined mr-3"
-        data-pr-tooltip="PDF"
-      /> */}
     </div>
   );
   const handleDelete = (data) => {
@@ -265,14 +211,6 @@ function Cost() {
         paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} of Costs"
       >
-        {/* {cols.map((col, index) => (
-          <Column
-            key={index}
-            field={col.field}
-            header={col.header}
-            // body={dateBodyTemplate}
-          />
-        ))} */}
         <Column
           resizableColumns
           columnResizeMode="expand"

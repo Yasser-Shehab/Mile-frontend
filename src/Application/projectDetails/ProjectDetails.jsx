@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link as ReactLink, Navigate } from "react-router-dom";
 import "../assets/styles/projectDetails/Details.css";
 import axios from "axios";
 import Footer from "../footer/Footer";
@@ -8,10 +8,11 @@ import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
-import { FreeMode, Navigation, Thumbs } from "swiper";
+import { FreeMode, Thumbs } from "swiper";
 import { Image } from "primereact/image";
 import Contact from "../contact/Contact";
 import Sperator from "../shared/Sperator";
+import Link from "react-scroll/modules/components/Link";
 
 const ProjectDetails = () => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
@@ -29,8 +30,11 @@ const ProjectDetails = () => {
   if (details.project) {
     return (
       <>
-        <div>
-          <h1 className="details-header">{details.project.name}</h1>
+        <div className="details-header">
+          <ReactLink to="/" className="back-btn">
+            العوده للصفحة الرئيسية
+          </ReactLink>
+          <h1>{details.project.name}</h1>
         </div>
 
         <div className="project-details-container">
