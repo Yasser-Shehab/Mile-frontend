@@ -27,39 +27,41 @@ const asignProject = (workerId, projectId) => (dispatch) => {
 
 const addWorker = (data) => {
   return (dispatch) => {
-    axios.post("http://localhost:8000/worker/add", data).then((res) => {
-      dispatch({
-        type: "ADD_WORKER",
-        payload: res.data,
+    axios
+      .post("http://localhost:8000/worker/add", data)
+      .then((res) => {
+        dispatch({
+          type: "ADD_WORKER",
+          payload: res.data,
+        });
+        dispatch(getWorkers());
+      })
+      .catch((error) => {
+        console.log(error);
       });
-      dispatch(getWorkers());
-    }).catch(error => {
-      console.log(error);
-    })
   };
-}
+};
 const deleteWorker = (id) => {
   return (dispatch) => {
-    axios.delete(`http://localhost:8000/worker/${id}`)
-      .then(res => {
+    axios
+      .delete(`http://localhost:8000/worker/${id}`)
+      .then((res) => {
         dispatch({
           type: "DELETE_WORKER",
-          payload: res.data
-        })
+          payload: res.data,
+        });
         dispatch(getWorkers());
-      }).catch(error => {
-      console.log(error);
-    })
-  }
-}
-const editWorker = (data,id) => {
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+};
+const editWorker = (data, id) => {
   return (dispatch) => {
     axios
-      .patch(`http://localhost:8000/worker/${id}`,data)
+      .patch(`http://localhost:8000/worker/${id}`, data)
       .then((res) => {
-        console.log(res);
-        console.log("id in action",id);
-        console.log("data in action",data);
         dispatch({
           type: "EDIT_WORKER",
           payload: data,

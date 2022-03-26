@@ -361,12 +361,11 @@ function Worker() {
       nationalID: data.nationalID,
       specialization: nodes
         .filter((n) => {
-          console.log(n);
-          return n.children.filter((child) => {
+          return n?.children.filter((child) => {
             return child.key === data.specialization;
           })[0];
         })[0]
-        .children.filter((ch) => {
+        ?.children.filter((ch) => {
           return ch.key === data.specialization;
         })[0].key,
     });

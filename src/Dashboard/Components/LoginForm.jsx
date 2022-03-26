@@ -72,7 +72,6 @@ function LoginForm() {
           <h3>Wrong Email or Password.</h3>
         </Card>
       )}
-      {/* {console.log(error)} */}
       <div className="form-demo">
         <div className="flex justify-content-center">
           <div className="card">
