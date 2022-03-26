@@ -42,7 +42,6 @@ function Worker() {
   const projectsList = useSelector((state) => state.projectReducer.projects);
   const specsList = useSelector((state) => state.specializationReducer.specs);
   const [workerProjects, setWorkerProjects] = useState([]);
-  const [selectedSpec, setSelectedSpec] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [workerDialog, setWorkerDialog] = useState(false);
   const [submitErr, setSubmitErr] = useState("");
@@ -277,9 +276,9 @@ function Worker() {
       inputValues.address.trim() &&
       inputValues.mobile &&
       inputValues.nationalID &&
-      inputValues.specialization !== ""
+      inputValues.specialization
     ) {
-      if (!inputValues.id || inputValues.id === "") {
+      if (!inputValues.id) {
         inputValues.projects = [inputValues.projects._id];
         dispatch(addWorker(inputValues));
       } else {
@@ -621,7 +620,7 @@ function Worker() {
                     filter
                   ></TreeSelect>
 
-                  {submitted && !selectedSpec && (
+                  {submitted && !inputValues.specialization && (
                     <small className="p-error">التخصص مطلوب</small>
                   )}
                 </div>
