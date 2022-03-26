@@ -9,6 +9,7 @@ import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import { FreeMode, Navigation, Thumbs } from "swiper";
+import { Image } from "primereact/image";
 import Contact from "../contact/Contact";
 import Sperator from "../shared/Sperator";
 
@@ -33,47 +34,45 @@ const ProjectDetails = () => {
         </div>
 
         <div className="project-details-container">
-          <Swiper
-            style={{
-              "--swiper-navigation-color": "#fff",
-              "--swiper-pagination-color": "#fff",
-            }}
-            spaceBetween={10}
-            navigation={true}
-            thumbs={{ swiper: thumbsSwiper }}
-            modules={[FreeMode, Navigation, Thumbs]}
-            className="main-img"
-          >
+          <div className="details-images">
             {details.project.images.map((imgSrc, i) => {
               return (
-                <SwiperSlide key={i}>
-                  <img src={imgSrc} />
-                </SwiperSlide>
+                <Image
+                  key={i}
+                  preview
+                  downloadable
+                  imageClassName="preview-img"
+                  src={imgSrc}
+                  alt="Image Text"
+                />
               );
             })}
-          </Swiper>
-          <Swiper
-            onSwiper={setThumbsSwiper}
-            spaceBetween={10}
-            slidesPerView={4}
-            freeMode={true}
-            watchSlidesProgress={true}
-            modules={[FreeMode, Navigation, Thumbs]}
-            className="mini-img"
-          >
-            {details.project.images.map((imgSrc, i) => {
-              return (
-                <SwiperSlide key={i}>
-                  <img className="mini" src={imgSrc} />
-                </SwiperSlide>
-              );
-            })}
-          </Swiper>
+          </div>
+
+          {/* {details.project.images.length > 1 && (
+            <Swiper
+              onSwiper={setThumbsSwiper}
+              spaceBetween={10}
+              slidesPerView={4}
+              freeMode={true}
+              watchSlidesProgress={true}
+              modules={[FreeMode, Navigation, Thumbs]}
+              className="mini-img"
+            >
+              {details.project.images.map((imgSrc, i) => {
+                return (
+                  <SwiperSlide key={i}>
+                    <img className="mini" src={imgSrc} />
+                  </SwiperSlide>
+                );
+              })}
+            </Swiper>
+          )} */}
           <div className="details-desc">
             <p>{details.project.description}</p>
           </div>
-          <Contact />
         </div>
+        <Contact />
         <Footer />
       </>
     );

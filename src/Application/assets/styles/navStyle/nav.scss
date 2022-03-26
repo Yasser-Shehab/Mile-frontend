@@ -1,4 +1,7 @@
 $primary: #648bf0;
+h1 {
+  line-height: 1.3em;
+}
 .section-container {
   margin-right: auto;
   margin-left: auto;
@@ -72,7 +75,7 @@ $primary: #648bf0;
     .hero-btn {
       display: flex;
       color: #fff;
-      margin-top: 60px;
+      margin-top: 80px;
       float: right;
       align-items: center;
       justify-content: space-around;

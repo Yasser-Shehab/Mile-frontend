@@ -55,12 +55,7 @@ function Worker() {
     specialization: "",
     projects: [],
   });
-  const [errors, setErrors] = useState({
-    nameErr: "",
-    addressErr: "",
-    mobile: "",
-    nationalIDErr: "",
-  });
+
   const [deleteValue, setDeleteValue] = useState("");
 
   const [globalFilter, setGlobalFilter] = useState(null);
@@ -69,18 +64,7 @@ function Worker() {
   const [selectedDeleteProject, setSelectedDeleteProject] = useState([""]); //the selected delete project
   const dispatch = useDispatch();
   // ///////    tree select    ---------------------->>>>>>
-  const [nodes, setNodes] = useState([
-    {
-      key: 1,
-      label: "hisham",
-      children: [
-        {
-          key: 2,
-          label: "mohammed",
-        },
-      ],
-    },
-  ]);
+  const [nodes, setNodes] = useState([]);
 
   const addProject = (workerId, project) => {
     setWorkerProjects([...workerProjects, project]);
@@ -291,16 +275,13 @@ function Worker() {
     if (
       inputValues.name.trim() &&
       inputValues.address.trim() &&
-      inputValues.mobile !== 0 &&
-      inputValues.nationalID !== 0
+      inputValues.mobile &&
+      inputValues.nationalID &&
+      inputValues.specialization !== ""
     ) {
-      if (!inputValues.id) {
-        try {
-          inputValues.projects = [inputValues.projects._id];
-          dispatch(addWorker(inputValues));
-        } catch (error) {
-          return setSubmitErr(error);
-        }
+      if (!inputValues.id || inputValues.id === "") {
+        inputValues.projects = [inputValues.projects._id];
+        dispatch(addWorker(inputValues));
       } else {
         dispatch(
           editWorker(
@@ -348,34 +329,14 @@ function Worker() {
   const onInputNumberChange = (e, name) => {
     const val = e.value;
     let _input = { ...inputValues };
-    _input[`${name}`] = val;
+    _input[`${name}`] = `${val}`;
     setInputValues(_input);
   };
   const nameInputChange = (event) => {
     setInputValues({ ...inputValues, name: event.target.value });
-
-    setErrors({
-      ...errors,
-      nameErr:
-        event.target.value.length === 0
-          ? "اسم العامل مطلوب"
-          : event.target.value.length < 2
-          ? "الاسم يجب ان يكون اكثر من حرف"
-          : null,
-    });
   };
   const address = (event) => {
     setInputValues({ ...inputValues, address: event.target.value });
-
-    setErrors({
-      ...errors,
-      addressErr:
-        event.target.value.length === 0
-          ? "العنوان مطلوب"
-          : event.target.value.length < 2
-          ? "العنوان يجب ان يكون اكثر من حرف"
-          : null,
-    });
   };
   const confirmDeleteWorker = (worker) => {
     setDeleteValue(worker);
@@ -389,6 +350,8 @@ function Worker() {
     setDeleteWorkerDialog(false);
   };
   const editWorkers = (data) => {
+    setNodes(getNodes(specsList));
+
     setInputValues({
       ...inputValues,
       id: data._id,
@@ -396,7 +359,16 @@ function Worker() {
       address: data.address,
       mobile: data.mobile,
       nationalID: data.nationalID,
-      specialization: data.specialization,
+      specialization: nodes
+        .filter((n) => {
+          console.log(n);
+          return n.children.filter((child) => {
+            return child.key === data.specialization;
+          })[0];
+        })[0]
+        .children.filter((ch) => {
+          return ch.key === data.specialization;
+        })[0].key,
     });
     setWorkerDialog(true);
   };
@@ -601,7 +573,6 @@ function Worker() {
                     "p-invalid": submitted && !inputValues.address,
                   })}
                 />
-                <small className="p-error">{errors.addressErr}</small>
                 {submitted && !inputValues.address && (
                   <small className="p-error">العنوان مطلوب</small>
                 )}
@@ -621,7 +592,6 @@ function Worker() {
                   })}
                   onChange={(e) => onInputNumberChange(e, "mobile")}
                 ></InputMask>
-                <small className="p-error">{errors.mobileErr}</small>
                 {submitted && !inputValues.mobile && (
                   <small className="p-error">رقم الموبيل مطلوب</small>
                 )}
@@ -638,23 +608,16 @@ function Worker() {
                   placeholder="00000000000000"
                   onChange={(e) => onInputNumberChange(e, "nationalID")}
                 ></InputMask>
-
                 {submitted && !inputValues.nationalID && (
                   <small className="p-error">الرقم القومي مطلوب</small>
                 )}
-                {/* {submitted &&
-                  inputValues.nationalID.toString().length > 0 &&
-                  inputValues.nationalID.toString().length < 14 && (
-                    <small className="p-error">
-                      الرقم القومي يجب ان يكون 14 رقم
-                    </small>
-                  )} */}
+
                 <div className="field mt-3">
                   <label htmlFor="specialization">التخصص</label>
                   <TreeSelect
                     value={inputValues.specialization}
                     options={nodes}
-                    onChange={(e) => onInputChange(e.value, "specialization")}
+                    onChange={(e) => onInputNumberChange(e, "specialization")}
                     placeholder="Select Item"
                     filter
                   ></TreeSelect>
