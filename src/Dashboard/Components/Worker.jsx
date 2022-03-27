@@ -68,7 +68,6 @@ function Worker() {
   const addProject = (workerId, project) => {
     setWorkerProjects([...workerProjects, project]);
     dispatch(asignProject(workerId, project.projectId));
-    dispatch(getWorkers());
   };
 
   const getNodes = (arr) => {
@@ -175,30 +174,6 @@ function Worker() {
           });
         })}
 
-        {/* {workerProjects
-          .filter((p) => {
-            return p.workerId === data._id;
-          })
-          .map((project, i) => {
-            return (
-              <>
-                <Button
-                  key={i}
-                  label={project.projectName}
-                  size="large"
-                  onClick={(e) => {
-                    onBadgeClick(e, data._id);
-                  }}
-                  className={
-                    deleteProjectFlag && data._id
-                      ? "p-button-rounded p-button-danger"
-                      : "p-button-rounded p-button-warning"
-                  }
-                  style={{ marginRight: "1rem", marginTop: "1rem" }}
-                ></Button>
-              </>
-            );
-          })} */}
         {(!(data.projects.length === 0) || !(workerProjects.length === 0)) && (
           <Button
             icon="pi pi-times"
