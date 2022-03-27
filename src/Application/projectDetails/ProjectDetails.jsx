@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link as ReactLink, Navigate } from "react-router-dom";
+import { useParams, Link as ReactLink } from "react-router-dom";
 import "../assets/styles/projectDetails/Details.css";
 import axios from "axios";
 import Footer from "../footer/Footer";
-import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
@@ -21,7 +20,7 @@ const ProjectDetails = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
   if (details.project) {
     return (
       <>

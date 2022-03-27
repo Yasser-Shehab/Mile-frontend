@@ -152,7 +152,7 @@ function Worker() {
         )}
         {data.projects.map((id) => {
           return projectsList.map((p) => {
-            if (p._id === id)
+            if (p._id === id) {
               return (
                 <Button
                   name={id}
@@ -171,6 +171,7 @@ function Worker() {
                   {p.name}
                 </Button>
               );
+            }
           });
         })}
 
