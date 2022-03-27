@@ -16,12 +16,13 @@ const asignProject = (workerId, projectId) => (dispatch) => {
     .post(`http://localhost:8000/worker/${workerId}/asignProject`, {
       projectId,
     })
-    .then(({ data: { worker } }) =>
+    .then(({ data: { worker } }) => {
       dispatch({
         type: "ASIGN_PROJECT",
         payload: worker,
-      })
-    )
+      });
+      dispatch(getWorkers());
+    })
     .catch((err) => console.log(err));
 };
 

@@ -68,6 +68,7 @@ function Worker() {
   const addProject = (workerId, project) => {
     setWorkerProjects([...workerProjects, project]);
     dispatch(asignProject(workerId, project.projectId));
+    dispatch(getWorkers());
   };
 
   const getNodes = (arr) => {
@@ -174,7 +175,7 @@ function Worker() {
           });
         })}
 
-        {workerProjects
+        {/* {workerProjects
           .filter((p) => {
             return p.workerId === data._id;
           })
@@ -197,7 +198,7 @@ function Worker() {
                 ></Button>
               </>
             );
-          })}
+          })} */}
         {(!(data.projects.length === 0) || !(workerProjects.length === 0)) && (
           <Button
             icon="pi pi-times"
@@ -221,26 +222,6 @@ function Worker() {
           optionLabel="name"
           placeholder="اختر مشروع جديد"
         />
-        {/* <SplitButton
-          label={
-            data._id === project.workerId
-              ? project.projectName
-              : "اختار مشروع جديد"
-          }
-          model={projectsList.map((p) => {
-            return {
-              label: p.name,
-              command: () => {
-                setProject({
-                  workerId: data._id,
-                  projectId: p._id,
-                  projectName: p.name,
-                });
-              },
-            };
-          })}
-          className="p-button-raised p-button-outlined mr-5"
-        ></SplitButton> */}
 
         <Button
           label="اضافة"
