@@ -5,6 +5,7 @@ import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import { Password } from "primereact/password";
 import { Dialog } from "primereact/dialog";
+import { Card } from "primereact/card";
 import { classNames } from "primereact/utils";
 import { login } from "../../store/actions/userAction";
 import "./LoginForm.css";
@@ -12,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 
 function LoginForm() {
   const token = useSelector((state) => state.userReducer.token);
-  // const error = useSelector((state) => state.userReducer.error);
+  const error = useSelector((state) => state.userReducer.error);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -42,11 +43,11 @@ function LoginForm() {
   };
 
   const onSubmit = (data, form) => {
-    dispatch(login(data));
-    // if (error && error.status === 401) {
-    //   console.log("ektebhom sa7 mesh ay kalam w 5alas");
-    //   return;
-    // }
+    // dispatch(login(data));
+    if (dispatch(login(data)) && error && error.status === 401) {
+      console.log("ektebhom sa7 mesh ay kalam w 5alas");
+      return;
+    }
     form.restart();
     navigate("/dashboard");
   };
@@ -66,11 +67,15 @@ function LoginForm() {
         "640px": "100vw",
       }}
     >
-      {/* {console.log(error)} */}
+      {error && error.status === 401 && (
+        <Card style={{ background: "#ff6347" }}>
+          <h3>Wrong Email or Password.</h3>
+        </Card>
+      )}
       <div className="form-demo">
         <div className="flex justify-content-center">
           <div className="card">
-            <h5 className="text-center">Login</h5>
+            <h5 className="text-center mt-3">Login</h5>
             <Form
               onSubmit={onSubmit}
               initialValues={{

@@ -42,7 +42,6 @@ function Worker() {
   const projectsList = useSelector((state) => state.projectReducer.projects);
   const specsList = useSelector((state) => state.specializationReducer.specs);
   const [workerProjects, setWorkerProjects] = useState([]);
-  const [selectedSpec, setSelectedSpec] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [workerDialog, setWorkerDialog] = useState(false);
   const [submitErr, setSubmitErr] = useState("");
@@ -55,10 +54,6 @@ function Worker() {
     specialization: "",
     projects: [],
   });
-  const [errors, setErrors] = useState({
-    nameErr: "",
-    addressErr: "",
-  });
   const [deleteValue, setDeleteValue] = useState("");
 
   const [globalFilter, setGlobalFilter] = useState(null);
@@ -67,18 +62,7 @@ function Worker() {
   const [selectedDeleteProject, setSelectedDeleteProject] = useState([""]); //the selected delete project
   const dispatch = useDispatch();
   // ///////    tree select    ---------------------->>>>>>
-  const [nodes, setNodes] = useState([
-    {
-      key: 1,
-      label: "hisham",
-      children: [
-        {
-          key: 2,
-          label: "mohammed",
-        },
-      ],
-    },
-  ]);
+  const [nodes, setNodes] = useState([]);
 
   const addProject = (workerId, project) => {
     setWorkerProjects([...workerProjects, project]);
@@ -167,7 +151,7 @@ function Worker() {
         )}
         {data.projects.map((id) => {
           return projectsList.map((p) => {
-            if (p._id === id)
+            if (p._id === id) {
               return (
                 <Button
                   name={id}
@@ -186,33 +170,10 @@ function Worker() {
                   {p.name}
                 </Button>
               );
+            }
           });
         })}
 
-        {workerProjects
-          .filter((p) => {
-            return p.workerId === data._id;
-          })
-          .map((project, i) => {
-            return (
-              <>
-                <Button
-                  key={i}
-                  label={project.projectName}
-                  size="large"
-                  onClick={(e) => {
-                    onBadgeClick(e, data._id);
-                  }}
-                  className={
-                    deleteProjectFlag && data._id
-                      ? "p-button-rounded p-button-danger"
-                      : "p-button-rounded p-button-warning"
-                  }
-                  style={{ marginRight: "1rem", marginTop: "1rem" }}
-                ></Button>
-              </>
-            );
-          })}
         {(!(data.projects.length === 0) || !(workerProjects.length === 0)) && (
           <Button
             icon="pi pi-times"
@@ -236,26 +197,6 @@ function Worker() {
           optionLabel="name"
           placeholder="اختر مشروع جديد"
         />
-        {/* <SplitButton
-          label={
-            data._id === project.workerId
-              ? project.projectName
-              : "اختار مشروع جديد"
-          }
-          model={projectsList.map((p) => {
-            return {
-              label: p.name,
-              command: () => {
-                setProject({
-                  workerId: data._id,
-                  projectId: p._id,
-                  projectName: p.name,
-                });
-              },
-            };
-          })}
-          className="p-button-raised p-button-outlined mr-5"
-        ></SplitButton> */}
 
         <Button
           label="اضافة"
@@ -289,16 +230,13 @@ function Worker() {
     if (
       inputValues.name.trim() &&
       inputValues.address.trim() &&
-      inputValues.mobile !=='' &&
-      inputValues.nationalID !==''
+      inputValues.mobile &&
+      inputValues.nationalID &&
+      inputValues.specialization
     ) {
       if (!inputValues.id) {
-        try {
-          inputValues.projects = [inputValues.projects._id];
-          dispatch(addWorker(inputValues));
-        } catch (error) {
-          return setSubmitErr(error);
-        }
+        inputValues.projects = [inputValues.projects._id];
+        dispatch(addWorker(inputValues));
       } else {
         dispatch(
           editWorker(
@@ -354,34 +292,14 @@ function Worker() {
   const onInputNumberChange = (e, name) => {
     const val = e.value;
     let _input = { ...inputValues };
-    _input[`${name}`] = val;
+    _input[`${name}`] = `${val}`;
     setInputValues(_input);
   };
   const nameInputChange = (event) => {
     setInputValues({ ...inputValues, name: event.target.value });
-
-    setErrors({
-      ...errors,
-      nameErr:
-        event.target.value.length === 0
-          ? "اسم العامل مطلوب"
-          : event.target.value.length < 2
-          ? "الاسم يجب ان يكون اكثر من حرف"
-          : null,
-    });
   };
   const address = (event) => {
     setInputValues({ ...inputValues, address: event.target.value });
-
-    setErrors({
-      ...errors,
-      addressErr:
-        event.target.value.length === 0
-          ? "العنوان مطلوب"
-          : event.target.value.length < 2
-          ? "العنوان يجب ان يكون اكثر من حرف"
-          : null,
-    });
   };
   const confirmDeleteWorker = (worker) => {
     setDeleteValue(worker);
@@ -395,6 +313,8 @@ function Worker() {
     setDeleteWorkerDialog(false);
   };
   const editWorkers = (data) => {
+    setNodes(getNodes(specsList));
+
     setInputValues({
       ...inputValues,
       id: data._id,
@@ -402,7 +322,15 @@ function Worker() {
       address: data.address,
       mobile: data.mobile,
       nationalID: data.nationalID,
-      specialization: data.specialization,
+      specialization: nodes
+        .filter((n) => {
+          return n?.children.filter((child) => {
+            return child.key === data.specialization;
+          })[0];
+        })[0]
+        ?.children.filter((ch) => {
+          return ch.key === data.specialization;
+        })[0].key,
     });
     setWorkerDialog(true);
   };
@@ -607,7 +535,6 @@ function Worker() {
                     "p-invalid": submitted && !inputValues.address,
                   })}
                 />
-                <small className="p-error">{errors.addressErr}</small>
                 {submitted && !inputValues.address && (
                   <small className="p-error">العنوان مطلوب</small>
                 )}
@@ -627,7 +554,6 @@ function Worker() {
                   })}
                   onChange={(e) => onInputNumberChange(e, "mobile")}
                 ></InputMask>
-                {/* <small className="p-error">{errors.mobileErr}</small> */}
                 {submitted && !inputValues.mobile && (
                   <small className="p-error">رقم الموبيل مطلوب</small>
                 )}
@@ -647,26 +573,19 @@ function Worker() {
                   })}
                   onChange={(e) => onInputNumberChange(e, "nationalID")}
                 ></InputMask>
-
                 {submitted && !inputValues.nationalID && (
                   <small className="p-error">الرقم القومي مطلوب</small>
                 )}
-                {/* {submitted &&
-                  inputValues.nationalID.toString().length > 0 &&
-                  inputValues.nationalID.toString().length < 14 && (
-                    <small className="p-error">
-                      الرقم القومي يجب ان يكون 14 رقم
-                    </small>
-                  )} */}
+
                 <div className="field mt-3">
                   <label htmlFor="specialization">التخصص</label>
                   <TreeSelect
                     value={inputValues.specialization}
                     options={nodes}
+                    onChange={(e) => onInputNumberChange(e, "specialization")}
                     className={classNames({
                       "p-invalid": submitted && !inputValues.specialization,
                     })}
-                    onChange={(e) => onInputChange(e.value, "specialization")}
                     placeholder="Select Item"
                     filter
                   ></TreeSelect>

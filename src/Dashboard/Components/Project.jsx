@@ -218,7 +218,9 @@ function Project() {
 
   const dateBodyTemplate = (rowData) => {
     const date = new Date(rowData.createdAt);
-    return `${date.getFullYear()}/${date.getMonth()}/${date.getDay()}  : الساعة ${date.getHours()}`;
+    return `${date.getFullYear()}/${
+      date.getMonth() + 1
+    }/${date.getDate()}  : الساعة ${date.getHours()}`;
   };
   return (
     <>
