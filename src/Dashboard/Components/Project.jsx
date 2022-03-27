@@ -83,6 +83,7 @@ function Project() {
           )
         );
       }
+      setSubmitted(false);
       setProjectDialog(false);
       setProject(emptyProject);
     }

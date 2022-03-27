@@ -235,6 +235,7 @@ function Worker() {
       inputValues.specialization
     ) {
       if (!inputValues.id) {
+        if (!(!inputValues.projects))
         inputValues.projects = [inputValues.projects._id];
         dispatch(addWorker(inputValues));
       } else {
@@ -263,14 +264,6 @@ function Worker() {
       });
     }
   };
-  console.log("submitted", submitted);
-  console.log(
-    inputValues.name.trim() &&
-      inputValues.address.trim() &&
-      inputValues.mobile !=='' &&
-      inputValues.nationalID !==''
-  );
-
   const hideDialog = () => {
     setSubmitted(false);
     setWorkerDialog(false);
@@ -427,7 +420,6 @@ function Worker() {
       />
     </>
   );
-  console.log(inputValues);
   return (
     <>
       <div className="datatable-rowexpansion-demo">
@@ -623,8 +615,7 @@ function Worker() {
               />
               {deleteValue && (
                 <span>
-                  Are you sure you want to delete
-                  <b>{deleteValue.name}</b>?
+                  Are you sure you want to delete <b>{deleteValue.name}</b>?
                 </span>
               )}
             </div>

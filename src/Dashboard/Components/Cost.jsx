@@ -52,6 +52,7 @@ function Cost() {
         notes,
       };
       dispatch(addCost(data));
+      setSubmitted(false)
       setDisplay(false);
       setSelectedWorker("");
       setSelectedProject("");
@@ -61,7 +62,7 @@ function Cost() {
     }
   };
   const onClick = () => {
-    console.log(costsList);
+    // console.log(costsList);
     setDisplay(true);
     setSubmitted(false);
   };
