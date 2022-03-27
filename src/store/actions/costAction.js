@@ -14,24 +14,26 @@ const getCosts = () => (dispatch) => {
 const addCost = (data) => (dispatch) => {
   axios
     .post("http://localhost:8000/cost", data)
-    .then(({ data: { costs } }) =>
+    .then(({ data: { costs } }) => {
       dispatch({
         type: "ADD_COST",
         payload: costs,
-      })
-    )
+      });
+      dispatch(getCosts());
+    })
     .catch((err) => console.log(err));
 };
 
 const deleteCost = (id) => (dispatch) => {
   axios
     .delete(`http://localhost:8000/cost/${id}`)
-    .then(({ data }) =>
+    .then(({ data }) => {
       dispatch({
         type: "DELETE_COST",
         payload: data,
-      })
-    )
+      });
+      dispatch(getCosts());
+    })
     .catch((err) => console.log(err));
 };
 

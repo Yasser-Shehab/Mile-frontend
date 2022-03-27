@@ -52,12 +52,12 @@ function Cost() {
         notes,
       };
       dispatch(addCost(data));
-      dispatch(getCosts());
       setDisplay(false);
       setSelectedWorker("");
       setSelectedProject("");
       setAmount(null);
       setNotes("");
+      dispatch(getCosts());
     }
   };
   const onClick = () => {
