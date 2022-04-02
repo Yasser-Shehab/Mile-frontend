@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../assets/styles/navStyle/nav.css";
-import logo from "../assets/imgs/logo.svg";
+import logo from "../assets/imgs/logo2.svg";
 import Link from "react-scroll/modules/components/Link";
 
 function Nav() {

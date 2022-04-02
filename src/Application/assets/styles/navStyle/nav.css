@@ -22,7 +22,6 @@ h1 {
   display: -ms-flexbox;
   display: flex;
   width: 80%;
-  padding-top: 25px;
   margin: 0 auto;
   -webkit-box-align: center;
       -ms-flex-align: center;
@@ -205,9 +204,6 @@ h1 {
   .hero-section .burger .pi {
     font-size: 30px;
   }
-  .hero-section .brand img {
-    width: 100px;
-  }
   .hero-section .title-container .title {
     font-size: 20px;
   }
@@ -217,5 +213,13 @@ h1 {
     height: 20px;
     font-size: 10px;
   }
+}
+
+.brand {
+  width: 10rem;
+}
+
+.brand img {
+  width: 100%;
 }
 /*# sourceMappingURL=nav.css.map */
