@@ -8,7 +8,6 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { getProjects } from "../../store/actions/projectAction";
-
 import bath from "../assets/imgs/carousel/bath.png";
 import space from "../assets/imgs/carousel/space.png";
 import bed from "../assets/imgs/carousel/bed.png";
@@ -24,7 +23,7 @@ function Carousel() {
   useEffect(() => {
     dispatch(getProjects());
   }, [projectsList]); // eslint-disable-line react-hooks/exhaustive-deps
-  if (projectsList.length !== 0) {
+  if (projectsList?.length !== 0) {
     return (
       <>
         <div className="section-container">
