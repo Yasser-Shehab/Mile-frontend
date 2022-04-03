@@ -15,7 +15,7 @@ const ProjectDetails = () => {
   const [details, setDetails] = useState({});
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/project/${params.id}`)
+      .get(`/project/${params.id}`)
       .then((res) => setDetails(res.data))
       .catch((err) => {
         console.log(err);

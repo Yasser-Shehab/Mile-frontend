@@ -2,7 +2,7 @@ import axios from "axios";
 
 const getProjects = () => (dispatch) => {
   axios
-    .get("http://localhost:8000/project")
+    .get("/project")
     .then(({ data: { projects } }) =>
       dispatch({
         type: "GET_PROJECTS",
@@ -18,14 +18,14 @@ const getProjects = () => (dispatch) => {
 };
 
 const getSingleProject = (id) => (dispatch) => {
-  axios.get("http://localhost:8000/project/${id}").then(({ data }) => {
+  axios.get("/project/${id}").then(({ data }) => {
     console.log(data);
   });
 };
 
 const addProject = (newProject) => (dispatch) => {
   axios
-    .post("http://localhost:8000/project", newProject)
+    .post("/project", newProject)
     .then(({ data: { project } }) => {
       dispatch({
         type: "ADD_PROJECT",
@@ -38,7 +38,7 @@ const addProject = (newProject) => (dispatch) => {
 
 const deleteProject = (id) => (dispatch) => {
   axios
-    .delete(`http://localhost:8000/project/${id}`)
+    .delete(`/project/${id}`)
     .then(({ data }) => {
       console.log(data);
       dispatch({
@@ -52,7 +52,7 @@ const deleteProject = (id) => (dispatch) => {
 const editProject = (data, id) => {
   return (dispatch) => {
     axios
-      .patch(`http://localhost:8000/project/${id}`, data)
+      .patch(`/project/${id}`, data)
       .then((res) => {
         console.log("data will edit", data);
         dispatch({

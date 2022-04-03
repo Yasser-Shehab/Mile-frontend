@@ -2,7 +2,7 @@ import axios from "axios";
 
 const getCosts = () => (dispatch) => {
   axios
-    .get("http://localhost:8000/cost")
+    .get("/cost")
     .then(({ data: { costs } }) =>
       dispatch({
         type: "GET_COSTS",
@@ -13,7 +13,7 @@ const getCosts = () => (dispatch) => {
 };
 const addCost = (data) => (dispatch) => {
   axios
-    .post("http://localhost:8000/cost", data)
+    .post("/cost", data)
     .then(({ data: { costs } }) => {
       dispatch({
         type: "ADD_COST",
@@ -26,7 +26,7 @@ const addCost = (data) => (dispatch) => {
 
 const deleteCost = (id) => (dispatch) => {
   axios
-    .delete(`http://localhost:8000/cost/${id}`)
+    .delete(`/cost/${id}`)
     .then(({ data }) => {
       dispatch({
         type: "DELETE_COST",
