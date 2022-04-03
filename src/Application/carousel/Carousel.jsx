@@ -24,7 +24,7 @@ function Carousel() {
     dispatch(getProjects());
     AOS.init();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
-  if (projectsList && projectsList.length !== 0) {
+  if (!!projectsList && projectsList.length !== 0) {
     return (
       <>
         <div className="section-container">
