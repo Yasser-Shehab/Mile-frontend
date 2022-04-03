@@ -23,7 +23,7 @@ function Carousel() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getProjects());
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [projectsList]); // eslint-disable-line react-hooks/exhaustive-deps
   if (projectsList.length !== 0) {
     return (
       <>
