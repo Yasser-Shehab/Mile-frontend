@@ -23,7 +23,7 @@ function Carousel() {
   useEffect(() => {
     dispatch(getProjects());
   }, [projectsList]); // eslint-disable-line react-hooks/exhaustive-deps
-  if (projectsList) {
+  if (!!projectsList) {
     return (
       <>
         <div className="section-container">
