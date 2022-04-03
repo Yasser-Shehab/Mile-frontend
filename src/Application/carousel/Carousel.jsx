@@ -17,13 +17,14 @@ import { SkeletonCarosel } from "../skeletons/SkeletonCarosel";
 import { Link } from "react-router-dom";
 
 function Carousel() {
-  AOS.init();
   const projectsList = useSelector((state) => state.projectReducer.projects);
   const dispatch = useDispatch();
   useEffect(() => {
+    console.log(projectsList.length);
     dispatch(getProjects());
-  }, [projectsList]); // eslint-disable-line react-hooks/exhaustive-deps
-  if (!!projectsList) {
+    AOS.init();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  if (projectsList && projectsList.length !== 0) {
     return (
       <>
         <div className="section-container">
@@ -50,7 +51,6 @@ function Carousel() {
               modules={[EffectCoverflow, Pagination, Navigation]}
               className="mySwiper"
             >
-              {console.log(projectsList)}
               {projectsList.map((project) => {
                 return (
                   <SwiperSlide className="slide" key={project._id}>
