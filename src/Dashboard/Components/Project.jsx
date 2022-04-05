@@ -141,18 +141,8 @@ function Project() {
 
   const projectDialogFooter = (
     <>
-      <Button
-        label="Cancel"
-        icon="pi pi-times"
-        className="p-button-text"
-        onClick={hideDialog}
-      />
-      <Button
-        label="Save"
-        icon="pi pi-check"
-        className="p-button-text"
-        onClick={saveProject}
-      />
+      <Button label="Cancel" icon="pi pi-times" className="p-button-text" onClick={hideDialog} />
+      <Button label="Save" icon="pi pi-check" className="p-button-text" onClick={saveProject} />
     </>
   );
 
@@ -228,10 +218,7 @@ function Project() {
       <div className="datatable-crud-demo">
         <Toast ref={toast} />
         <div className="card">
-          <Toolbar
-            left={leftToolbarTemplate}
-            right={rightToolbarTemplate}
-          ></Toolbar>
+          <Toolbar left={leftToolbarTemplate} right={rightToolbarTemplate}></Toolbar>
           <DataTable
             resizableColumns
             columnResizeMode="expand"
@@ -314,12 +301,7 @@ function Project() {
             {project.images.length !== 0 &&
               project.images.map((image, i) => {
                 return (
-                  <Image
-                    key={i}
-                    src={image}
-                    onClick={() => handleThumbnail(image)}
-                    width="250"
-                  />
+                  <Image key={i} src={image} onClick={() => handleThumbnail(image)} width="250" />
                 );
               })}
           </div>
@@ -331,7 +313,7 @@ function Project() {
               multiple
               accept="image/*"
               maxFileSize={1000000}
-              url="http://localhost:8000/project/uploadImage"
+              url="/project/uploadImage"
             />
           </div>
 
@@ -348,9 +330,7 @@ function Project() {
                 "p-invalid": submitted && !project.name,
               })}
             />
-            {submitted && !project.name && (
-              <small className="p-error">Name is required.</small>
-            )}
+            {submitted && !project.name && <small className="p-error">Name is required.</small>}
           </div>
 
           {/* *********   Description    *************** */}
@@ -397,10 +377,7 @@ function Project() {
           onHide={hideDeleteProjectDialog}
         >
           <div className="confirmation-content">
-            <i
-              className="pi pi-exclamation-triangle mr-3"
-              style={{ fontSize: "2rem" }}
-            />
+            <i className="pi pi-exclamation-triangle mr-3" style={{ fontSize: "2rem" }} />
             {project && (
               <span>
                 Are you sure you want to delete <b>{project.name}</b>?
