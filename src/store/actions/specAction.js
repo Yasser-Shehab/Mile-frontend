@@ -2,7 +2,7 @@ import axios from "axios";
 
 const getSpecializations = () => (dispatch) => {
   axios
-    .get("/specialization")
+    .get("https://mile-for-construction.herokuapp.com/specialization")
     .then(({ data: { specializations } }) =>
       dispatch({
         type: "GET_SPECS",
@@ -15,7 +15,7 @@ const getSpecializations = () => (dispatch) => {
 const addSpecializations = (data) => {
   return (dispatch) => {
     axios
-      .post("/specialization", data)
+      .post("https://mile-for-construction.herokuapp.com/specialization", data)
       .then((res) => {
         console.log(res);
         dispatch({
@@ -33,7 +33,7 @@ const addSpecializations = (data) => {
 const deleteSpecializations = (id) => {
   return (dispatch) => {
     axios
-      .delete(`/specialization/${id}`)
+      .delete(`https://mile-for-construction.herokuapp.com/specialization/${id}`)
       .then((res) => {
         console.log("delete res", res.data);
         dispatch({
@@ -50,7 +50,7 @@ const deleteSpecializations = (id) => {
 const editSpecializations = (data, id) => {
   return (dispatch) => {
     axios
-      .patch(`/specialization/${id}`, data)
+      .patch(`https://mile-for-construction.herokuapp.com/specialization/${id}`, data)
       .then((res) => {
         console.log("patch res", res);
         console.log("patch data", data);

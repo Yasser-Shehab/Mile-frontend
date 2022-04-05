@@ -1,7 +1,6 @@
 {
   "name": "mile-fronend",
   "version": "0.1.0",
-  "proxy": "https://mile-for-construction.herokuapp.com",
   "private": true,
   "dependencies": {
     "@formspree/react": "^2.2.4",

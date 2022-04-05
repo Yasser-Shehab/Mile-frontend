@@ -313,7 +313,7 @@ function Project() {
               multiple
               accept="image/*"
               maxFileSize={1000000}
-              url="/project/uploadImage"
+              url="https://mile-for-construction.herokuapp.com/project/uploadImage"
             />
           </div>
 

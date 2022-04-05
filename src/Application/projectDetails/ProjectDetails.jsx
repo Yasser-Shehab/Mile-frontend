@@ -15,7 +15,7 @@ const ProjectDetails = () => {
   const [details, setDetails] = useState({});
   useEffect(() => {
     axios
-      .get(`/project/${params.id}`)
+      .get(`https://mile-for-construction.herokuapp.com/project/${params.id}`)
       .then((res) => setDetails(res.data))
       .catch((err) => {
         console.log(err);
