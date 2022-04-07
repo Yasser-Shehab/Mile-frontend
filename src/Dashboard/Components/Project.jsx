@@ -208,10 +208,7 @@ function Project() {
   };
 
   const dateBodyTemplate = (rowData) => {
-    const date = new Date(rowData.createdAt);
-    return `${date.getFullYear()}/${
-      date.getMonth() + 1
-    }/${date.getDate()}  : الساعة ${date.getHours()}`;
+    return new Date(rowData.createdAt).toLocaleString("en-US");
   };
   return (
     <>
@@ -261,6 +258,7 @@ function Project() {
               field="createdAt"
               header="التاريخ"
               filterField="date"
+              className="project__date"
               body={dateBodyTemplate}
             ></Column>
             <Column

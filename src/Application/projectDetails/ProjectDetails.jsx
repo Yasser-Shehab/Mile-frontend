@@ -8,6 +8,8 @@ import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import { Image } from "primereact/image";
+import { ProgressSpinner } from "primereact/progressspinner";
+
 import Contact from "../contact/Contact";
 
 const ProjectDetails = () => {
@@ -56,7 +58,11 @@ const ProjectDetails = () => {
       </>
     );
   } else {
-    return <h1>Loading</h1>;
+    return (
+      <div className="project-spinner">
+        <ProgressSpinner className="progress__spinner" />
+      </div>
+    );
   }
 };
 
