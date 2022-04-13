@@ -39,7 +39,6 @@ function Project() {
   const toast = useRef(null);
   const dt = useRef(null);
   const projectsList = useSelector((state) => state.projectReducer.projects);
-  console.log(projectsList);
   // const error = useSelector((state) => state.projectReducer.error);
   const [globalFilter, setGlobalFilter] = useState(null);
 
@@ -70,7 +69,7 @@ function Project() {
 
     if (project.name.trim() && project.budget !== 0) {
       if (!project.id) {
-        console.log(project);
+        // console.log(project);
         dispatch(addProject(project));
         setProject(emptyProject);
       } else {
@@ -118,9 +117,6 @@ function Project() {
   };
 
   const onInputChange = (val, name) => {
-    console.log(val);
-    console.log(name);
-
     let _project = { ...project };
     _project[`${name}`] = val;
     setProject(_project);
@@ -231,7 +227,6 @@ function Project() {
       date.getMonth() + 1
     }/${date.getDate()}  : الساعة ${date.getHours()}`;
   };
-  console.log(project);
   return (
     <>
       <div className="datatable-crud-demo">
