@@ -19,6 +19,7 @@ import { InputText } from "primereact/inputtext";
 import { InputTextarea } from "primereact/inputtextarea";
 import { InputNumber } from "primereact/inputnumber";
 import { classNames } from "primereact/utils";
+import { Checkbox } from "primereact/checkbox";
 
 function Project() {
   let emptyProject = {
@@ -27,6 +28,7 @@ function Project() {
     name: "",
     budget: 0,
     description: "",
+    secretProject: true,
   };
 
   const [projectDialog, setProjectDialog] = useState(false);
@@ -37,6 +39,7 @@ function Project() {
   const toast = useRef(null);
   const dt = useRef(null);
   const projectsList = useSelector((state) => state.projectReducer.projects);
+  console.log(projectsList);
   // const error = useSelector((state) => state.projectReducer.error);
   const [globalFilter, setGlobalFilter] = useState(null);
 
@@ -78,6 +81,7 @@ function Project() {
               description: project.description,
               budget: project.budget,
               images: project.images,
+              secretProject: project.secretProject,
             },
             project.id
           )
@@ -108,11 +112,15 @@ function Project() {
       budget: data.budget,
       description: data.description,
       images: data.images,
+      secretProject: data.secretProject,
     });
     setProjectDialog(true);
   };
 
   const onInputChange = (val, name) => {
+    console.log(val);
+    console.log(name);
+
     let _project = { ...project };
     _project[`${name}`] = val;
     setProject(_project);
@@ -223,6 +231,7 @@ function Project() {
       date.getMonth() + 1
     }/${date.getDate()}  : الساعة ${date.getHours()}`;
   };
+  console.log(project);
   return (
     <>
       <div className="datatable-crud-demo">
@@ -288,6 +297,15 @@ function Project() {
               exportable={false}
               style={{ minWidth: "8rem" }}
               // header="Delete"
+            ></Column>
+            <Column
+              resizableColumns
+              columnResizeMode="expand"
+              showGridlines
+              //sortable
+              filterField="boolean"
+              field="secretProject"
+              header="secret Project"
             ></Column>
           </DataTable>
         </div>
@@ -385,6 +403,15 @@ function Project() {
                 <small className="p-error">Budget is required.</small>
               )}
             </div>
+          </div>
+          <div className="field-checkbox">
+            <Checkbox
+              inputId="binary"
+              value={project.secretProject}
+              checked={project.secretProject}
+              onChange={(e) => onInputChange(e.checked, "secretProject")}
+            />
+            <label htmlFor="binary">Secret Project</label>
           </div>
         </Dialog>
         <Dialog

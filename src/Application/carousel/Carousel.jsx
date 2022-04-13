@@ -7,7 +7,10 @@ import { EffectCoverflow, Pagination, Navigation } from "swiper";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import { getProjects } from "../../store/actions/projectAction";
+import {
+  getProjects,
+  getHomeProjects,
+} from "../../store/actions/projectAction";
 
 import bath from "../assets/imgs/carousel/bath.png";
 import space from "../assets/imgs/carousel/space.png";
@@ -22,7 +25,7 @@ function Carousel() {
   const projectsList = useSelector((state) => state.projectReducer.projects);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getProjects());
+    dispatch(getHomeProjects());
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
   if (projectsList.length !== 0) {
     return (
@@ -56,8 +59,15 @@ function Carousel() {
                 return (
                   <SwiperSlide className="slide" key={project._id}>
                     <div className="slide-content">
-                      <Link key={project._id} to={`/projectDetails/${project._id}`}>
-                        <img src={project.images[0]} alt="project" className="card-img-top" />
+                      <Link
+                        key={project._id}
+                        to={`/projectDetails/${project._id}`}
+                      >
+                        <img
+                          src={project.images[0]}
+                          alt="project"
+                          className="card-img-top"
+                        />
                       </Link>
 
                       <div className="slide-text">{project.description}</div>

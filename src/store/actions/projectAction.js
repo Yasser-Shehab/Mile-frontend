@@ -16,6 +16,22 @@ const getProjects = () => (dispatch) => {
       });
     });
 };
+const getHomeProjects = () => (dispatch) => {
+  axios
+    .get("http://localhost:8000/project/homeimages")
+    .then(({ data: { projects } }) =>
+      dispatch({
+        type: "GET_HOME_PROJECTS",
+        payload: projects,
+      })
+    )
+    .catch((err) => {
+      dispatch({
+        type: "ON_ERROR",
+        payload: err,
+      });
+    });
+};
 
 const getSingleProject = (id) => (dispatch) => {
   axios.get("http://localhost:8000/project/${id}").then(({ data }) => {
@@ -67,4 +83,4 @@ const editProject = (data, id) => {
   };
 };
 
-export { getProjects, addProject, deleteProject, editProject };
+export { getProjects, addProject, deleteProject, editProject, getHomeProjects };
