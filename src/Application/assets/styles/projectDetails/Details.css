@@ -97,4 +97,15 @@ a:visited {
 .details-desc p {
   text-align: center;
 }
+
+.project-spinner {
+  position: relative;
+  height: 100vh;
+}
+
+.project-spinner .progress__spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
 /*# sourceMappingURL=Details.css.map */

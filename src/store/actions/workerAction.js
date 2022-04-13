@@ -2,7 +2,7 @@ import axios from "axios";
 
 const getWorkers = () => (dispatch) => {
   axios
-    .get("http://localhost:8000/worker/allWorkers")
+    .get("https://mile-for-construction.herokuapp.com/worker/allWorkers")
     .then(({ data: { workers } }) =>
       dispatch({
         type: "GET_WORKERS",
@@ -13,7 +13,7 @@ const getWorkers = () => (dispatch) => {
 };
 const asignProject = (workerId, projectId) => (dispatch) => {
   axios
-    .post(`http://localhost:8000/worker/${workerId}/asignProject`, {
+    .post(`https://mile-for-construction.herokuapp.com/worker/${workerId}/asignProject`, {
       projectId,
     })
     .then(({ data: { worker } }) => {
@@ -29,7 +29,7 @@ const asignProject = (workerId, projectId) => (dispatch) => {
 const addWorker = (data) => {
   return (dispatch) => {
     axios
-      .post("http://localhost:8000/worker/add", data)
+      .post("https://mile-for-construction.herokuapp.com/worker/add", data)
       .then((res) => {
         dispatch({
           type: "ADD_WORKER",
@@ -45,7 +45,7 @@ const addWorker = (data) => {
 const deleteWorker = (id) => {
   return (dispatch) => {
     axios
-      .delete(`http://localhost:8000/worker/${id}`)
+      .delete(`https://mile-for-construction.herokuapp.com/worker/${id}`)
       .then((res) => {
         dispatch({
           type: "DELETE_WORKER",
@@ -61,7 +61,7 @@ const deleteWorker = (id) => {
 const editWorker = (data, id) => {
   return (dispatch) => {
     axios
-      .patch(`http://localhost:8000/worker/${id}`, data)
+      .patch(`https://mile-for-construction.herokuapp.com/worker/${id}`, data)
       .then((res) => {
         dispatch({
           type: "EDIT_WORKER",

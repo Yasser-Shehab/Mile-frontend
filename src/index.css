@@ -28,6 +28,10 @@ code {
   opacity: 0.9;
 }
 
+.project__date {
+  direction: ltr;
+}
+
 @font-face {
   font-family: arabicFont;
   src: url(/src/Application/assets/font/ArbFONTS-DINNextLTArabic-Regular-4.ttf);

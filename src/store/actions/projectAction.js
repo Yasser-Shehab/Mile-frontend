@@ -2,7 +2,7 @@ import axios from "axios";
 
 const getProjects = () => (dispatch) => {
   axios
-    .get("http://localhost:8000/project")
+    .get("https://mile-for-construction.herokuapp.com/project")
     .then(({ data: { projects } }) =>
       dispatch({
         type: "GET_PROJECTS",
@@ -18,7 +18,7 @@ const getProjects = () => (dispatch) => {
 };
 const getHomeProjects = () => (dispatch) => {
   axios
-    .get("http://localhost:8000/project/homeimages")
+    .get("https://mile-for-construction.herokuapp.com/project/homeimages")
     .then(({ data: { projects } }) =>
       dispatch({
         type: "GET_HOME_PROJECTS",
@@ -34,14 +34,16 @@ const getHomeProjects = () => (dispatch) => {
 };
 
 const getSingleProject = (id) => (dispatch) => {
-  axios.get("http://localhost:8000/project/${id}").then(({ data }) => {
-    console.log(data);
-  });
+  axios
+    .get("https://mile-for-construction.herokuapp.com/project/${id}")
+    .then(({ data }) => {
+      console.log(data);
+    });
 };
 
 const addProject = (newProject) => (dispatch) => {
   axios
-    .post("http://localhost:8000/project", newProject)
+    .post("https://mile-for-construction.herokuapp.com/project", newProject)
     .then(({ data: { project } }) => {
       dispatch({
         type: "ADD_PROJECT",
@@ -54,7 +56,7 @@ const addProject = (newProject) => (dispatch) => {
 
 const deleteProject = (id) => (dispatch) => {
   axios
-    .delete(`http://localhost:8000/project/${id}`)
+    .delete(`https://mile-for-construction.herokuapp.com/project/${id}`)
     .then(({ data }) => {
       console.log(data);
       dispatch({
@@ -68,7 +70,7 @@ const deleteProject = (id) => (dispatch) => {
 const editProject = (data, id) => {
   return (dispatch) => {
     axios
-      .patch(`http://localhost:8000/project/${id}`, data)
+      .patch(`https://mile-for-construction.herokuapp.com/project/${id}`, data)
       .then((res) => {
         console.log("data will edit", data);
         dispatch({

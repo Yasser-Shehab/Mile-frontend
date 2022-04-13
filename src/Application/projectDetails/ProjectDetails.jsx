@@ -8,6 +8,8 @@ import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import { Image } from "primereact/image";
+import { ProgressSpinner } from "primereact/progressspinner";
+
 import Contact from "../contact/Contact";
 
 const ProjectDetails = () => {
@@ -15,7 +17,7 @@ const ProjectDetails = () => {
   const [details, setDetails] = useState({});
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/project/${params.id}`)
+      .get(`https://mile-for-construction.herokuapp.com/project/${params.id}`)
       .then((res) => setDetails(res.data))
       .catch((err) => {
         console.log(err);
@@ -56,7 +58,11 @@ const ProjectDetails = () => {
       </>
     );
   } else {
-    return <h1>Loading</h1>;
+    return (
+      <div className="project-spinner">
+        <ProgressSpinner className="progress__spinner" />
+      </div>
+    );
   }
 };
 

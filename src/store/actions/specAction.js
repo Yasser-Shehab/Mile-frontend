@@ -2,7 +2,7 @@ import axios from "axios";
 
 const getSpecializations = () => (dispatch) => {
   axios
-    .get("http://localhost:8000/specialization")
+    .get("https://mile-for-construction.herokuapp.com/specialization")
     .then(({ data: { specializations } }) =>
       dispatch({
         type: "GET_SPECS",
@@ -13,30 +13,29 @@ const getSpecializations = () => (dispatch) => {
 };
 
 const addSpecializations = (data) => {
-
   return (dispatch) => {
-    axios.post("http://localhost:8000/specialization", data)
-      .then(res => {
-      console.log(res);
-      dispatch({
-        type: "ADD_SPECS",
-        payload: res.data
-      });
+    axios
+      .post("https://mile-for-construction.herokuapp.com/specialization", data)
+      .then((res) => {
+        console.log(res);
+        dispatch({
+          type: "ADD_SPECS",
+          payload: res.data,
+        });
         dispatch(getSpecializations());
-
-    }).catch(error => {
-      console.log(error);
-    })
-  }
-
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 };
 
 const deleteSpecializations = (id) => {
   return (dispatch) => {
     axios
-      .delete(`http://localhost:8000/specialization/${id}`)
+      .delete(`https://mile-for-construction.herokuapp.com/specialization/${id}`)
       .then((res) => {
-        console.log("delete res",res.data);
+        console.log("delete res", res.data);
         dispatch({
           type: "DELETE_SPECS",
           payload: res.data,
@@ -48,10 +47,10 @@ const deleteSpecializations = (id) => {
       });
   };
 };
-const editSpecializations = (data,id) => {
+const editSpecializations = (data, id) => {
   return (dispatch) => {
     axios
-      .patch(`http://localhost:8000/specialization/${id}`,data)
+      .patch(`https://mile-for-construction.herokuapp.com/specialization/${id}`, data)
       .then((res) => {
         console.log("patch res", res);
         console.log("patch data", data);
@@ -68,11 +67,4 @@ const editSpecializations = (data,id) => {
   };
 };
 
-
-
-export {
-  getSpecializations,
-  addSpecializations,
-  deleteSpecializations,
-  editSpecializations,
-};
+export { getSpecializations, addSpecializations, deleteSpecializations, editSpecializations };
