@@ -5,7 +5,7 @@
 }
 
 .carousel-container .carousel-title {
-  font-size: 30px;
+  font-size: 3rem;
   max-width: 400px;
   direction: rtl;
 }
@@ -21,7 +21,7 @@
 
 .swiper-container .slide {
   max-width: 650px;
-  padding: 10px;
+  padding: 1rem;
 }
 
 .swiper-container .slide-content {
@@ -32,7 +32,7 @@
       -ms-flex-align: center;
           align-items: center;
   text-align: center;
-  border-radius: 25px;
+  border-radius: 2.5rem;
 }
 
 .swiper-container .slide-content .card-img-top {
@@ -45,7 +45,8 @@
 }
 
 .swiper-container .slide-content .slide-text {
-  padding: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 2rem;
   font-size: 1.5rem;
   margin: 1.5rem 0;
 }
@@ -64,7 +65,7 @@
   color: #fff;
   z-index: 5;
   opacity: 90%;
-  top: 49%;
+  top: 240px;
   right: 10%;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
@@ -76,21 +77,6 @@
 
 .swiper-container .slide-content .slide-badge p {
   font-size: 23px;
-}
-
-.swiper-container .slide-content .slide-icons {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.swiper-container .slide-content .slide-icons div {
-  margin-bottom: 10px;
 }
 
 .skeleton-container {

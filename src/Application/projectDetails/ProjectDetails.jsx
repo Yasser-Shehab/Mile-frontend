@@ -28,7 +28,7 @@ const ProjectDetails = () => {
       <>
         <div className="details-header">
           <ReactLink to="/" className="back-btn">
-            العوده للصفحة الرئيسية
+            العودة للصفحة الرئيسية
           </ReactLink>
           <h1>{details.project.name}</h1>
         </div>

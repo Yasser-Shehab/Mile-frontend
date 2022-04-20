@@ -27,18 +27,6 @@ function Nav() {
             <Link smooth={true} duration={1000} className="nav-item-link" to="about-title">
               عن الشركة
             </Link>
-            {/* <a href="#contact-title">
-              <Navitem title="تواصل معانا" />
-            </a>
-            <a href="#contact-title">
-              <Navitem title="الوظائف" />
-            </a>
-            <a href="#project-title">
-              <Navitem title="المشروعات" />
-            </a>
-            <a href="#about-title">
-              <Navitem title="عن الشركة" />
-            </a> */}
           </div>
           <div className="burger" onClick={() => setMobile(!Mobile)}>
             {Mobile ? <i className="pi pi-times"></i> : <i className="pi pi-bars"></i>}

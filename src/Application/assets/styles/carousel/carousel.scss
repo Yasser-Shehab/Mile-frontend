@@ -5,7 +5,7 @@
   direction: rtl;
 
   .carousel-title {
-    font-size: 30px;
+    font-size: 3rem;
     max-width: 400px;
     direction: rtl;
   }
@@ -19,7 +19,7 @@
   }
   .slide {
     max-width: 650px;
-    padding: 10px;
+    padding: 1rem;
   }
 
   .slide-content {
@@ -27,7 +27,7 @@
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     align-items: center;
     text-align: center;
-    border-radius: 25px;
+    border-radius: 2.5rem;
     .card-img-top {
       max-height: 200px;
       min-height: 300px;
@@ -36,7 +36,8 @@
       object-fit: cover;
     }
     .slide-text {
-      padding: 1rem;
+      padding-top: 1rem;
+      padding-bottom: 2rem;
       font-size: 1.5rem;
       margin: 1.5rem 0;
     }
@@ -51,7 +52,7 @@
       color: #fff;
       z-index: 5;
       opacity: 90%;
-      top: 49%;
+      top: 240px;
       right: 10%;
       justify-content: center;
       align-items: center;
@@ -59,14 +60,14 @@
         font-size: 23px;
       }
     }
-    .slide-icons {
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      div {
-        margin-bottom: 10px;
-      }
-    }
+    // .slide-icons {
+    //   display: flex;
+    //   justify-content: space-around;
+    //   align-items: center;
+    //   div {
+    //     margin-bottom: 10px;
+    //   }
+    // }
   }
 }
 
