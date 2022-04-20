@@ -30,7 +30,7 @@ function AboutInfo() {
               <div className="projects">
                 <img src={img3} alt="projects" />
                 <p>عدد العاملين</p>
-                <p>20+</p>
+                <p>2000+</p>
               </div>
             </div>
           </div>
